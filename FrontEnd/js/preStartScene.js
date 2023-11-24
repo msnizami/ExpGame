@@ -25,7 +25,7 @@ class PreStartScene extends Phaser.Scene {
     this.load.image('buttonDown', 'static/buttonDown.png');
     this.load.image('buttonFeed', 'static/buttonSubmit.png');
     this.load.spritesheet('shub', 'static/shub_spritesheet.png', { frameWidth: 50, frameHeight: 47 });
-    this.load.image('surface', 'static/planet-surface-2.png', { frameWidth: 50, frameHeight: 47 });
+    this.load.image('surface2', 'static/surface-2.png', { frameWidth: 10, frameHeight: 7 });
   }
 
   setStartScreen() {
@@ -69,7 +69,7 @@ class PreStartScene extends Phaser.Scene {
 
 
     this.add.sprite(this.gameData.game.config.width * 0.9, this.gameData.game.config.height * 0.175, 'shub', 0, { frameWidth: 50, frameHeight: 46 }).setScale(1.5);
-    this.add.image(this.gameData.game.config.width * 0.95, this.gameData.game.config.height * 0.275, 'surface', 0, { frameWidth: 30, frameHeight: 26 }).setScale(1.5);
+    this.add.image(this.gameData.game.config.width * 0.95, this.gameData.game.config.height * 0.20, 'surface', 0, { frameWidth: 10, frameHeight: 7 }).setScale(1);
     this.createPlantImages()
     this.createStartButton();
   }

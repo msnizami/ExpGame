@@ -1,5 +1,6 @@
 import FeedbackScene from "./feedbackScene.js";
 import StableScene from "./stableScene.js";
+import ProgressScene from "./progressScene.js";
 
 
 class StableConfigScene extends Phaser.Scene {
@@ -37,7 +38,7 @@ class StableConfigScene extends Phaser.Scene {
 
 
 
-    if (!this.gameData.health) this.gameData.health = this.health;
+    // if (!this.gameData.health) this.gameData.health = this.health;
 
     this.trialCountLimit = this.gameData.numTrialsPerBlock;
 
@@ -70,7 +71,7 @@ class StableConfigScene extends Phaser.Scene {
     //   this.totalBudget = this.currentBudget = this.budget = budget;
     // }
 
-    this.totalBudget = this.currentBudget = this.budget = 21 //this.findArrayWithHighestSum(this.gameData.testInstances);
+    this.totalBudget = this.currentBudget = this.budget = 21 // this.findArrayWithHighestSum(this.gameData.cf_array);
   }
 
 
@@ -244,7 +245,7 @@ class StableConfigScene extends Phaser.Scene {
     this.RoundTextContainer = this.add.text(
       window.innerWidth * 0.48,
       window.innerHeight * 0.03,
-      "Test Case No : " + this.gameData.blockCount,
+      "Test Case No : " + this.gameData.testno,
       { fontFamily: "monogram", fontSize: "30px", color: "#000000" }
     ).setOrigin(0, 0);
 
@@ -455,8 +456,8 @@ class StableConfigScene extends Phaser.Scene {
               if (newShubData?.cur_pred || this.attemptsCount == 0) {
                 this.gameData.isStableConfigured = true
                 this.gameData.showWrongRangeSelectionMessage = false
-                this.gameData.health += 5;
-                this.health += 5;
+                //this.health += 5;
+                // this.gameData.health =  this.health;
                 // this.gameData.blockCount++;
                 this.gameData.trialCount = 0;
                 this.trialCountLimit = this.gameData.trialCountLimit;
@@ -543,7 +544,7 @@ class StableConfigScene extends Phaser.Scene {
               };
 
               // this.levelTextContainer.setText("Level : " + (parseInt(this.gameData.trialCount) + 1));
-              this.RoundTextContainer.setText("Test Case No : " + this.gameData.blockCount);
+              this.RoundTextContainer.setText("Test Case No : " + this.gameData.testno);
               this.gameData.shubNewHealth.push(this.gameData.health);
             });
 
@@ -624,7 +625,7 @@ class StableConfigScene extends Phaser.Scene {
     const xInPixels = window.innerWidth * xInPercentage;
     const yInPixels = window.innerHeight * 0.02;
 
-    this.createSlider(xInPixels + 300, yInPixels, 0, 40, this.health);
+    this.createSlider(xInPixels + 300, yInPixels, 0, 40, this.gameData.health);
 
     var shubs = {
       key: "move",
@@ -658,7 +659,7 @@ class StableConfigScene extends Phaser.Scene {
     const subXposition = xInPixels / 2 + 688;
 
 
-    const percentage = this.health / 20;
+    const percentage = this.gameData.health / 25;
     const subYPosition = yInPixels + 140 - (percentage * 140);
 
     var thisShub = this.add.sprite(
@@ -667,7 +668,7 @@ class StableConfigScene extends Phaser.Scene {
       "shub",
       0
     );
-    thisShub.displayWidth = 65;
+    thisShub.displayWidth = 60;
     thisShub.scaleY = thisShub.scaleX;
     thisShub.anims.delayedPlay(
       Phaser.Math.Between(0, 100),

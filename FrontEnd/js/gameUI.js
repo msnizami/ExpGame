@@ -99,7 +99,7 @@ class GameInitializer {
         "trialCount": 0,
         "blockCount": 1,
         "maxBlockCount": Math.round(Math.random(3,5)*10), //Levels from 3 to 5 at random
-        "numTrialsPerBlock": 5, // Rounds per block
+        "numTrialsPerBlock": 1, // Rounds per block
         "attentionTrials": [3, 7],
         "attentionTrialsInterval": 3, //Attention round after specified interval
         "clickCountVar1": 0,
@@ -123,7 +123,8 @@ class GameInitializer {
         "in_array":[],
         "cf_array":[],
         "rand_array":[],
-        "health":0
+        "health":0,
+        "testno": 1
       };
 
         const link = document.createElement("link");

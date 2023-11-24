@@ -62,7 +62,7 @@ class StableScene extends Phaser.Scene {
     this.RoundTextContainer = this.add.text(
       window.innerWidth * 0.48,
       window.innerHeight * 0.05,
-      "Test Case No : " + this.gameData.blockCount,
+      "Test Case No : " + this.gameData.testno,
       { fontFamily: "monogram", fontSize: "36px", color: "#000000" }
     ).setOrigin(0, 0);
 
@@ -78,7 +78,7 @@ class StableScene extends Phaser.Scene {
       //   { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
       // );
 
-      const highestArray = this.findArrayWithHighestSum(this.gameData.testInstances);
+      const highestArray = this.findArrayWithHighestSum(this.gameData.cf_array);
 
       if (highestArray?.length > 0) {
         let budget = 0;
@@ -88,14 +88,15 @@ class StableScene extends Phaser.Scene {
       }
   
       //  budget information
-      this.budget = this.add.text(
-        window.innerWidth * 0.03,
-        window.innerHeight * 0.4,
-        "Available Budget :" + this.currentBudget,
-        { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
-      );
+      // this.budget = this.add.text(
+      //   window.innerWidth * 0.03,
+      //   window.innerHeight * 0.4,
+      //   //"Available Budget :" + this.currentBudget,
+      //   "Consider the following selcted values on drop menu for feeding.",
+      //   { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
+      // );
 
-      this.updateBudget();
+      //this.updateBudget();
     }
 
     // *** define variable values for a clean run ***
@@ -237,13 +238,20 @@ class StableScene extends Phaser.Scene {
       this.add.text(
         window.innerWidth * 0.025,
         window.innerHeight * 0.2,
-        "Based on the provided range of leaves, a healthier combination is suggested below:.",
+        "Based on the provided range of leaves, a healthier combination is suggested below:",
         { fontFamily: "monogram", fontSize: "20px", color: "#03ff30" }
       );
       this.add.text(
         window.innerWidth * 0.025,
-        window.innerHeight * 0.25,
+        window.innerHeight * 0.30,
         "The Shub's fitness level could have been better if you had selected the following:",
+        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      );
+
+      this.add.text(
+        window.innerWidth * 0.025,
+        window.innerHeight * 0.40,
+        "Consider the following pre-selected leaf values on drop menu for feeding:",
         { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
       );
 
@@ -476,8 +484,6 @@ class StableScene extends Phaser.Scene {
           fontSize: "20px",
           color: "#fff",
         })
-     
-
 
       // enter attention scene after pre-defined trials (see gameUI)
       if (this.gameData.attentionTrials.includes(this.gameData.trialCount)) {
@@ -556,7 +562,7 @@ class StableScene extends Phaser.Scene {
     const xInPixels = window.innerWidth * xInPercentage;
     const yInPixels = window.innerHeight * 0.01;
 
-    this.createSlider(xInPixels + 300, yInPixels, 0, 40, this.health);
+    this.createSlider(xInPixels + 300, yInPixels, 0, 40, this.gameData.health);
 
     // define animated shubs (aka "sprites" in phaser terms)
     var shubs = {
@@ -723,7 +729,7 @@ class StableScene extends Phaser.Scene {
           // Checking if the selected value is greater then or equal to remaining budget. If not show an alert
           if (this.currentBudget - parseInt(item) < 0) {
             alert(
-              "Not enough time units. Remaining units : " + this.currentBudget
+              "accept the already selected values for better fitness and click feeding." // + this.currentBudget
             );
             return;
           }

@@ -56,7 +56,7 @@ class ProgressScene extends Phaser.Scene {
 		this.anims.create(progShubs);
 
 		// add three shubs
-		var progShub1 = this.add.sprite(window.innerWidth * 0.40, window.innerHeight * 0.5, 'shub', 0);
+		var progShub1 = this.add.sprite(window.innerWidth * 0.40, window.innerHeight * 0.45, 'shub', 0);
 		// var progShub2 = this.add.sprite(window.innerWidth * 0.50, window.innerHeight * 0.5, 'shub', 0);
 		// var progShub3 = this.add.sprite(window.innerWidth * 0.60, window.innerHeight * 0.5, 'shub', 0);
 
@@ -95,6 +95,8 @@ class ProgressScene extends Phaser.Scene {
 			//this.varObj.new_pred[idx] = newShubData.new_pred; // updated
 			// this.varObj.newNumber = newShubData.newNumber;
 			this.gameData.cur_pred = newShubData.cur_pred;
+			this.gameData.testno += 1 ; 
+			this.gameData.health += 5 ;
 			// Logging random feedback
 			this.gameData.api.logUserPerformance(this.gameData.trialCount, this.gameData.blockCount, this.gameData.in_array[idx], this.gameData.cf_array[idx], this.gameData.old_pred, this.gameData.newNumber); //updated
 
@@ -108,6 +110,7 @@ class ProgressScene extends Phaser.Scene {
 			// 	this.scene.start('stableScene')
 			// }else{
 				// switch to stable Scene again
+				
 				this.scene.remove('stableConfigScene', StableConfigScene);
 				var stableConfigScene = new StableConfigScene(this.gameData);
 				this.scene.add('stableConfigScene', stableConfigScene);
