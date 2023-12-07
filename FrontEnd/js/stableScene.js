@@ -1,6 +1,7 @@
 import ProgressScene from "./progressScene.js";
 import FeedbackScene from "./feedbackScene.js";
 import AttentionScene from "./attentionScene.js";
+import { costsArray } from "./constants.js";
 
 class StableScene extends Phaser.Scene {
   constructor(gameData) {
@@ -10,22 +11,24 @@ class StableScene extends Phaser.Scene {
   }
 
   budget = undefined;
-  currentBudget = this.totalBudget;
+  currentBudget = 0;
   health = 0;
   healthIndicator;
   isShubInitialized = false;
+  buttonContainer;
 
-
-
-  init() { }
+  init() {}
 
   preload() {
-
+    this.currentBudget = this.gameData.budget;
 
     if (!this.gameData.health) this.gameData.health = this.health;
 
     this.load.image("stable", "static/stable.png");
-    this.load.spritesheet("shub", "static/shub_spritesheet.png", { frameWidth: 50, frameHeight: 47 });
+    this.load.spritesheet("shub", "static/shub_spritesheet.png", {
+      frameWidth: 50,
+      frameHeight: 47,
+    });
 
     // load button images
     this.load.image("buttonUp", "static/buttonUp.png");
@@ -39,19 +42,18 @@ class StableScene extends Phaser.Scene {
     this.load.image("plant4", this.gameData.plants[3]);
     this.load.image("plant5", this.gameData.plants[4]);
 
-    // Resetting the click count 
+    // Resetting the click count
     // this.gameData.clickCountVar1 = 0
     // this.gameData.clickCountVar2 = 0
     // this.gameData.clickCountVar3 = 0
     // this.gameData.clickCountVar4 = 0
     // this.gameData.clickCountVar5 = 0
-
   }
 
   create() {
     this.startTime = new Date().getTime();
 
-    this.gameData.trialCount++
+    // this.gameData.trialCount++
     // if (this.gameData.trialCount > this.gameData.numTrialsPerBlock || this.gameData.cur_pred) {
     //   this.gameData.feedback_flag = true;
     // } else {
@@ -59,17 +61,16 @@ class StableScene extends Phaser.Scene {
     // }
     /** Round and  budget information */
 
-    this.RoundTextContainer = this.add.text(
-      window.innerWidth * 0.48,
-      window.innerHeight * 0.05,
-      "Test Case No : " + this.gameData.testno,
-      { fontFamily: "monogram", fontSize: "36px", color: "#000000" }
-    ).setOrigin(0, 0);
-
-
+    this.RoundTextContainer = this.add
+      .text(
+        window.innerWidth * 0.48,
+        window.innerHeight * 0.05,
+        "Planet No : " + this.gameData.testno,
+        { fontFamily: "monogram", fontSize: "36px", color: "#000000" }
+      )
+      .setOrigin(0, 0);
 
     if (!this.gameData.feedback_flag) {
-
       //Round no
       // this.add.text(
       //   window.innerWidth * 0.03,
@@ -77,16 +78,13 @@ class StableScene extends Phaser.Scene {
       //   "Round :" + this.gameData.trialCount,
       //   { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
       // );
-
-      const highestArray = this.findArrayWithHighestSum(this.gameData.cf_array);
-
-      if (highestArray?.length > 0) {
-        let budget = 0;
-        highestArray.forEach((x) => (budget += x));
-        // this.currentBudget = this.budget = Math.abs(this.totalBudget = budget + 10);
-        this.currentBudget = this.budget = Math.abs(this.totalBudget = budget);
-      }
-  
+      // const highestArray = this.findArrayWithHighestSum(this.gameData.cf_array);
+      // if (highestArray?.length > 0) {
+      //   let budget = 0;
+      //   highestArray.forEach((x) => (budget += x));
+      //   // this.currentBudget = this.budget = Math.abs(this.totalBudget = budget + 10);
+      //   this.currentBudget = this.budget = Math.abs(this.totalBudget = budget);
+      // }
       //  budget information
       // this.budget = this.add.text(
       //   window.innerWidth * 0.03,
@@ -95,7 +93,6 @@ class StableScene extends Phaser.Scene {
       //   "Consider the following selcted values on drop menu for feeding.",
       //   { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
       // );
-
       //this.updateBudget();
     }
 
@@ -134,9 +131,7 @@ class StableScene extends Phaser.Scene {
     //   );
     // }
 
-
     if (1) {
-
       this.gameData.shubOldHealth.push(this.gameData.health);
 
       // this.add.text(
@@ -146,11 +141,11 @@ class StableScene extends Phaser.Scene {
       //   { fontFamily: "monogram", fontSize: "18px", color: "#000000" }
       // );
       if (this.gameData.cur_pred) {
-        this.gameData.health += 5;
+        // this.gameData.health += 5;
         this.health = this.gameData.health;
         this.gameData.shubNewHealth.push(this.gameData.health);
       } else {
-        this.gameData.health -= 5;
+        // this.gameData.health -= 5;
         this.health = this.gameData.health;
         this.gameData.shubNewHealth.push(this.gameData.health);
       }
@@ -233,8 +228,6 @@ class StableScene extends Phaser.Scene {
 
     // if (this.gameData.trialCount > 1 && !this.gameData.cur_pred) {
     if (1) {
-
-
       this.add.text(
         window.innerWidth * 0.025,
         window.innerHeight * 0.2,
@@ -243,15 +236,15 @@ class StableScene extends Phaser.Scene {
       );
       this.add.text(
         window.innerWidth * 0.025,
-        window.innerHeight * 0.30,
+        window.innerHeight * 0.3,
         "The Shub's fitness level could have been better if you had selected the following:",
         { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
       );
 
       this.add.text(
         window.innerWidth * 0.025,
-        window.innerHeight * 0.40,
-        "Consider the following pre-selected leaf values on drop menu for feeding:",
+        window.innerHeight * 0.45,
+        "Consider the above suggestion as a diet for the Shub by clicking on the Feeding time button:",
         { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
       );
 
@@ -300,6 +293,22 @@ class StableScene extends Phaser.Scene {
         "x " + this.gameData.cf_array?.at(-1)?.at(4),
         { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
       );
+
+      var loadingText = this.add
+        .text(-70, -15, "Loading...", {
+          fontSize: "20px",
+          color: "#ffffff",
+        })
+        .setOrigin(0);
+
+      const loadingButton = this.add.image(0, 0, "buttonFeed").setScale(0.4);
+
+      var loadingContainer = this.add.container(
+        window.innerWidth * 0.8,
+        window.innerHeight * 0.6,
+        [loadingButton, loadingText]
+      );
+      loadingContainer.setVisible(false);
     }
 
     // if three trails are done, get feedback and start a new block
@@ -324,234 +333,268 @@ class StableScene extends Phaser.Scene {
     //     [buttonFeed, textFeedback]
     //   );
     // } else {
-      // update old number of shubs
-      this.gameData.oldNumber = this.gameData.newNumber;
+    // update old number of shubs
+    this.gameData.oldNumber = this.gameData.newNumber;
 
-      const plantY = 0.55;
-      const dropDownY = plantY;
-      const textY = plantY - 0.02;
+    const plantY = 0.55;
+    const dropDownY = plantY;
+    const textY = plantY - 0.02;
 
-      //PLANT 1:
-      const xOffset = 0.03;
-      const yOffset = plantY;
-      const textXOffset = 0.03;
-      const dropDownXOffset = 0.1;
-      const plantImages = this.gameData.plants.map(plantData => plantData.image);
+    //PLANT 1:
+    const xOffset = 0.03;
+    const yOffset = plantY;
+    const textXOffset = 0.03;
+    const dropDownXOffset = 0.1;
+    const plantImages = this.gameData.plants.map(
+      (plantData) => plantData.image
+    );
 
-      for (let i = 0; i < plantImages.length; i++) {
-        const xPosition = window.innerWidth * (xOffset + i * dropDownXOffset); // Fixed xPosition calculation
-
-        // Plant Image
-        this.add
-          .image(xPosition, window.innerHeight * (yOffset - 0.05), 'plant' + (i + 1))
-          .setScale(0.1);
-
-        // add counters for plant
-        this[`clickCountTextVar${i + 1}`] = this.add.text(
-          xPosition + (window.innerWidth * (textXOffset)),
-          window.innerHeight * (dropDownY - 0.05),
-          this.gameData.cf_array?.at(-1)?.at(i),
-          // this.gameData[`clickCountVar${i + 1}`],
-          { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-        );
-
-        // Plant Dropdown
-        const buttonVar = this.createDropdown(
-          xPosition + (window.innerWidth * (0.07)),
-          window.innerHeight * (dropDownY - 0.055),
-          this.gameData.cf_array?.at(-1)?.at(i),
-          // `clickCountVar${i + 1}`,
-          this[`clickCountTextVar${i + 1}`],
-          this.gameData.dropDownRanges[i].min,
-          // this.gameData[`clickCountVarMax${i + 1}`] 
-          this.gameData.dropDownRanges[i].max
-        );
-      // }
-
-
-
-      /**
-    * Help container starts here
-    */
-      // Create a container for the popup
-      const popupContainer = this.add.container(0, 0).setDepth(100);
-      // Background
-      var infoDialogBG = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0xFFFFFF, 0.5).setOrigin(0);
-      popupContainer.add(infoDialogBG);
-      // Dialog
-      var infoDialog = this.add.rectangle((window.innerWidth * 0.5) - 300, (window.innerHeight * 0.5) - 260, 800, 400, 0xffffff, 1).setOrigin(0);
-      infoDialog.setStrokeStyle(1, 0x1000000, 1);
-      popupContainer.add(infoDialog);
-      // Text
-      var borrowInfoDialogTxt = this.add.text((window.innerWidth * 0.5) - 280, (window.innerHeight * 0.5) - 200, 'According to your planet, the cost of one leaf for each type is following:', { fontFamily: "monogram", fontSize: '16px', color: '#000000' }).setOrigin(0);
-      popupContainer.add(borrowInfoDialogTxt);
-      // leaves and costs
-
-      const constants = {
-        screenWidth: this.scale.width,
-        screenHeight: this.scale.height,
-      };
-
-
-      // OK Button
-      var buttonNo = this.add.rectangle((window.innerWidth * 0.5) + 50, (window.innerHeight * 0.5) + 25, 100, 50, 0x1a65ac, 1).setOrigin(0);
-      buttonNo.setStrokeStyle(1, 0x1000000, 1);
-      var buttonTextOK = this.add.text((window.innerWidth * 0.5) + 80, (window.innerHeight * 0.5) + 30, 'Ok', { fontFamily: "monogram", fontSize: '25px', color: '#ffffff' }).setOrigin(0);
-
-      // Make the button interactive and hide the popup on click
-      buttonNo.setInteractive().on('pointerdown', hidePopup);
-
-      // Add button and text to the container
-      popupContainer.add(buttonNo);
-      popupContainer.add(buttonTextOK);
-
-      for (let i = 0; i < this.gameData.plants.length; i++) {
-        const xPos = window.innerWidth * 0.3 + (80 * i);
-        const yPos = window.innerHeight * 0.3;
-        const costPerUnitText = ":";
-        const plantKey = `plant${i + 1}`;
-        const plantCost = this.gameData.plants[i].cost;
-
-        const img = this.add.image(xPos, yPos, plantKey).setScale(0.1);
-        const txt = this.add.text(
-          xPos + 25,
-          yPos,
-          `${costPerUnitText} ${plantCost}`,
-          {
-            fontFamily: "monogram",
-            fontSize: "18px",
-            color: "#000000",
-          }
-        );
-        popupContainer.add(img);
-        popupContainer.add(txt);
-
-
-      }
-
-
-
-      // Initially, hide the popup
-      popupContainer.setVisible(false);
-
-      // Function to show the popup
-      function showPopup() {
-        popupContainer.setVisible(true);
-      }
-      // Function to hide the popup
-      function hidePopup() {
-        popupContainer.setVisible(false);
-      }
-
-      /**
-       * Help container ends here
-       */
-      // var helpText = this.add
-      // .text(-70, -15, "Help", {
-      //   fontSize: "20px",
-      //   color: "#ffffff",
-      // })
-      // .setOrigin(0);
-      // const helpButton = this.add
-      // .image(0, 0, "buttonFeed")
-      // .setScale(0.4)
-      // .setInteractive()
-      // .on("pointerdown", () => {
-      //   showPopup();
-      // })
-
-    var leafCostText = this.add
-      .text(0, 0, "Cost:", {
-        fontSize: "20px",
-        color: "#ffffff",
-      }).setOrigin(0)
-
-      
-    const leafCosts =  this.add
-      .image(window.innerWidth * 0.8, window.innerHeight * 7, "buttonFeed")
+    var progressScene = undefined;
+    // add button to submit new input - change scene when pressed!
+    const buttonFeed = this.add
+      .image(0, 0, "buttonFeed")
       .setScale(0.4)
       .setInteractive()
+      .on("pointerdown", () => this.logTimeFeed())
       .on("pointerdown", () => {
-        showPopup();
-      }).setOrigin(0);
-      
-    this.add.container(
-        window.innerWidth * 0.7, window.innerHeight * 0.5
-        [leafCosts, leafCostText])
+        this.gameData.budget = this.currentBudget;
 
-    this.add
-        .text(window.innerWidth * 0.8, window.innerHeight * 0.5, "Cost", {
-          fontSize: "20px",
-          color: "#fff",
-        })
+        progressScene = new ProgressScene(this.gameData);
+      })
+      .on("pointerdown", () =>
+        this.scene.remove("progressScene", progressScene)
+      )
+      .on("pointerdown", () => this.scene.add("progressScene", progressScene))
+      .on("pointerdown", () => this.scene.start("progressScene"));
 
-      // enter attention scene after pre-defined trials (see gameUI)
-      if (this.gameData.attentionTrials.includes(this.gameData.trialCount)) {
-        // instatiate and add new progress scene with current data
-        var attentionScene = undefined;
-        // add button to submit new input - change scene when pressed!
-        const buttonFeed = this.add
-          .image(0, 0, "buttonFeed")
-          .setScale(0.4)
-          .setInteractive()
-          .on("pointerdown", () => this.logTimeFeed())
-          .on(
-            "pointerdown",
-            () => (attentionScene = new AttentionScene(this.gameData))
-          )
-          .on("pointerdown", () =>
-            this.scene.remove("attentionScene", attentionScene)
-          )
-          .on("pointerdown", () =>
-            this.scene.add("attentionScene", attentionScene)
-          )
-          .on("pointerdown", () => this.scene.start("attentionScene"))
+    var textFeed = this.add
+      .text(-70, -15, "Feeding time!", {
+        fontSize: "20px",
+        color: "#ffffff",
+      })
+      .setOrigin(0);
+    var buttonContainer = this.add.container(
+      window.innerWidth * 0.8,
+      window.innerHeight * 0.6,
+      [buttonFeed, textFeed]
+    );
 
+    // // updating budget to global
+    // const imgindex = +localStorage.getItem('imgindex')
+    // this.currentBudget =
+    // this.gameData.budget -
+    // (this.gameData.cf_array[0] * this.costsArray[imgindex].leaves[0].cost +
+    //   this.gameData.cf_array[1] * this.costsArray[imgindex].leaves[1].cost +
+    //   this.gameData.cf_array[2] * this.costsArray[imgindex].leaves[2].cost +
+    //   this.gameData.cf_array3[3] * this.costsArray[imgindex].leaves[3].cost +
+    //   this.gameData.cf_array[4] * this.costsArray[imgindex].leaves[4].cost);
+    // this.gameData.budget = this.currentBudget;
 
-        var textFeed = this.add
-          .text(-70, -15, "Feeding time!", {
-            fontSize: "20px",
-            color: "#ffffff",
-          })
-          .setOrigin(0);
-        var buttonContainer = this.add.container(
-          window.innerWidth * 0.8,
-          window.innerHeight * 0.6,
-          [buttonFeed, textFeed]
-        );
-      } else {
-        // instatiate and add new progress scene with current data
-        var progressScene = undefined;
-        // add button to submit new input - change scene when pressed!
-        const buttonFeed = this.add
-          .image(0, 0, "buttonFeed")
-          .setScale(0.4)
-          .setInteractive()
-          .on("pointerdown", () => this.logTimeFeed())
-          .on("pointerdown", () => {
-            progressScene = new ProgressScene(this.gameData);
-          })
-          .on("pointerdown", () =>
-            this.scene.remove("progressScene", progressScene)
-          )
-          .on("pointerdown", () =>
-            this.scene.add("progressScene", progressScene)
-          )
-          .on("pointerdown", () => this.scene.start("progressScene"));
+    //   for (let i = 0; i < plantImages.length; i++) {
+    //     const xPosition = window.innerWidth * (xOffset + i * dropDownXOffset); // Fixed xPosition calculation
 
-        var textFeed = this.add
-          .text(-70, -15, "Feeding time!", {
-            fontSize: "20px",
-            color: "#ffffff",
-          })
-          .setOrigin(0);
-        var buttonContainer = this.add.container(
-          window.innerWidth * 0.8,
-          window.innerHeight * 0.6,
-          [buttonFeed, textFeed]
-        );
-      }
-    }
+    //     // Plant Image
+    //     this.add
+    //       .image(xPosition, window.innerHeight * (yOffset - 0.05), 'plant' + (i + 1))
+    //       .setScale(0.1);
+
+    //     // add counters for plant
+    //     this[`clickCountTextVar${i}`] = this.add.text(
+    //       xPosition + (window.innerWidth * (textXOffset)),
+    //       window.innerHeight * (dropDownY - 0.05),
+    //       this.gameData.cf_array?.at(-1)?.at(i),
+    //       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+    //     );
+
+    //     // Plant Dropdown
+    //     const buttonVar = this.createDropdown(
+    //     xPosition + (window.innerWidth * (0.07)),
+    //     window.innerHeight * (dropDownY - 0.055),
+    //     this[`clickCountTextVar${i}`],
+    //     this.gameData.dropDownRanges[i].min,
+    //     // this.gameData[`clickCountVarMax${i + 1}`]
+    //     this.gameData.dropDownRanges[i].max
+    //     );
+    //   // }
+
+    //   /**
+    // * Help container starts here
+    // */
+    //   // Create a container for the popup
+    //   const popupContainer = this.add.container(0, 0).setDepth(100);
+    //   // Background
+    //   var infoDialogBG = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0xFFFFFF, 0.5).setOrigin(0);
+    //   popupContainer.add(infoDialogBG);
+    //   // Dialog
+    //   var infoDialog = this.add.rectangle((window.innerWidth * 0.5) - 300, (window.innerHeight * 0.5) - 260, 800, 400, 0xffffff, 1).setOrigin(0);
+    //   infoDialog.setStrokeStyle(1, 0x1000000, 1);
+    //   popupContainer.add(infoDialog);
+    //   // Text
+    //   var borrowInfoDialogTxt = this.add.text((window.innerWidth * 0.5) - 280, (window.innerHeight * 0.5) - 200, 'According to your planet, the cost of one leaf for each type is following:', { fontFamily: "monogram", fontSize: '16px', color: '#000000' }).setOrigin(0);
+    //   popupContainer.add(borrowInfoDialogTxt);
+    //   // leaves and costs
+
+    //   const constants = {
+    //     screenWidth: this.scale.width,
+    //     screenHeight: this.scale.height,
+    //   };
+
+    //   // OK Button
+    //   var buttonNo = this.add.rectangle((window.innerWidth * 0.5) + 50, (window.innerHeight * 0.5) + 25, 100, 50, 0x1a65ac, 1).setOrigin(0);
+    //   buttonNo.setStrokeStyle(1, 0x1000000, 1);
+    //   var buttonTextOK = this.add.text((window.innerWidth * 0.5) + 80, (window.innerHeight * 0.5) + 30, 'Ok', { fontFamily: "monogram", fontSize: '25px', color: '#ffffff' }).setOrigin(0);
+
+    //   // Make the button interactive and hide the popup on click
+    //   buttonNo.setInteractive().on('pointerdown', hidePopup);
+
+    //   // Add button and text to the container
+    //   popupContainer.add(buttonNo);
+    //   popupContainer.add(buttonTextOK);
+
+    //   for (let i = 0; i < this.gameData.plants.length; i++) {
+    //     const xPos = window.innerWidth * 0.3 + (80 * i);
+    //     const yPos = window.innerHeight * 0.3;
+    //     const costPerUnitText = ":";
+    //     const plantKey = `plant${i + 1}`;
+    //     const plantCost = this.gameData.plants[i].cost;
+
+    //     const img = this.add.image(xPos, yPos, plantKey).setScale(0.1);
+    //     const txt = this.add.text(
+    //       xPos + 25,
+    //       yPos,
+    //       `${costPerUnitText} ${plantCost}`,
+    //       {
+    //         fontFamily: "monogram",
+    //         fontSize: "18px",
+    //         color: "#000000",
+    //       }
+    //     );
+    //     popupContainer.add(img);
+    //     popupContainer.add(txt);
+
+    //   }
+
+    //   // Initially, hide the popup
+    //   popupContainer.setVisible(false);
+
+    //   // Function to show the popup
+    //   function showPopup() {
+    //     popupContainer.setVisible(true);
+    //   }
+    //   // Function to hide the popup
+    //   function hidePopup() {
+    //     popupContainer.setVisible(false);
+    //   }
+
+    //   /**
+    //    * Help container ends here
+    //    */
+    //   // var helpText = this.add
+    //   // .text(-70, -15, "Help", {
+    //   //   fontSize: "20px",
+    //   //   color: "#ffffff",
+    //   // })
+    //   // .setOrigin(0);
+    //   // const helpButton = this.add
+    //   // .image(0, 0, "buttonFeed")
+    //   // .setScale(0.4)
+    //   // .setInteractive()
+    //   // .on("pointerdown", () => {
+    //   //   showPopup();
+    //   // })
+
+    // var leafCostText = this.add
+    //   .text(0, 0, "Cost:", {
+    //     fontSize: "20px",
+    //     color: "#ffffff",
+    //   }).setOrigin(0)
+
+    // const leafCosts =  this.add
+    //   .image(window.innerWidth * 0.8, window.innerHeight * 7, "buttonFeed")
+    //   .setScale(0.4)
+    //   .setInteractive()
+    //   .on("pointerdown", () => {
+    //     showPopup();
+    //   }).setOrigin(0);
+
+    // this.add.container(
+    //     window.innerWidth * 0.7, window.innerHeight * 0.5
+    //     [leafCosts, leafCostText])
+
+    // this.add
+    //     .text(window.innerWidth * 0.8, window.innerHeight * 0.5, "Cost", {
+    //       fontSize: "20px",
+    //       color: "#fff",
+    //     })
+
+    //   // enter attention scene after pre-defined trials (see gameUI)
+    //   if (this.gameData.attentionTrials.includes(this.gameData.trialCount)) {
+    //     // instatiate and add new progress scene with current data
+    //     var attentionScene = undefined;
+    //     // add button to submit new input - change scene when pressed!
+    //     const buttonFeed = this.add
+    //       .image(0, 0, "buttonFeed")
+    //       .setScale(0.4)
+    //       .setInteractive()
+    //       .on("pointerdown", () => this.logTimeFeed())
+    //       .on(
+    //         "pointerdown",
+    //         () => {this.gameData.budget = this.currentBudget;
+    //           attentionScene = new AttentionScene(this.gameData)}
+    //       )
+    //       .on("pointerdown", () =>
+    //         this.scene.remove("attentionScene", attentionScene)
+    //       )
+    //       .on("pointerdown", () =>
+    //         this.scene.add("attentionScene", attentionScene)
+    //       )
+    //       .on("pointerdown", () => this.scene.start("attentionScene"))
+
+    //     var textFeed = this.add
+    //       .text(-70, -15, "Feeding time!", {
+    //         fontSize: "20px",
+    //         color: "#ffffff",
+    //       })
+    //       .setOrigin(0);
+    //     var buttonContainer = this.add.container(
+    //       window.innerWidth * 0.8,
+    //       window.innerHeight * 0.6,
+    //       [buttonFeed, textFeed]
+    //     );
+    //   } else {
+    //     // instatiate and add new progress scene with current data
+    //     var progressScene = undefined;
+    //     // add button to submit new input - change scene when pressed!
+    //     const buttonFeed = this.add
+    //       .image(0, 0, "buttonFeed")
+    //       .setScale(0.4)
+    //       .setInteractive()
+    //       .on("pointerdown", () => this.logTimeFeed())
+    //       .on("pointerdown", () => {
+    //         this.gameData.budget = this.currentBudget;
+    //         progressScene = new ProgressScene(this.gameData);
+    //       })
+    //       .on("pointerdown", () =>
+    //         this.scene.remove("progressScene", progressScene)
+    //       )
+    //       .on("pointerdown", () =>
+    //         this.scene.add("progressScene", progressScene)
+    //       )
+    //       .on("pointerdown", () => this.scene.start("progressScene"));
+
+    //     var textFeed = this.add
+    //       .text(-70, -15, "Feeding time!", {
+    //         fontSize: "20px",
+    //         color: "#ffffff",
+    //       })
+    //       .setOrigin(0);
+    //     var buttonContainer = this.add.container(
+    //       window.innerWidth * 0.8,
+    //       window.innerHeight * 0.6,
+    //       [buttonFeed, textFeed]
+    //     );
+    //   }
+    // }
 
     // Display stable and Shubs
 
@@ -584,15 +627,9 @@ class StableScene extends Phaser.Scene {
     const subXposition = xInPixels / 2 + 688;
 
     const percentage = this.health / 25;
-    const subYPosition = yInPixels + 140 - (percentage * 140);
+    const subYPosition = yInPixels + 140 - percentage * 140;
 
-
-    var thisShub = this.add.sprite(
-      subXposition,
-      subYPosition,
-      "shub",
-      0
-    );
+    var thisShub = this.add.sprite(subXposition, subYPosition, "shub", 0);
     //set the width of the sprite
     thisShub.displayWidth = 65;
     //scale evenly
@@ -614,6 +651,7 @@ class StableScene extends Phaser.Scene {
    */
   clickBtnFeedback() {
     this.logTimeFeedback();
+    this.gameData.budget = this.currentBudget;
     var feedbackScene = new FeedbackScene(this.gameData);
     this.scene.remove("feedbackScene", feedbackScene);
     this.scene.add("feedbackScene", feedbackScene);
@@ -643,7 +681,7 @@ class StableScene extends Phaser.Scene {
     );
   }
 
-  update() { }
+  update() {}
 
   /**
    * Creates a clickable dropdown on given position
@@ -651,6 +689,8 @@ class StableScene extends Phaser.Scene {
    * @param {number} dropdownY
    */
   createDropdown = (dropdownX, dropdownY, variable, textField, min, max) => {
+    min = 0;
+    max = 6;
     // Dropdown content and style
     let dropdownItems = [];
     while (max - min >= 0) {
@@ -686,7 +726,6 @@ class StableScene extends Phaser.Scene {
     const dropdownGroup = this.add.group();
 
     dropdownGroup.add(graphics);
-
 
     // this.gameData.api.creteBorderBox(dropdownX-60,dropdownY-13,70,35,this.add)
 
@@ -739,7 +778,7 @@ class StableScene extends Phaser.Scene {
           textField.setText(item);
 
           // Updates total remaining budget by adding all 5 fields
-          this.updateBudget();
+          // this.updateBudget();
 
           // Close dropdown after selection.
           toggleDropdown();
@@ -761,38 +800,39 @@ class StableScene extends Phaser.Scene {
     dropdownGroup.toggleVisible();
   };
 
-  updateBudget() {
-    this.currentBudget =
-      this.totalBudget -
-      (this.gameData.clickCountVar1 * this.gameData.plants.at(0).cost +
-        this.gameData.clickCountVar2 * this.gameData.plants.at(1).cost +
-        this.gameData.clickCountVar3 * this.gameData.plants.at(2).cost +
-        this.gameData.clickCountVar4 * this.gameData.plants.at(3).cost +
-        this.gameData.clickCountVar5 * this.gameData.plants.at(4).cost);
-    this.budget.setText("Available budget :" + this.currentBudget);
-  }
+  // updateBudgetGlobal() {
+  //   const imgindex = +localStorage.getItem('imgindex')
+  //   // this.updateBudgetGlobal = this.gameData.budget ;
+  //   this.currentBudget =
+  //     this.gameData.budget -
+  //     (this.gameData.cf_array[0] * this.costsArray[imgindex].leaves[0].cost +
+  //       this.gameData.cf_array[1] * this.costsArray[imgindex].leaves[1].cost +
+  //       this.gameData.cf_array[2] * this.costsArray[imgindex].leaves[2].cost +
+  //       this.gameData.cf_array3[3] * this.costsArray[imgindex].leaves[3].cost +
+  //       this.gameData.cf_array[4] * this.costsArray[imgindex].leaves[4].cost);
+  //       this.gameData.budget = this.currentBudget;
+  //   // this.budget.setText("Available budget :" + this.currentBudget);
+  // }
 
   createSlider(x, y, min, max, current) {
-    if(this.isShubInitialized) return;
+    if (this.isShubInitialized) return;
     this.isShubInitialized = true;
     const range = 25;
     const percentage = (current - min) / range;
     const sliderHeight = 180;
 
-
     this.add.text(x, y - 20, "Fitness Levels", {
       fontFamily: "Ariel",
       fontSize: "10px",
       color: "#000000",
-      fontWeight: 'bold'
+      fontWeight: "bold",
     });
-
 
     let graphics = this.add.graphics();
     graphics.fillStyle(0x333333, 1);
     graphics.fillRect(x - 5, y, 15, sliderHeight);
 
-    const indicatorY = y + sliderHeight - (percentage * sliderHeight);
+    const indicatorY = y + sliderHeight - percentage * sliderHeight;
     this.healthIndicator = this.add.graphics();
     this.healthIndicator.fillStyle(0xff0000, 1);
     this.healthIndicator.fillRect(x - 5, indicatorY, 25, 5);
@@ -800,7 +840,7 @@ class StableScene extends Phaser.Scene {
     for (let i = 0; i < 6; i++) {
       const stepValue = min + (range / 5) * i;
       const stepPercentage = (stepValue - min) / range;
-      const stepY = y + sliderHeight - (stepPercentage * sliderHeight);
+      const stepY = y + sliderHeight - stepPercentage * sliderHeight;
 
       this.add.text(x + 10, stepY - 10, "  Level-" + stepValue, {
         fontFamily: "monogram",
@@ -831,7 +871,6 @@ class StableScene extends Phaser.Scene {
 
     return maxArray;
   }
-
 }
 
 export default StableScene;

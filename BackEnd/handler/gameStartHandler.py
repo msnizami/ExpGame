@@ -32,12 +32,14 @@ class GameStartHandler(BasisRequestHandler):
 
         # Random test instance to load
         x_test = pd.read_csv('modelData/data/X_2test.csv')
-
+        # rand_index = random.randint(0, len(x_test) - 1)
+        # x_test = x_test.drop(index=rand_index).reset_index(drop=True)
+        # print(x_test[rand_index:rand_index+1].values.tolist())
         # Add it to the database
         if self.datamgr.add_new_user(user_id, control_group) is False:
             self.send_custom_error(500, "Internal server error")
         else:
             # Send it back to the client
             self.set_header("Content-Type", "application/json")
-            self.write(json.dumps({"userId": user_id, "controlGroup": control_group, "test_instance":x_test[3:4].values.tolist()})) #"test_instance":x_test[:1].values
+            self.write(json.dumps({"userId": user_id, "controlGroup": control_group, "test_instance":x_test.values.tolist()})) #"test_instance":x_test[:1].values
             self.finish()

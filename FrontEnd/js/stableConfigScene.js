@@ -1,7 +1,7 @@
 import FeedbackScene from "./feedbackScene.js";
 import StableScene from "./stableScene.js";
 import ProgressScene from "./progressScene.js";
-
+import { costsArray } from "./constants.js";
 
 class StableConfigScene extends Phaser.Scene {
   constructor(gameData) {
@@ -10,8 +10,7 @@ class StableConfigScene extends Phaser.Scene {
     this.startTime = new Date().getTime();
   }
 
-
-  budget = 0;
+  budget;
   health = 0;
   healthIndicator;
   diffCountVars;
@@ -19,24 +18,42 @@ class StableConfigScene extends Phaser.Scene {
   totalBudget = 0;
   currentBudget = 0;
   attemptsCount = 2;
-  triesText
-  levelTextContainer
-  RoundTextContainer
+  triesText;
+  levelTextContainer;
+  RoundTextContainer;
   trialCountLimit;
-  hasBorrowedTries = true
+  hasBorrowedTries = true;
 
-  exampleTestCaseText
+  exampleTestCaseText;
 
-  init() { }
+  init() {}
 
   preload() {
-    const values =  this.gameData.testInstances.at(0)
-    for(let i =0; i< values?.length; i++){
-      // this.gameData.dropDownRanges.at(i).max = values.at(i);
-      this.gameData['clickCountVar'+i] = values.at(i)
+    this.currentBudget = this.gameData.budget;
+
+    const imgindex = +localStorage.getItem("imgindex");
+    const totalCost =
+      this.gameData.clickCountVar1 * costsArray[imgindex].leaves[0].cost +
+      this.gameData.clickCountVar2 * costsArray[imgindex].leaves[1].cost +
+      this.gameData.clickCountVar3 * costsArray[imgindex].leaves[2].cost +
+      this.gameData.clickCountVar4 * costsArray[imgindex].leaves[3].cost +
+      this.gameData.clickCountVar5 * costsArray[imgindex].leaves[4].cost;
+
+    if (this.currentBudget > totalCost) {
+      const values = this.gameData.testInstances.at(this.gameData.testno - 1); //testvalMenu
+      console.log(values);
+      for (let i = 1; i <= values?.length; i++) {
+        // this.gameData.dropDownRanges.at(i).max = values.at(i);
+        this.gameData["clickCountVar" + i] = values.at(i - 1);
+      }
+    } else {
+      const values = this.gameData.testvalMenu; //testInstances.at(this.gameData.testno-1) //testvalMenu
+      console.log(values);
+      for (let i = 1; i <= values?.length; i++) {
+        // this.gameData.dropDownRanges.at(i).max = values.at(i);
+        this.gameData["clickCountVar" + i] = values.at(i - 1);
+      }
     }
-
-
 
     // if (!this.gameData.health) this.gameData.health = this.health;
 
@@ -70,40 +87,116 @@ class StableConfigScene extends Phaser.Scene {
     //   highestArray.forEach((x) => (budget += x));
     //   this.totalBudget = this.currentBudget = this.budget = budget;
     // }
-
-    this.totalBudget = this.currentBudget = this.budget = 21 // this.findArrayWithHighestSum(this.gameData.cf_array);
+    this.totalBudget = this.currentBudget = this.gameData.budget; // this.findArrayWithHighestSum(this.gameData.cf_array);
   }
 
+  create() 
+  {
+    self = this;
 
-  create() {
-    self = this
+    if (this.gameData.csvData) {
+      const val = this.gameData.csvData.splice(
+        Math.max(1, Math.floor(Math.random() * this.gameData.csvData.length)),
+        1
+      );
+      for (let i = 0; i < plants.length; i++) {
+        this.gameData.plants.at(i).cost = val.at(i);
+      }
+    }
+
     /**
      * Help container starts here
      */
     // Create a container for the popup
     const popupContainer = this.add.container(0, 0).setDepth(100);
     // Background
-    var infoDialogBG = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0xFFFFFF, 0.5).setOrigin(0);
+    var infoDialogBG = this.add
+      .rectangle(0, 0, window.innerWidth, window.innerHeight, 0xffffff, 0.5)
+      .setOrigin(0);
     popupContainer.add(infoDialogBG);
     // Dialog
-    var infoDialog = this.add.rectangle((window.innerWidth * 0.5) - 300, (window.innerHeight * 0.5) - 260, 800, 400, 0xffffff, 1).setOrigin(0);
+    var infoDialog = this.add
+      .rectangle(
+        window.innerWidth * 0.5 - 300,
+        window.innerHeight * 0.5 - 260,
+        800,
+        400,
+        0xffffff,
+        1
+      )
+      .setOrigin(0);
     infoDialog.setStrokeStyle(1, 0x1000000, 1);
     popupContainer.add(infoDialog);
     // Text
-    var borrowInfoDialogTxt = this.add.text((window.innerWidth * 0.5) - 280, (window.innerHeight * 0.5) - 200, 'Suggestion 1:Your results would have been better if you had changed  yellow_leaf.', { fontFamily: "monogram", fontSize: '16px', color: '#000000' }).setOrigin(0);
-    popupContainer.add(borrowInfoDialogTxt);
-    var infoDialogTxt2 = this.add.text((window.innerWidth * 0.5) - 280, (window.innerHeight * 0.5) - 150, 'Suggestion 2:Your results would have been better if you had changed  yellow_leaf and pink leaf together.', { fontFamily: "monogram", fontSize: '16px', color: '#000000' }).setOrigin(0);
-    popupContainer.add(infoDialogTxt2);
-    var infoDialogTxt3 = this.add.text((window.innerWidth * 0.5) - 280, (window.innerHeight * 0.5) - 100, 'Suggestion 3:Your results would have been better if you had changed  yellow_leaf, grey_leaf and pink leaf \ntogether.', { fontFamily: "monogram", fontSize: '16px', color: '#000000' }).setOrigin(0);
-    popupContainer.add(infoDialogTxt3);
+    // var borrowInfoDialogTxt = this.add.text((window.innerWidth * 0.5) - 280, (window.innerHeight * 0.5) - 200, 'Suggestion 1:Your results would have been better if you had changed  yellow_leaf.', { fontFamily: "monogram", fontSize: '16px', color: '#000000' }).setOrigin(0);
+    // popupContainer.add(borrowInfoDialogTxt);
+    // var infoDialogTxt2 = this.add.text((window.innerWidth * 0.5) - 280, (window.innerHeight * 0.5) - 150, 'Suggestion 2:Your results would have been better if you had changed  yellow_leaf and pink leaf together.', { fontFamily: "monogram", fontSize: '16px', color: '#000000' }).setOrigin(0);
+    // popupContainer.add(infoDialogTxt2);
+    // var infoDialogTxt3 = this.add.text((window.innerWidth * 0.5) - 280, (window.innerHeight * 0.5) - 100, 'Suggestion 3:Your results would have been better if you had changed  yellow_leaf, grey_leaf and pink leaf \ntogether.', { fontFamily: "monogram", fontSize: '16px', color: '#000000' }).setOrigin(0);
+    // popupContainer.add(infoDialogTxt3);
+
+    // Assuming this.gamedata.plants contains image paths for yellow_leaf, grey_leaf, and pink_leaf
+    const plantImages = this.gameData.plants;
+    // Texts
+    const suggestions = [
+      "Suggestion 1: Fitness may get better if you change.",
+      "Suggestion 2: Fitness may get better if you change.",
+      "Suggestion 3: Fitness may get better if you change.",
+    ];
+
+    const leaves = [
+      ["yellow_leaf"],
+      ["yellow_leaf", "pink_leaf"],
+      ["yellow_leaf", "pink_leaf", "grey_leaf"],
+    ];
+
+    suggestions.forEach((suggestion, index) => {
+      const suggestionTxt = this.add
+        .text(
+          window.innerWidth * 0.5 - 280,
+          window.innerHeight * 0.5 - 200 + index * 50,
+          suggestion,
+          { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
+        )
+        .setOrigin(0);
+      popupContainer.add(suggestionTxt);
+
+      // Check if there is a corresponding image for the suggestion
+      leaves[index].forEach((x, idx) => {
+        const image = this.add
+          .image(
+            window.innerWidth * 0.58 + 40 * idx,
+            window.innerHeight * 0.5 - 190 + index * 50,
+            "plant" +
+              (this.gameData.plants.find((plant) => plant.key === x).index + 1)
+          )
+          .setScale(this.gameData.getScaledWidth(0.08));
+        popupContainer.add(image);
+      });
+    });
 
     // OK Button
-    var buttonNo = this.add.rectangle((window.innerWidth * 0.5) + 50, (window.innerHeight * 0.5) + 25, 100, 50, 0x1a65ac, 1).setOrigin(0);
+    var buttonNo = this.add
+      .rectangle(
+        window.innerWidth * 0.5 + 50,
+        window.innerHeight * 0.5 + 25,
+        100,
+        50,
+        0x1a65ac,
+        1
+      )
+      .setOrigin(0);
     buttonNo.setStrokeStyle(1, 0x1000000, 1);
-    var buttonTextOK = this.add.text((window.innerWidth * 0.5) + 80, (window.innerHeight * 0.5) + 30, 'Ok', { fontFamily: "monogram", fontSize: '25px', color: '#ffffff' }).setOrigin(0);
+    var buttonTextOK = this.add
+      .text(window.innerWidth * 0.5 + 80, window.innerHeight * 0.5 + 30, "Ok", {
+        fontFamily: "monogram",
+        fontSize: "25px",
+        color: "#ffffff",
+      })
+      .setOrigin(0);
 
     // Make the button interactive and hide the popup on click
-    buttonNo.setInteractive().on('pointerdown', hidePopup);
+    buttonNo.setInteractive().on("pointerdown", hidePopup);
 
     // Add button and text to the container
     popupContainer.add(buttonNo);
@@ -125,48 +218,97 @@ class StableConfigScene extends Phaser.Scene {
      * Help container ends here
      */
 
-
     /**
      * Borrow Tries container starts here
      */
     // Create a container for the popup
     const borrowPopupContainer = this.add.container(0, 0).setDepth(100);
     // Background
-    var infoDialogBG = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0xFFFFFF, 0.5).setOrigin(0);
+    var infoDialogBG = this.add
+      .rectangle(0, 0, window.innerWidth, window.innerHeight, 0xffffff, 0.5)
+      .setOrigin(0);
     borrowPopupContainer.add(infoDialogBG);
     // Dialog
-    var infoDialog = this.add.rectangle((window.innerWidth * 0.5) - 300, (window.innerHeight * 0.5) - 260, 800, 400, 0xffffff, 1).setOrigin(0);
+    var infoDialog = this.add
+      .rectangle(
+        window.innerWidth * 0.5 - 300,
+        window.innerHeight * 0.5 - 260,
+        800,
+        400,
+        0xffffff,
+        1
+      )
+      .setOrigin(0);
     infoDialog.setStrokeStyle(1, 0x1000000, 1);
     borrowPopupContainer.add(infoDialog);
     // Text
-    var borrowInfoDialogTxt = this.add.text((window.innerWidth * 0.5) - 280, (window.innerHeight * 0.5) - 150, 'Do you want to borrow two more attempts.', { fontFamily: "monogram", fontSize: '16px', color: '#000000' }).setOrigin(0);
+    var borrowInfoDialogTxt = this.add
+      .text(
+        window.innerWidth * 0.5 - 280,
+        window.innerHeight * 0.5 - 150,
+        "You finished your attempts, now proceed to next planet.", //Do you want to borrow two more attempts."
+        { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
+      )
+      .setOrigin(0);
     borrowPopupContainer.add(borrowInfoDialogTxt);
 
     // OK Button
-    var buttonYes = this.add.rectangle((window.innerWidth * 0.6) + 50, (window.innerHeight * 0.5) + 25, 100, 50, 0x1a65ac, 1).setOrigin(0);
+    var buttonYes = this.add
+      .rectangle(
+        window.innerWidth * 0.6 + 50,
+        window.innerHeight * 0.5 + 25,
+        100,
+        50,
+        0x1a65ac,
+        1
+      )
+      .setOrigin(0);
     buttonYes.setStrokeStyle(1, 0x1000000, 1);
-    var buttonYesText = this.add.text((window.innerWidth * 0.6) + 80, (window.innerHeight * 0.5) + 30, 'Yes', { fontFamily: "monogram", fontSize: '25px', color: '#ffffff' }).setOrigin(0);
-    buttonYes.setInteractive().on('pointerdown', borrowTries);
+    var buttonYesText = this.add
+      .text(
+        window.innerWidth * 0.6 + 80,
+        window.innerHeight * 0.5 + 30,
+        "Yes",
+        { fontFamily: "monogram", fontSize: "25px", color: "#ffffff" }
+      )
+      .setOrigin(0);
+    buttonYes.setInteractive().on("pointerdown", borrowTries);
     borrowPopupContainer.add(buttonYes);
     borrowPopupContainer.add(buttonYesText);
     // OK Button
-    var buttonNo = this.add.rectangle((window.innerWidth * 0.4) + 50, (window.innerHeight * 0.5) + 25, 100, 50, 0x1a65ac, 1).setOrigin(0);
-    buttonNo.setStrokeStyle(1, 0x1000000, 1);
-    var buttonNoText = this.add.text((window.innerWidth * 0.4) + 80, (window.innerHeight * 0.5) + 30, 'No', { fontFamily: "monogram", fontSize: '25px', color: '#ffffff' }).setOrigin(0);
-    buttonNo.setInteractive().on('pointerdown', hideBorrowPopup);
+    // var buttonNo = this.add
+    //   .rectangle(
+    //     window.innerWidth * 0.4 + 50,
+    //     window.innerHeight * 0.5 + 25,
+    //     100,
+    //     50,
+    //     0x1a65ac,
+    //     1
+    //   )
+    //   .setOrigin(0);
+    // buttonNo.setStrokeStyle(1, 0x1000000, 1);
+    // var buttonNoText = this.add
+    //   .text(window.innerWidth * 0.4 + 80, window.innerHeight * 0.5 + 30, "No", {
+    //     fontFamily: "monogram",
+    //     fontSize: "25px",
+    //     color: "#ffffff",
+    //   })
+    //   .setOrigin(0);
+    // buttonNo.setInteractive().on("pointerdown", hideBorrowPopup);
 
-    // Add button and text to the container
-    borrowPopupContainer.add(buttonNo);
-    borrowPopupContainer.add(buttonNoText);
+    // // Add button and text to the container
+    // borrowPopupContainer.add(buttonNo);
+    // borrowPopupContainer.add(buttonNoText);
 
     // Initially, hide the popup
     borrowPopupContainer.setVisible(false);
 
     // Function to hide the popup
     function hideBorrowPopup() {
-      this.hasBorrowedTries = false
+      // this.hasBorrowedTries = false;
       borrowPopupContainer.setVisible(false);
-      self.handleRoundComplete()
+      // self.handleRoundComplete();
+      self.handleRoundCompleteAttempts();
     }
 
     // Function to show the popup
@@ -175,52 +317,61 @@ class StableConfigScene extends Phaser.Scene {
     }
 
     function borrowTries() {
+      // this.scene.restart();
       this.hasBorrowedTries = false;
-      this.trialCount += 2;
-      hideBorrowPopup()
+      // this.attemptsCount += 2;
+      hideBorrowPopup();
+      // this.scene.remove('stableConfigScene', StableConfigScene);
+			// var stableConfigScene = new StableConfigScene(this.gameData);
+			// this.scene.add('stableConfigScene', stableConfigScene);
+			// this.scene.start('stableConfigScene');
     }
 
     /**
-  * Borrow Tries container ends here
-  */
-
+     * Borrow Tries container ends here
+     */
 
     const constants = {
       screenWidth: this.scale.width,
       screenHeight: this.scale.height,
     };
 
-    this.gameData.api.creteBorderBox(constants.screenWidth * 0.03,  constants.screenHeight * 0.3, constants.screenWidth * .55,constants.screenHeight * .15, this.add)
+    this.gameData.api.creteBorderBox(
+      constants.screenWidth * 0.03,
+      constants.screenHeight * 0.25,
+      constants.screenWidth * 0.55,
+      constants.screenHeight * 0.15,
+      this.add
+    );
 
     this.add.text(
       constants.screenWidth * 0.045,
-      constants.screenHeight * 0.3,
-      'According to your planet, the cost of one leaf for each type is following:',
+      constants.screenHeight * 0.25,
+      "According to your planet, the cost of one leaf for each type is as follows:",
       {
         fontFamily: "monogram",
         fontSize: "18px",
         color: "#000000",
-      })
+      }
+    );
 
     // leaves and costs
-    for (let i = 0; i < this.gameData.plants.length; i++) {
-      const xPos = constants.screenWidth * (0.05 + (i * 0.1));
-      const yPos = constants.screenHeight * 0.35;
+
+    const imgindex = +localStorage.getItem("imgindex");
+
+    for (let i = 0; i < costsArray[imgindex].leaves.length; i++) {
+      const xPos = constants.screenWidth * (0.05 + i * 0.1);
+      const yPos = constants.screenHeight * 0.3;
       const costPerUnitText = ":";
       const plantKey = `plant${i + 1}`;
-      const plantCost = this.gameData.plants[i].cost;
+      const plantCost = costsArray[imgindex].leaves[i].cost;
 
       this.add.image(xPos, yPos + 20, plantKey).setScale(0.1);
-      this.add.text(
-        xPos + 50,
-        yPos,
-        `${costPerUnitText} ${plantCost}`,
-        {
-          fontFamily: "monogram",
-          fontSize: "18px",
-          color: "#000000",
-        }
-      );
+      this.add.text(xPos + 50, yPos, `${costPerUnitText} ${plantCost}`, {
+        fontFamily: "monogram",
+        fontSize: "18px",
+        color: "#000000",
+      });
     }
 
     //budget information
@@ -234,20 +385,21 @@ class StableConfigScene extends Phaser.Scene {
 
     // this.budget.setText("Try to help me to select range of each leaf (or a few leaves) for which I can find a solution for the better fitness of Shub \n Available Budget: " + this.Budget);
     this.budget = this.add.text(
-      window.innerWidth * 0.05 + 50,
-      (window.innerHeight * 0.57),
-      'Try to help me to select range of each leaf (or a few leaves) for which I can find a solution for the better fitness of Shub \n Available Budget:',
+      window.innerWidth * 0.03 + 15,
+      window.innerHeight * 0.52,
+      "AlienNutriSolver: Select the range of admissible values for each leaf. These ranges constraint the space of cases in which \n I can look for recommending you the most suitable diet to feed Shub. \n \n Available Budget:",
       { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
     );
 
+    this.updateBudget();
 
     //Round information
     this.RoundTextContainer = this.add.text(
       window.innerWidth * 0.48,
-      window.innerHeight * 0.03,
-      "Test Case No : " + this.gameData.testno,
+      window.innerHeight * 0.02,
+      "Planet No : " + this.gameData.testno,
       { fontFamily: "monogram", fontSize: "30px", color: "#000000" }
-    ).setOrigin(0, 0);
+    );
 
     // this.levelTextContainer = this.add.text(
     //   window.innerWidth * 0.49,
@@ -255,7 +407,6 @@ class StableConfigScene extends Phaser.Scene {
     //   "Level : " + this.gameData.trialCount + 1,
     //   { fontFamily: "monogram", fontSize: "24px", color: "#000000" }
     // ).setOrigin(0, 0);
-
 
     // You can trigger the popup to show or hide based on game events or user actions
     // For example, when the player clicks a button, you can call showPopup() to display it.
@@ -268,8 +419,10 @@ class StableConfigScene extends Phaser.Scene {
     for (let i = 0; i < 5; i++) {
       const plantImage = this.add
         .image(startX + i * xOffset, startY, "plant" + (i + 1))
-        .setScale(0.1).setDepth(0);
-      const plantValue = this.gameData.testInstances[this.gameData.blockCount - 1][i];
+        .setScale(0.1)
+        .setDepth(0);
+      const plantValue =
+        this.gameData.testInstances[this.gameData.testno - 1][i];
 
       // Setting the min value to the min of dropdown.
       // this.gameData.dropDownRanges.at(i).min = this.gameData.testInstances[0][i];
@@ -277,23 +430,21 @@ class StableConfigScene extends Phaser.Scene {
 
       const posX = startX + i * xOffset + window.innerWidth * 0.02;
 
-      this.add.text(
-        posX,
-        startY,
-        `x ${plantValue}`,
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
+      this.add.text(posX, startY, `x ${plantValue}`, {
+        fontFamily: "monogram",
+        fontSize: "20px",
+        color: "#000000",
+      });
     }
 
-
     const start_X = window.innerWidth * 0.05;
-    const start_Y = window.innerHeight * 0.490;
+    const start_Y = window.innerHeight * 0.49;
     scale = 0.1;
 
     this.add.text(
       window.innerWidth * 0.025,
       window.innerHeight * 0.05,
-      "Example diet with no positive outcome.",
+      "Example of diet with no positive outcome.",
       { fontFamily: "monogram", fontSize: "18px", color: "#000000" }
     );
 
@@ -315,7 +466,9 @@ class StableConfigScene extends Phaser.Scene {
       //   window.innerHeight * 0.5,
       //   [buttonFeed, textFeedback]
       // );
-    } else {
+    } 
+    else 
+    {
       this.gameData.oldNumber = this.gameData.newNumber;
 
       const plantY = 0.7;
@@ -330,17 +483,28 @@ class StableConfigScene extends Phaser.Scene {
       // );
 
       const numPlants = 5;
+      const imgindex = +localStorage.getItem("imgindex");
 
-      for (let i = 0; i <= numPlants; i++) {
+      for (let i = 1; i <= numPlants; i++) 
+      {
         let xPosition = window.innerWidth * (0.04 + (i - 1) * 0.15);
 
-        let buttonUpVar1 = this.add.image(xPosition + 0.05 + window.innerWidth * 0.05, window.innerHeight * (plantY - 0.05), 'buttonUp').setScale(0.3)
+        let buttonUpVar1 = this.add
+          .image(
+            xPosition + 0.05 + window.innerWidth * 0.05,
+            window.innerHeight * (plantY - 0.05),
+            "buttonUp"
+          )
+          .setScale(0.3)
           .setInteractive()
-          .on('pointerdown', () => {
+          .on("pointerdown", () => {
             // this.gameData[`clickCountVar${i}`] *
-            if (this.gameData[`clickCountVar${i}`] < 6 && this.currentBudget >= this.gameData.plants.at(i-1).cost) {
+            if (
+              this.gameData[`clickCountVar${i}`] < 6 &&
+              this.currentBudget >= costsArray[imgindex].leaves[i - 1].cost
+            ) {
               this.gameData[`clickCountVar${i}`]++;
-              clickCountTextVar.setText(this.gameData[`clickCountVar${i}`])
+              clickCountTextVar.setText(this.gameData[`clickCountVar${i}`]);
               this.updateBudget();
             }
           });
@@ -353,12 +517,19 @@ class StableConfigScene extends Phaser.Scene {
         );
 
         let plantImage = this.add
-          .image(xPosition, window.innerHeight * plantY-.05, "plant" + i).setDepth(0)
+          .image(xPosition, window.innerHeight * plantY - 0.05, "plant" + i)
+          .setDepth(0)
           .setScale(0.1);
 
-        let buttonDownVar = this.add.image(xPosition + 0.05 + window.innerWidth * 0.05, window.innerHeight * (plantY + 0.04), 'buttonDown').setScale(0.3)
+        let buttonDownVar = this.add
+          .image(
+            xPosition + 0.05 + window.innerWidth * 0.05,
+            window.innerHeight * (plantY + 0.04),
+            "buttonDown"
+          )
+          .setScale(0.3)
           .setInteractive()
-          .on('pointerdown', () => {
+          .on("pointerdown", () => {
             if (this.gameData[`clickCountVar${i}`] > 0) {
               this.gameData[`clickCountVar${i}`]--;
               clickCountTextVar.setText(this.gameData[`clickCountVar${i}`]);
@@ -367,7 +538,6 @@ class StableConfigScene extends Phaser.Scene {
           });
       }
 
-      
       if (this.gameData.attentionTrials.includes(this.gameData.trialCount)) {
         var stableScene = undefined;
         const buttonFeed = this.add
@@ -376,26 +546,24 @@ class StableConfigScene extends Phaser.Scene {
           .setInteractive()
           .on("pointerdown", () => {
             this.logTimeFeed();
+            this.gameData.budget = this.currentBudget;
+
             stableScene = new StableScene(this.gameData);
             this.scene.remove("stableScene", stableScene);
             this.scene.add("stableScene", stableScene);
             this.scene.start("stableScene");
           });
 
-          
-      //Attempts count
-      this.triesText = this.add.text(
-        window.innerWidth * 0.8
-        (window.innerHeight * 0.55) - 10,
-        "Attempts Left  :" + this.attemptsCount,
-        { fontFamily: "Ariel", fontSize: "16px", color: "#000000" }
-      );
-
-
+        //Attempts count
+        this.triesText = this.add.text(
+          window.innerWidth * 0.8(window.innerHeight * 0.55) - 10,
+          "Available Attempts :" + this.attemptsCount,
+          { fontFamily: "Ariel", fontStyle: "bold", fontSize: "16px", color: "#000000" }
+        );
 
         var textFeed = this.add
-          .text(-70, -15, "Check Solutions", {
-            fontSize: "20px",
+          .text(-80, -18, "Check Solutions", {
+            fontSize: "18px",
             color: "#ffffff",
           })
           .setOrigin(0);
@@ -405,7 +573,9 @@ class StableConfigScene extends Phaser.Scene {
           window.innerHeight * 0.75,
           [buttonFeed, textFeed]
         );
-      } else {
+      } 
+      else 
+      {
         const buttonFeed = this.add
           .image(0, 0, "buttonFeed")
           .setScale(0.4)
@@ -415,7 +585,10 @@ class StableConfigScene extends Phaser.Scene {
 
             let isDataChanged = false;
             for (let i = 0; i < 6; i++) {
-              if (this.gameData[`clickCountVarMax${i}`] != this.gameData[`clickCountVar${i}`]) {
+              if (
+                this.gameData[`clickCountVarMax${i}`] !=
+                this.gameData[`clickCountVar${i}`]
+              ) {
                 isDataChanged = true;
                 break;
               }
@@ -423,21 +596,31 @@ class StableConfigScene extends Phaser.Scene {
 
             if (!isDataChanged) {
               this.gameData.showWrongRangeSelectionMessage = true;
-              if (!this.gameData.isStableConfigured && this.gameData.showWrongRangeSelectionMessage) {
+              if (
+                !this.gameData.isStableConfigured &&
+                this.gameData.showWrongRangeSelectionMessage
+              ) {
                 this.add.text(
                   window.innerWidth * 0.025,
-                  window.innerHeight * 0.47,
-                  "Unfortunately your chosen combination of plants or leaf values could not produce a positive impact, you can also ask for help",
+                  window.innerHeight * 0.42,
+                  "Unfortunately, your selection of ranges was to strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
                   { fontFamily: "monogram", fontSize: "20px", color: "#FF0000" }
                 );
-                helpContainer.setVisible(true)
+                helpContainer.setVisible(true);
                 let differenceLeaves = [];
                 for (let i = 0; i < this.diffCountVars?.length; i++) {
                   if (this.diffCountVars[i] > 0) {
-                    differenceLeaves.push(this.gameData.plants.at(i).image.trim().split('/').at(-1).split('.').at(0))
+                    differenceLeaves.push(
+                      this.gameData.plants
+                        .at(i)
+                        .image.trim()
+                        .split("/")
+                        .at(-1)
+                        .split(".")
+                        .at(0)
+                    );
                   }
                 }
-
               }
               this.update();
               return;
@@ -449,109 +632,195 @@ class StableConfigScene extends Phaser.Scene {
             loadingContainer.setVisible(true);
 
             this.gameData.shubOldHealth.push(this.gameData.health);
-            this.gameData.api.computeNewShubNo(this.gameData).then((newShubData) => {
-              this.attemptsCount--;
-              loadingContainer.setVisible(false);
-              buttonContainer.setVisible(true);
-              if (newShubData?.cur_pred || this.attemptsCount == 0) {
-                this.gameData.isStableConfigured = true
-                this.gameData.showWrongRangeSelectionMessage = false
-                //this.health += 5;
-                // this.gameData.health =  this.health;
-                // this.gameData.blockCount++;
-                this.gameData.trialCount = 0;
-                this.trialCountLimit = this.gameData.trialCountLimit;
+            this.gameData.api
+              .computeNewShubNo(this.gameData)
+              .then((newShubData) => 
+              {
+                this.attemptsCount--;
+                loadingContainer.setVisible(false);
+                buttonContainer.setVisible(true);
+                if (newShubData?.cur_pred) { //|| this.attemptsCount == 0
+                  this.gameData.isStableConfigured = true;
+                  this.gameData.showWrongRangeSelectionMessage = false;
+                  //this.health += 5;
+                  // this.gameData.health =  this.health;
+                  this.gameData.blockCount++;
+                  this.gameData.trialCount = 0;
+                  this.trialCountLimit = this.gameData.trialCountLimit;
 
-                this.gameData.cur_pred = newShubData?.cur_pred;
-                this.gameData.cur_pred = 1
-                
-                /*
-                *If tries count is 0 that mean that user failed to get a range that is within the acceptable range
-                *In that case we are setting the predicted value and moving to the next screen forcefully
-                */
-                
-                if(this.attemptsCount == 0){
-                  const values = Object.values(newShubData.counterfactualCountVars)
-                  for(let i =0; i< values?.length; i++){
-                    // this.gameData.dropDownRanges.at(i).max = values.at(i);
-                    this.gameData['clickCountVar'+i] = values.at(i)
-                  }
-                }
+                  this.gameData.cur_pred = newShubData?.cur_pred;
+                  //this.gameData.cur_pred = 1;
 
-                this.handleRoundComplete(newShubData?.cur_pred || this.attemptsCount == 0)
-              } else {
-                this.triesText.setText("Attempts left:" + this.attemptsCount);
-                this.gameData.showWrongRangeSelectionMessage = true
-                this.gameData.isStableConfigured = false
-                if (!this.gameData.isStableConfigured && this.gameData.showWrongRangeSelectionMessage) {
-                  if (this.errorText) {
-                    this.errorText.destroy()
-                  }
-                  this.errorText = this.add.text(
-                    window.innerWidth * 0.025,
-                    window.innerHeight * 0.47,
-                    "Unfortunately your chosen combination of plants or leaf values could not produce a positive impact, you can also ask for help.",
-                    { fontFamily: "monogram", fontSize: "20px", color: "#FF0000" }
-                  );
-                  this.diffCountVars = Object.values(newShubData?.diffCountVars)
-                  helpContainer.setVisible(true)
-                  let differenceLeaves = [];
-                  for (let i = 0; i < this.diffCountVars?.length; i++) {
-                    if (this.diffCountVars[i] > 0) {
-                      differenceLeaves.push(this.gameData.plants.at(i).image.trim().split('/').at(-1).split('.').at(0))
+                  /*
+                   *If tries count is 0 that mean that user failed to get a range that is within the acceptable range
+                   *In that case we are setting the predicted value and moving to the next screen forcefully
+                   */
+
+                  if (this.attemptsCount == 0) {
+                    const values = Object.values(
+                      newShubData.counterfactualCountVars
+                    );
+                    for (let i = 0; i < values?.length; i++) {
+                      // this.gameData.dropDownRanges.at(i).max = values.at(i);
+                      this.gameData["clickCountVar" + i] = values.at(i);
                     }
+                    // var stableConfigScene = undefined;
+                    // // add button to submit new input - change scene when pressed!
+                    // const buttonFeed = this.add
+                    //       .image(0, 0, "buttonFeed")
+                    //       .setScale(0.4)
+                    //       .setInteractive()
+                    //       .on("pointerdown", () => this.logTimeFeed())
+                    //       .on("pointerdown", () => {
+                    //         this.gameData.testno += 1;
+                    //         stableConfigScene = new StableConfigScene(this.gameData);
+                    //       })
+                    //       .on("pointerdown", () =>
+                    //         this.scene.remove("stableConfigScene", stableConfigScene)
+                    //       )
+                    //       .on("pointerdown", () =>
+                    //         this.scene.add("stableConfigScene", stableConfigScene)
+                    //       )
+                    //       .on("pointerdown", () => this.scene.start("stableConfigScene"));
+
+                    //     var textFeed = this.add
+                    //       .text(-70, -15, "Next Test Case!", {
+                    //         fontSize: "20px",
+                    //         color: "#ffffff",
+                    //       })
+                    //       .setOrigin(0);
+                    //     var buttonContainer = this.add.container(
+                    //       window.innerWidth * 0.8,
+                    //       window.innerHeight * 0.6,
+                    //       [buttonFeed, textFeed]
+                    //     );
                   }
-                  // if(differenceLeaves){
-                  //   var infoDialogTxt = this.add.text((window.innerWidth * 0.5)-150, (window.innerHeight * 0.5)-200, 'Suggestion 1:\nYour results would have been better if you had \n changed'+ differenceLeaves.toString(), { fontFamily: "monogram", fontSize: '18px', color: '#000000', align: 'center' }).setOrigin(0);
-                  //   popupContainer.add(infoDialogTxt)
-                  // }
+
+                  this.handleRoundComplete(
+                    newShubData?.cur_pred //|| this.attemptsCount == 0
+                  );
+                } 
+                else 
+                {
+                  this.triesText.setText("Available Attempts:" + this.attemptsCount);
+                  this.gameData.showWrongRangeSelectionMessage = true;
+                  this.gameData.isStableConfigured = false;
+                  if (
+                    !this.gameData.isStableConfigured &&
+                    this.gameData.showWrongRangeSelectionMessage
+                  ) {
+                    if (this.errorText) {
+                      this.errorText.destroy();
+                    }
+                    this.errorText = this.add.text(
+                      window.innerWidth * 0.025,
+                      window.innerHeight * 0.42,
+                      "Unfortunately, your selection of ranges was to strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
+                      {
+                        fontFamily: "monogram",
+                        fontSize: "20px",
+                        color: "#FF0000",
+                      }
+                    );
+                    this.diffCountVars = Object.values(
+                      newShubData?.diffCountVars
+                    );
+                    helpContainer.setVisible(true);
+                    let differenceLeaves = [];
+                    for (let i = 0; i < this.diffCountVars?.length; i++) {
+                      if (this.diffCountVars[i] > 0) {
+                        differenceLeaves.push(
+                          this.gameData.plants
+                            .at(i)
+                            .image.trim()
+                            .split("/")
+                            .at(-1)
+                            .split(".")
+                            .at(0)
+                        );
+                      }
+                    }
+                    // if(differenceLeaves){
+                    //   var infoDialogTxt = this.add.text((window.innerWidth * 0.5)-150, (window.innerHeight * 0.5)-200, 'Suggestion 1:\nYour results would have been better if you had \n changed'+ differenceLeaves.toString(), { fontFamily: "monogram", fontSize: '18px', color: '#000000', align: 'center' }).setOrigin(0);
+                    //   popupContainer.add(infoDialogTxt)
+                    // }
+                  }
+                  this.update();
                 }
-                this.update();
-              }
-              // Increasing level count after every try
-              // this.gameData.trialCount++;
+                // Increasing level count after every try
+                // this.gameData.trialCount++;
 
+                // Change the color of shub after each round.
+                if (this.gameData.trialCount % 2 == 0) {
+                  thisShub.setTint(0xff0000);
+                } else {
+                  thisShub.clearTint();
+                }
+                var idx;
+                if (
+                  this.gameData.trialCount % this.gameData.numTrialsPerBlock ==
+                  0
+                ) {
+                  idx = this.gameData.numTrialsPerBlock;
+                } else {
+                  idx =
+                    this.gameData.trialCount % this.gameData.numTrialsPerBlock;
+                }
+                this.gameData.in_array[idx] = [
+                  this.gameData.clickCountVar1,
+                  this.gameData.clickCountVar2,
+                  this.gameData.clickCountVar3,
+                  this.gameData.clickCountVar4,
+                  this.gameData.clickCountVar5,
+                ];
+                this.gameData.cf_array.push([
+                  newShubData?.counterfactualCountVars.Var1,
+                  newShubData?.counterfactualCountVars.Var2,
+                  newShubData?.counterfactualCountVars.Var3,
+                  newShubData?.counterfactualCountVars.Var4,
+                  newShubData?.counterfactualCountVars.Var5,
+                ]);
+                this.gameData.rand_array[idx] = [
+                  Phaser.Math.Between(0, 6),
+                  Phaser.Math.Between(0, 6),
+                  Phaser.Math.Between(0, 6),
+                  Phaser.Math.Between(0, 6),
+                  Phaser.Math.Between(0, 6),
+                ];
+                // this.varObj.old_pred[idx] = this.varObj.old_pred; // updated
+                //this.varObj.new_pred[idx] = newShubData?.new_pred; // updated
+                // this.varObj.newNumber = newShubData?.newNumber;
+                this.gameData.cur_pred = 1;
+                // Logging random feedback
+                this.gameData.api.logUserPerformance(
+                  this.gameData.trialCount,
+                  this.gameData.blockCount,
+                  this.gameData.in_array[idx],
+                  this.gameData.cf_array[idx],
+                  this.gameData.old_pred,
+                  this.gameData.newNumber
+                ); //updated
 
+                if (
+                  //this.hasBorrowedTries &&
+                  // this.gameData.trialCount >= this.trialCountLimit &&
+                  this.attemptsCount == 0
+                ) {
+                  showBorrowPopup();
+                } else {
+                  this.handleRoundComplete();
+                }
 
-
-              // Change the color of shub after each round.
-              if (this.gameData.trialCount % 2 == 0) {
-                thisShub.setTint(0xff0000)
-              }
-              else {
-                thisShub.clearTint();
-              }
-              var idx;
-              if (this.gameData.trialCount % this.gameData.numTrialsPerBlock == 0) {
-                idx = this.gameData.numTrialsPerBlock
-              } else {
-                idx = this.gameData.trialCount % this.gameData.numTrialsPerBlock
-              }
-              this.gameData.in_array[idx] = [this.gameData.clickCountVar1, this.gameData.clickCountVar2, this.gameData.clickCountVar3, this.gameData.clickCountVar4, this.gameData.clickCountVar5];
-              this.gameData.cf_array.push([newShubData?.counterfactualCountVars.Var1, newShubData?.counterfactualCountVars.Var2, newShubData?.counterfactualCountVars.Var3, newShubData?.counterfactualCountVars.Var4, newShubData?.counterfactualCountVars.Var5]);
-              this.gameData.rand_array[idx] = [Phaser.Math.Between(0, 6), Phaser.Math.Between(0, 6), Phaser.Math.Between(0, 6), Phaser.Math.Between(0, 6), Phaser.Math.Between(0, 6)];
-              // this.varObj.old_pred[idx] = this.varObj.old_pred; // updated
-              //this.varObj.new_pred[idx] = newShubData?.new_pred; // updated
-              // this.varObj.newNumber = newShubData?.newNumber;
-              this.gameData.cur_pred =1;
-              // Logging random feedback
-              this.gameData.api.logUserPerformance(this.gameData.trialCount, this.gameData.blockCount, this.gameData.in_array[idx], this.gameData.cf_array[idx], this.gameData.old_pred, this.gameData.newNumber); //updated
-
-              if (this.hasBorrowedTries && this.gameData.trialCount >= this.trialCountLimit) {
-                showBorrowPopup();
-              } else {
-                this.handleRoundComplete()
-              };
-
-              // this.levelTextContainer.setText("Level : " + (parseInt(this.gameData.trialCount) + 1));
-              this.RoundTextContainer.setText("Test Case No : " + this.gameData.testno);
-              this.gameData.shubNewHealth.push(this.gameData.health);
-            });
-
+                // this.levelTextContainer.setText("Level : " + (parseInt(this.gameData.trialCount) + 1));
+                this.RoundTextContainer.setText(
+                  "Planet No : " + this.gameData.testno
+                );
+                this.gameData.shubNewHealth.push(this.gameData.health);
+              });
           });
 
         var textFeed = this.add
-          .text(-70, -20, "Check Solutions!", {
+          .text(-80, -18, "Check Solutions!", {
             fontSize: "18px",
             color: "#ffffff",
           })
@@ -564,13 +833,12 @@ class StableConfigScene extends Phaser.Scene {
         );
 
         //Attempts count
-      this.triesText = this.add.text(
-        window.innerWidth * 0.8,
-        (window.innerHeight * 0.65) - 20,
-        "Attempts Left  :" + this.attemptsCount,
-        { fontFamily: "Ariel", fontSize: "16px", color: "#000000" }
-      );
-
+        this.triesText = this.add.text(
+          window.innerWidth * 0.8,
+          window.innerHeight * 0.65 - 20,
+          "Available Attempts :" + this.attemptsCount,
+          { fontFamily: "Ariel", fontSize: "16px", color: "#000000" }
+        );
       }
     }
 
@@ -581,20 +849,15 @@ class StableConfigScene extends Phaser.Scene {
       })
       .setOrigin(0);
 
-    const loadingButton = this.add
-      .image(0, 0, "buttonFeed")
-      .setScale(0.4)
-
+    const loadingButton = this.add.image(0, 0, "buttonFeed").setScale(0.4);
 
     var loadingContainer = this.add.container(
       window.innerWidth * 0.85,
       window.innerHeight * 0.7,
       [loadingButton, loadingText]
     );
-
-
     var helpText = this.add
-      .text(-70, -15, "Help!", {
+      .text(-70, -15, "  Help!", {
         fontSize: "20px",
         color: "#ffffff",
       })
@@ -606,17 +869,15 @@ class StableConfigScene extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         showPopup();
-      })
-
+      });
 
     var helpContainer = this.add.container(
-      window.innerWidth * 0.8,
+      window.innerWidth * 0.85,
       window.innerHeight * 0.55,
-      [helpButton
-        , helpText]
-    )
+      [helpButton, helpText]
+    );
 
-    helpContainer.setVisible(false)
+    helpContainer.setVisible(false);
     loadingContainer.setVisible(false);
 
     let xInPercentage, yInPercentage, widthInPercentage, heightInPercentage;
@@ -653,21 +914,12 @@ class StableConfigScene extends Phaser.Scene {
     // };
     // this.anims.create(coins);
 
-
-
-
     const subXposition = xInPixels / 2 + 688;
 
-
     const percentage = this.gameData.health / 25;
-    const subYPosition = yInPixels + 140 - (percentage * 140);
+    const subYPosition = yInPixels + 140 - percentage * 140;
 
-    var thisShub = this.add.sprite(
-      subXposition,
-      subYPosition,
-      "shub",
-      0
-    );
+    var thisShub = this.add.sprite(subXposition, subYPosition, "shub", 0);
     thisShub.displayWidth = 60;
     thisShub.scaleY = thisShub.scaleX;
     thisShub.anims.delayedPlay(
@@ -675,7 +927,6 @@ class StableConfigScene extends Phaser.Scene {
       "move",
       Phaser.Math.Between(0, 9)
     );
-
 
     // Adding coin sprite and animating it.
     // var thisCoins = this.add.sprite(
@@ -699,6 +950,7 @@ class StableConfigScene extends Phaser.Scene {
 
   clickBtnFeedback() {
     this.logTimeFeedback();
+    this.gameData.budget = this.currentBudget;
     var feedbackScene = new FeedbackScene(this.gameData);
     this.scene.remove("feedbackScene", feedbackScene);
     this.scene.add("feedbackScene", feedbackScene);
@@ -725,9 +977,17 @@ class StableConfigScene extends Phaser.Scene {
     );
   }
 
-  update() { }
+  update() {}
 
-  createDropdown = (dropdownX, dropdownY, variable, textField, min, max, idx) => {
+  createDropdown = (
+    dropdownX,
+    dropdownY,
+    variable,
+    textField,
+    min,
+    max,
+    idx
+  ) => {
     // Dropdown content and style
     let dropdownItems = [];
     while (max - min >= 0) {
@@ -846,14 +1106,14 @@ class StableConfigScene extends Phaser.Scene {
     graphics.fillStyle(0x333333, 1);
     graphics.fillRect(x - 5, y, 15, sliderHeight);
 
-    this.add.text(x,y-18,"Fitness Levels", {
+    this.add.text(x, y - 18, "Fitness Levels", {
       fontFamily: "Ariel",
       fontSize: "10px",
       color: "#000000",
-      fontWeight: 'bold'
+      fontWeight: "bold",
     });
 
-    const indicatorY = y + sliderHeight - (percentage * sliderHeight);
+    const indicatorY = y + sliderHeight - percentage * sliderHeight;
     this.healthIndicator = this.add.graphics();
     this.healthIndicator.fillStyle(0xff0000, 1);
     this.healthIndicator.fillRect(x - 5, indicatorY, 25, 5);
@@ -861,26 +1121,26 @@ class StableConfigScene extends Phaser.Scene {
     for (let i = 0; i < 6; i++) {
       const stepValue = min + (range / 5) * i;
       const stepPercentage = (stepValue - min) / range;
-      const stepY = y + sliderHeight - (stepPercentage * sliderHeight);
+      const stepY = y + sliderHeight - stepPercentage * sliderHeight;
 
-      this.add.text(x + 10, stepY - 10,"  Level-"+ stepValue, {
+      this.add.text(x + 10, stepY - 10, "  Level-" + stepValue, {
         fontFamily: "Ariel",
         fontSize: "11px",
         color: "#000000",
-        fontWeight: 'bold'
+        fontWeight: "bold",
       });
     }
   }
 
-
   // Updates budget .
   updateBudget() {
+    const imgindex = +localStorage.getItem("imgindex");
     const totalCost =
-      this.gameData.clickCountVar1 * this.gameData.plants.at(0).cost +
-      this.gameData.clickCountVar2 * this.gameData.plants.at(1).cost +
-      this.gameData.clickCountVar3 * this.gameData.plants.at(2).cost +
-      this.gameData.clickCountVar4 * this.gameData.plants.at(3).cost +
-      this.gameData.clickCountVar5 * this.gameData.plants.at(4).cost;
+      this.gameData.clickCountVar1 * costsArray[imgindex].leaves[0].cost +
+      this.gameData.clickCountVar2 * costsArray[imgindex].leaves[1].cost +
+      this.gameData.clickCountVar3 * costsArray[imgindex].leaves[2].cost +
+      this.gameData.clickCountVar4 * costsArray[imgindex].leaves[3].cost +
+      this.gameData.clickCountVar5 * costsArray[imgindex].leaves[4].cost;
 
     // Ensure the totalCost does not exceed the totalBudget
     const newBudget = Math.max(0, this.totalBudget - totalCost);
@@ -888,8 +1148,11 @@ class StableConfigScene extends Phaser.Scene {
     // Update the currentBudget only if it doesn't go below 0
     if (newBudget >= 0) {
       this.currentBudget = newBudget;
-      this.budget.setText("Try to help me to select range of each leaf (or a few leaves) for which I can find a solution for the better fitness of Shub \n Available Budget: " + this.currentBudget);
-      
+      this.budget.setText(
+        "AlienNutriSolver: Select the range of admissible values for each leaf. These ranges constraint the space of cases in which \n I can look for recommending you the most suitable diet to feed Shub. \n \n Available Budget: " +
+          this.currentBudget
+      );
+
       // // additional text
       // this.add.text(
       //   window.innerWidth * 0.05 + 50,
@@ -899,7 +1162,6 @@ class StableConfigScene extends Phaser.Scene {
       // );
     }
   }
-
 
   // Finds the array with highest sum from the arrays.
   findArrayWithHighestSum(arrays) {
@@ -925,22 +1187,52 @@ class StableConfigScene extends Phaser.Scene {
 
   handleRoundComplete(changeRound) {
     // If user have played total rounds rounds then reset the trial count and move to next stage
-    if (this.health == 25 || this.gameData.trialCount >= this.trialCountLimit || changeRound) {
-      this.gameData.isStableConfigured = true
-      this.gameData.showWrongRangeSelectionMessage = false
+    if (
+      this.health == 25 ||
+      this.attemptsCount == 0 ||
+      changeRound
+    ) {
+      this.gameData.isStableConfigured = true;
+      this.gameData.showWrongRangeSelectionMessage = false;
       // this.gameData.blockCount++;
-      this.gameData.trialCount = 0
+      this.gameData.trialCount = 0;
       // var feedbackScene = new FeedbackScene(this.gameData);
       // this.scene.remove("feedbackScene", feedbackScene);
       // this.scene.add("feedbackScene", feedbackScene);
       // this.scene.start("feedbackScene");
-
+      this.gameData.budget = this.currentBudget;
+      this.gameData.cur_pred = 0;
       var stableScene = new StableScene(this.gameData);
       this.scene.remove("stableScene", stableScene);
       this.scene.add("stableScene", stableScene);
       this.scene.start("stableScene");
     }
   }
+
+  handleRoundCompleteAttempts(changeRound) {
+    // If user have played total rounds rounds then reset the trial count and move to next stage
+    if (
+      this.health == 25 ||
+      this.attemptsCount == 0 ||
+      changeRound
+    ) {
+      this.gameData.isStableConfigured = true;
+      this.gameData.showWrongRangeSelectionMessage = false;
+      // this.gameData.blockCount++;
+      this.gameData.trialCount = 0;
+      // var feedbackScene = new FeedbackScene(this.gameData);
+      // this.scene.remove("feedbackScene", feedbackScene);
+      // this.scene.add("feedbackScene", feedbackScene);
+      // this.scene.start("feedbackScene");
+      this.gameData.budget = this.currentBudget;
+      this.gameData.cur_pred = 0;
+			var progressScene = new ProgressScene(this.gameData);
+			this.scene.remove('progressScene', ProgressScene);
+      this.scene.add('progressScene', progressScene);
+			this.scene.start('progressScene');
+    }
+  }
+  
 }
 
 export default StableConfigScene;

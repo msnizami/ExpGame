@@ -27,6 +27,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 	preload() {
 		// load button images
 		this.load.spritesheet('checkbox', 'static/CheckBoxSprites.png', { frameWidth: 51, frameHeight: 50 });
+		this.load.image('buttonFeed', 'static/buttonSubmit.png');
 	}
 
 	create() {
@@ -34,7 +35,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 		this.children.removeAll();
 
 		var qIntro1 = [
-			'To complete the study, please answer the following 10 questions.',
+			'To complete the study, please answer the following questions.',
 		]
 
 		var qIntro2 = [
@@ -48,7 +49,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 
 		if (this.gameData.api.controlGroup) {
 			var item9 = [
-				"9. I think most people would learn to work with the overview of their past choices very quickly."
+				"9. I think most people would learn to work with the feedback on what choice would have led to a better result very quickly."
 			];
 		} else {
 		var item9 = [
@@ -224,11 +225,11 @@ class QuestionnaireScene4 extends Phaser.Scene {
 
 		if (this.gameData.api.controlGroup) {
 			var item10 = [
-				"10. I received the overview of my past choices in a timely and efficient manner."
+				"10. I received the suggestions on what choice would have led to a better result in a timely and efficient manner."
 			];
 		} else {
 		var item10 = [
-			"10. I received the feedback on what choice would have led to a better result in a timely and efficient manner."
+			"10. I received the suggestions on what choice would have led to a better result in a timely and efficient manner."
 			//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
 		];
 		}
@@ -407,7 +408,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 			.on('pointerdown', () => this.onBtnContinue());
 
 		var textContinue = this.add.text(-50, -15, 'Continue!', { fontSize: '18px', color: '#ffffff' })
-		var buttonContainer = this.add.container(window.innerWidth * 0.85, window.innerHeight * 0.80, [buttonContinue, textContinue])
+		var buttonContainer = this.add.container(window.innerWidth * 0.92, window.innerHeight * 0.76, [buttonContinue, textContinue])
 
 	}
 

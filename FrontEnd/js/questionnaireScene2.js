@@ -33,6 +33,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 	preload() {
 		// load button images
 		this.load.spritesheet('checkbox', 'static/CheckBoxSprites.png', { frameWidth: 51, frameHeight: 50 });
+		this.load.image('buttonFeed', 'static/buttonSubmit.png');
 	}
 
 	create() {
@@ -40,7 +41,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		this.children.removeAll();
 
 		var qIntro1 = [
-			'To complete the study, please answer the following 10 questions.',
+			'To complete the study, please answer the following questions.',
 		]
 
 		var qIntro2 = [
@@ -55,11 +56,11 @@ class QuestionnaireScene2 extends Phaser.Scene {
 
 		if (this.gameData.api.controlGroup) {
 			var item3 = [
-				"3. I understood the overview of my past choices."
+				"3. I understood the suggestions on what choice would have led to a better result."
 			];
 		} else {
 		var item3 = [
-			"3. I understood the feedback on what choice would have led to a better result."
+			"3. I understood the suggestions on what choice would have led to a better result."
 		];
 		}
 
@@ -230,11 +231,11 @@ class QuestionnaireScene2 extends Phaser.Scene {
 
 		if (this.gameData.api.controlGroup) {
 			var item4 = [
-				"4. I needed support to understand the overview of my past choices."
+				"4. I needed support to understand the selection choices that would have led to a better result."
 			];
 		} else {
 		var item4 = [
-			"4. I needed support to understand the feedback on what choice would have led to a better result."
+			"4. I needed support to understand the selection choices that would have led to a better result."
 		];
 		}
 
@@ -405,11 +406,11 @@ class QuestionnaireScene2 extends Phaser.Scene {
 
 		if (this.gameData.api.controlGroup) {
 			var item5 = [
-				"5. I found that the overview of my past choices helped me to increase the number of Shubs."
+				"5. I found that counterfactual explanations helped me to increase the health of Shub."
 			];
 		} else {
 		var item5 = [
-				"5. I found that the feedback on what choice would have led to a better result helped me to increase the number of Shubs."
+				"5. I found that counterfactual explanations helped me to increase the health of Shub."
 		];
 		}
 
@@ -587,7 +588,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 			.on('pointerdown', () => this.onBtnContinue());
 
 		var textContinue = this.add.text(-50, -15, 'Continue!', { fontSize: '18px', color: '#ffffff' })
-		var buttonContainer = this.add.container(window.innerWidth * 0.85, window.innerHeight * 0.80, [buttonContinue, textContinue])
+		var buttonContainer = this.add.container(window.innerWidth * 0.92, window.innerHeight * 0.76, [buttonContinue, textContinue])
 
 	}
 

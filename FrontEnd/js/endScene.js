@@ -10,8 +10,8 @@ class EndScene extends Phaser.Scene {
 	preload() {
 		// load button images
 		this.load.spritesheet('checkbox', 'static/CheckBoxSprites.png', { frameWidth: 51, frameHeight: 50 });
-		this.load.image('UBIE', 'static/UBF-logo.png');
-		this.load.image('ITSML', 'static/ITS_ML_logo.png');
+		this.load.image('Uniurb', 'static/uniurb-logo.png');
+		// this.load.image('ITSML', 'static/.png');
 		this.load.image('buttonAgree', 'static/buttonSubmit.png');
 
 	}
@@ -19,8 +19,8 @@ class EndScene extends Phaser.Scene {
 	create() {
 		this.varObj.api.logUserPayment();	// Store (ecrypted) paymentId on server
 
-		this.add.image(window.innerWidth * 0.1, window.innerHeight * 0.1, 'UBIE').setScale(0.15);
-		this.add.image(window.innerWidth * 0.8, window.innerHeight * 0.1, 'ITSML').setScale(0.15);
+		this.add.image(window.innerWidth * 0.1, window.innerHeight * 0.1, 'Uniurb').setScale(0.15);
+		// this.add.image(window.innerWidth * 0.8, window.innerHeight * 0.1, 'ITSML').setScale(0.15);
 
 		var qIntro1 = [
 			'You have completed the study. Thank you very much for your participation!',
@@ -32,7 +32,7 @@ class EndScene extends Phaser.Scene {
 			'',
 			this.varObj.api.paymentId,
 			'',
-			'Note down this code, return to AMT and insert the code into the box to receive your payment.',
+			'Note down this code, return to AMT/Prolific and insert the code into the box to receive your payment.',
 		]
 
 		var qIntro3 = [
@@ -40,7 +40,7 @@ class EndScene extends Phaser.Scene {
 			'',
 			'In case you have further questions or comments regarding this study, please contact',
 			'',
-			'Dr. Ulrike Kuhl at Bielefeld University: ukuhl@techfak.uni-bielefeld.de .',
+			'Mr. Muhammad Suffian at University of Urbino: m.suffian@campus.uniurb.it .',
 			'',
 			'You may close this window now.',
 			''
@@ -49,7 +49,7 @@ class EndScene extends Phaser.Scene {
 		// add button to start game and switch to fullscreen
 		var buttonDebrief = this.add.image(0, 0, 'buttonAgree').setScale(0.65)
 			.setInteractive()
-			.on('pointerdown', () => { window.open('https://its-ml.de/index.php/iazdebrief/'); });
+			.on('pointerdown', () => { window.open('https://www.uniurb.it/ateneo/persone-e-strutture/dipartimenti/dipartimento-di-scienze-pure-e-applicate-dispea/'); });
 
 		var textDebrief = this.add.text(-100, -25, ['I want to learn more','about the study!'], { fontSize: '18px', color: '#ffffff' }).setOrigin(0);
 		var buttonContainer = this.add.container(window.innerWidth * 0.85, window.innerHeight * 0.80, [buttonDebrief, textDebrief])

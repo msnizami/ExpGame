@@ -127,7 +127,7 @@ class AttentionScene extends Phaser.Scene {
 				buttonOK.setStrokeStyle(1, 0x1000000, 1);
 				var buttontextOK = this.add.text((window.innerWidth * 0.5)+80, (window.innerHeight * 0.5)+35, 'Ok', { fontFamily: "monogram", fontSize: '25px', color: '#FFFFFF' }).setOrigin(0);
 
-				var progressScene = new ProgressScene(this.varObj);
+				var progressScene = new ProgressScene(this.gameData);
 
 				buttonOK
 					.setInteractive()

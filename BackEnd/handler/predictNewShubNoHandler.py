@@ -104,7 +104,7 @@ class PredictNewShubNoHandler(BasisRequestHandler):
         # SNnew = int(np.floor(cur_num_shubs * pred))    # new number = old number * GR prediction)
         print("input:")
         print([input_vars["Var1"], input_vars["Var2"], input_vars["Var3"], input_vars["Var4"], input_vars["Var5"]])
-        print("pred:", new_pred)
+        # print("pred:", new_pred)
 
         #SNnew = int(cur_num_shubs + np.round((((5-(-5))*(pred - 0))/(2 - 0)) + (-5)))
         # REMEMBER: minimal / maximal growth rates in training data:
@@ -124,7 +124,7 @@ class PredictNewShubNoHandler(BasisRequestHandler):
 
         # Compute a closest counterfactual explanation if the user is in the experimental group
         x_cf1 = self.__compute_counterfactual(x, input_vars) #updated
-        print(x_cf1)
+        # print(x_cf1)
 
         # Log everything!
         log_data = {
@@ -182,7 +182,7 @@ class PredictNewShubNoHandler(BasisRequestHandler):
                 "Var4": x_cf1["Var4"][0] - x["Var4"][0],
                 "Var5": x_cf1["Var5"][0] - x["Var5"][0]
             }
-        print('results:', results)
+        # print('results:', results)
         self.write(json.dumps(results))
 
         self.finish()

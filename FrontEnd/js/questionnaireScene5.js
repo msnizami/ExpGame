@@ -29,6 +29,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 	preload() {
 		// load button images
 		this.load.spritesheet('checkbox', 'static/CheckBoxSprites.png', { frameWidth: 51, frameHeight: 50 });
+		this.load.image('buttonFeed', 'static/buttonSubmit.png');
 	}
 
 	create() {
@@ -467,7 +468,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 			.on('pointerdown', () => this.onBtnContinue());
 
 		var textContinue = this.add.text(-50, -15, 'Continue!', { fontSize: '18px', color: '#ffffff' })
-		var buttonContainer = this.add.container(window.innerWidth * 0.85, window.innerHeight * 0.80, [buttonContinue, textContinue])
+		var buttonContainer = this.add.container(window.innerWidth * 0.85, window.innerHeight * 0.70, [buttonContinue, textContinue])
 
 	}
 

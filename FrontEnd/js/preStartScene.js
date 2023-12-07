@@ -1,4 +1,5 @@
 import StartScene from './startScene.js';
+import {costsArray} from './constants.js'
 
 class PreStartScene extends Phaser.Scene {
   constructor(gameData) {
@@ -24,31 +25,41 @@ class PreStartScene extends Phaser.Scene {
     this.load.image('buttonUp', 'static/buttonUp.png');
     this.load.image('buttonDown', 'static/buttonDown.png');
     this.load.image('buttonFeed', 'static/buttonSubmit.png');
-    this.load.spritesheet('shub', 'static/shub_spritesheet.png', { frameWidth: 50, frameHeight: 47 });
-    this.load.image('surface2', 'static/surface-2.png', { frameWidth: 10, frameHeight: 7 });
-  }
+    
+    
+    
+
+    const imgindex = Math.floor(Math.random() * costsArray.length);
+    localStorage.setItem('imgindex', imgindex)
+    
+
+    this.load.image('surface', costsArray[imgindex].path);
+    this.load.spritesheet('shub', 'static/shub_spritesheet.png', { frameWidth: 50, frameHeight:  47 });
+    }
 
   setStartScreen() {
-    const centerX = this.gameData.game.config.width / 2;
-    const centerY = this.gameData.game.config.height / 2;
+    const centerX = (this.gameData.game.config.width / 2)+((this.gameData.game.config.width / 2) *0.1);
+    const centerY = (this.gameData.game.config.height / 2)-((this.gameData.game.config.width / 2) *0.08);
+
+    // Setting background image
+    this.add.image(centerX * 0.75, centerY, 'surface').setScale(this.gameData.getScaledUnit(.7));
 
     const textBlocks = [
-      ["Assume that you are a guardian of fictional Alien species called Shub on a virtual space of Aliens."],
-      ["The Shub eat different types of leaves for their growth."],
-      ["Some leaves are healthier than others because they grow up in different regions of the virtual space."],
-      ["At the moment, you don't know which leaves are more healthy as a diet, because on the different planets of this virtual space."],
-      ["The healthiness of leaves changes due to the environment of that planet."],
-      ["Your task is to feed a little Shub by providing it with different combinations of leaves which constitute the diet to achieve an optimal level of fitness."],
-      ["Taking into account that your home is at sea level and leaves can grow in different regions."],
-      ["Such as flat sea-level surface, summit of mountain, or somewhere in between."],
-      ["Some leaves can be easier or harder to find and collect than others."],
-      ["This issue is reflected in the cost associated to each type of leaf as shown above."]
+      [""],
+      ["On each planet, the leaves grow in different regions: they may be found at sea level, at the summit of mountains, or somewhere in between."],
+      ["When you visit a new planet, your guardian station is always in sea level, making it easier for you to select some leaves than others."],
+      ["Therefore, each leaf has a different cost on each planet you visit, as shown below."],
+      [""],
+      [""],
+      [""],
+      ["The cost of each leaf will be deducted from your overall budget."],
+      ["Make sure to watch your budget: some leaves are more expensive but might be necessary."]
     ];
 
     textBlocks.slice(0, 5).forEach((block, index) => {
-      this.add.text(centerX * 0.025, centerY * (0.03 + index * 0.075), block, {
+      this.add.text(this.gameData.getScaledWidth(centerX * 0.025), centerY * (0.03 + index * 0.075), block, {
         fontFamily: 'Arial',
-        fontSize: '18px',
+        fontSize:  Math.round(this.gameData.getScaledWidth(16))+'px',
         color: '#000000',
         align: 'left',
         fontStyle: index >= 5 ? 'bold italic' : 'normal',
@@ -57,9 +68,9 @@ class PreStartScene extends Phaser.Scene {
     });
 
     textBlocks.slice(6, textBlocks.length).forEach((block, index) => {
-      this.add.text(centerX * 0.025, this.gameData.game.config.height * (0.6 + ((index + 1) * 0.05)), block, {
+      this.add.text(this.gameData.getScaledWidth(centerX * 0.025), this.gameData.game.config.height * (0.60 + ((index + 1) * 0.05)), block, {
         fontFamily: 'Arial',
-        fontSize: '18px',
+        fontSize:  Math.round(this.gameData.getScaledWidth(16))+'px',
         color: '#000000',
         align: 'left',
         fontStyle: index >= 5 ? 'bold italic' : 'normal',
@@ -68,39 +79,38 @@ class PreStartScene extends Phaser.Scene {
     });
 
 
-    this.add.sprite(this.gameData.game.config.width * 0.9, this.gameData.game.config.height * 0.175, 'shub', 0, { frameWidth: 50, frameHeight: 46 }).setScale(1.5);
-    this.add.image(this.gameData.game.config.width * 0.95, this.gameData.game.config.height * 0.20, 'surface', 0, { frameWidth: 10, frameHeight: 7 }).setScale(1);
-    this.createPlantImages()
+    // this.add.sprite(this.gameData.getScaledWidth(this.gameData.game.config.width * 0.9),this.gameData.game.config.height * 0.165, 'shub', 0, { frameWidth: 50, frameHeight: 46 }).setScale(this.gameData.getScaledUnit(1.5));
+    //this.createPlantImages()
     this.createStartButton();
   }
 
   createPlantImages() {
-    const plantXPositions = [0.1, 0.3, 0.5, 0.2, 0.4];
-    const plantScale = 0.25;
+    const plantYPositions = [0.3, 0.37, 0.44, 0.51, 0.58];
+    const plantScale = this.gameData.getScaledUnit(0.1);
 
-    plantXPositions.slice(0, 3).forEach((xPos, index) => {
-      this.add.image(this.gameData.game.config.width * xPos, this.gameData.game.config.height * 0.3, "plant" + (index + 1)).setScale(plantScale);
-      this.add.text(this.gameData.game.config.width * (xPos + 0.05), this.gameData.game.config.height * 0.3, 'cost :' + this.gameData.plants.at(index).cost, {
+    plantYPositions.forEach((yPos, index) => {
+      this.add.image(this.gameData.getScaledWidth(this.gameData.game.config.width * 0.05), this.gameData.game.config.height * yPos, "plant" + (index + 1)).setScale(this.gameData.getScaledUnit(plantScale));
+      this.add.text(this.gameData.getScaledWidth(this.gameData.game.config.width * (0.07)), this.gameData.game.config.height * yPos, '' + this.gameData.plants.at(index).cost, {
         fontFamily: 'Arial',
-        fontSize: '18px',
+        fontSize: Math.round(this.gameData.getScaledWidth(22))+'px',
         color: '#000000',
         align: 'left',
-        fontStyle: index >= 5 ? 'bold italic' : 'normal',
+        fontStyle:  'bold italic',
         lineSpacing: index >= 5 ? 10 : undefined,
       });
     });
-    plantXPositions.slice(3,plantXPositions.length).forEach((xPos, index) => {
-      const offset = 4
-      this.add.image(this.gameData.game.config.width * xPos, this.gameData.game.config.height * 0.5, "plant" + (index +offset)).setScale(plantScale);
-      this.add.text(this.gameData.game.config.width * (xPos + 0.05), this.gameData.game.config.height * 0.5, 'cost :' + this.gameData.plants.at(index).cost, {
-        fontFamily: 'Arial',
-        fontSize: '18px',
-        color: '#000000',
-        align: 'left',
-        fontStyle: index >= 5 ? 'bold italic' : 'normal',
-        lineSpacing: index >= 5 ? 10 : undefined,
-      });
-    });
+    // plantXPositions.slice(3,plantXPositions.length).forEach((xPos, index) => {
+    //   const offset = 4
+    //   this.add.image(this.gameData.game.config.width * xPos, this.gameData.game.config.height * 0.5, "plant" + (index +offset)).setScale(plantScale);
+    //   this.add.text(this.gameData.game.config.width * (xPos + 0.05), this.gameData.game.config.height * 0.5, 'cost :' + this.gameData.plants.at(index).cost, {
+    //     fontFamily: 'Arial',
+    //     fontSize: '18px',
+    //     color: '#000000',
+    //     align: 'left',
+    //     fontStyle: index >= 5 ? 'bold italic' : 'normal',
+    //     lineSpacing: index >= 5 ? 10 : undefined,
+    //   });
+    // });
   }
 
 
@@ -118,6 +128,13 @@ class PreStartScene extends Phaser.Scene {
   }
 
   startGame() {
+
+      const cfArray = this.gameData.cf_array?.at(Math.floor(Math.random()*this.gameData.cf_array.length))?.at(i)
+      for(let val in cfArray){
+        this.gameData[`clickCountVar${i + 1}`] = val
+      }
+
+
     const startScene = new StartScene(this.gameData);
     this.scene.add('startScene', startScene);
     this.scene.start('startScene');

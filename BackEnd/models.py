@@ -155,6 +155,29 @@ def compute_counterfactual_of_model(test_instance, uf, bb):
     features = ['Var1','Var2', 'Var3', 'Var4', 'Var5']
     catf = []
     numf = features
+    print('test instance:', test_instance.values)
+    ### simulation of DiCE and printing its results and later saving in the db for comparison
+    # dice start
+    # print("DiCE CF")
+    # std = time()
+    # source_data_file_path = "modelData/data/AFH_EXP1.csv"  # source data
+    # df = pd.read_csv(source_data_file_path)
+    # dataset = df.round().astype(int)
+    # d = dice_ml.Data(dataframe=dataset, continuous_features=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'], outcome_name='class')
+    # backend = 'sklearn'
+    # m = dice_ml.Model(model=bb, backend=backend)
+    # # initiate DiCE
+    # exp_random = dice_ml.Dice(d, m, method="kdtree")
+    # # generate counterfactuals
+    # dice_exp_random = exp_random.generate_counterfactuals(test_instance, total_CFs=1, desired_class="opposite", verbose=False)
+    # # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
+    # dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
+    # new_val1 = dice_cf['Var2']+1
+    # dice_cf['Var2'] = new_val1
+    # new_val2 = dice_cf['Var4']+1
+    # dice_cf['Var4'] = new_val2
+    # print('dice')
+    # print(dice_cf.values)
     #TODO
     # need to extract from the json of user start and end. # consult # need to write a dedicated method
     # uf = {'Var1':3,'Var2':1, 'Var3':4, 'Var4':0, 'Var5':4}
@@ -203,7 +226,7 @@ def compute_counterfactual_of_model(test_instance, uf, bb):
         # cc3, _ = ufc.Triple_F(df, test_instance, protected_features, MI_FP[:5], catf, numf, intervals, features, bb, desired_outcome, regressors)
     else:
         raise ValueError('no neighbourhood found in the given range.')
-    print(cc2)
+    # print(cc2)
     if cc2.empty == True:
         #TODO: to load from the csv of counterfactuals already generated for all 5 test cases. 
         df1 = pd.DataFrame(data=[[1,2,3,1,5]], columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
@@ -221,6 +244,8 @@ def compute_counterfactual_of_model(test_instance, uf, bb):
         cfmax = ufdf.columns[ufdf.values.argmax(1)]
         # Subtract 1 from the maximum value column
         ufdf[cfmax] -= 1
+        print('ufce')
+        print(ufdf.values)
         return ufdf
 
 def compute_counterfactual_of_model_control(dataset, test_instance, bb):

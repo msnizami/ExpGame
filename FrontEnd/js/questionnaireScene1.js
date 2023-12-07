@@ -26,6 +26,7 @@ class QuestionnaireScene1 extends Phaser.Scene {
 	preload() {
 		// load button images
 		this.load.spritesheet('checkbox', 'static/CheckBoxSprites.png', { frameWidth: 51, frameHeight: 50 });
+		this.load.image('buttonFeed', 'static/buttonSubmit.png');
 	}
 
 	create() {
@@ -33,7 +34,7 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		this.children.removeAll();
 
 		var qIntro1 = [
-			'You have completed the Alien Zoo game!',
+			'You have completed the Alien Fitness Game!',
 			'',
 			'To complete the study, please answer the following 10 questions.',
 		]
@@ -48,7 +49,7 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.15, qIntro2, { fontFamily: 'monogram', fontSize: '17px',fontStyle: "bold italic", color: '#000000' });
 
 		var item1 = [
-			"1. What do you think: Which plants were relevant to increase the number of Shubs in your pack?\n Please select ALL that you think were relevant."
+			"1. What do you think: Which plants were relevant to increase the fitness of Shub?\n Please select ALL that you think were relevant."
 		];
 
 		// add item 1
@@ -177,7 +178,7 @@ class QuestionnaireScene1 extends Phaser.Scene {
 
 
 		var item2 = [
-			"2. What do you think: Which plants were not relevant to increase the number of Shubs in your pack?\n Please select ALL that you think were not relevant."
+			"2. What do you think: Which plants were not relevant to increase the fitness of Shub?\n Please select ALL that you think were not relevant."
 		];
 
 		// add item 1
@@ -314,7 +315,7 @@ class QuestionnaireScene1 extends Phaser.Scene {
 			.on('pointerdown', () => this.onBtnContinue());
 
 		var textContinue = this.add.text(-50, -15, 'Continue!', { fontSize: '18px', color: '#ffffff' })
-		var buttonContainer = this.add.container(window.innerWidth * 0.85, window.innerHeight * 0.80, [buttonContinue, textContinue])
+		var buttonContainer = this.add.container(window.innerWidth * 0.85, window.innerHeight * 0.70, [buttonContinue, textContinue])
 
 
 	}
