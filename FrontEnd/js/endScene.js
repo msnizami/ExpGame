@@ -52,7 +52,7 @@ class EndScene extends Phaser.Scene {
 			.on('pointerdown', () => { window.open('https://www.uniurb.it/ateneo/persone-e-strutture/dipartimenti/dipartimento-di-scienze-pure-e-applicate-dispea/'); });
 
 		var textDebrief = this.add.text(-100, -25, ['I want to learn more','about the study!'], { fontSize: '18px', color: '#ffffff' }).setOrigin(0);
-		var buttonContainer = this.add.container(window.innerWidth * 0.85, window.innerHeight * 0.80, [buttonDebrief, textDebrief])
+		var buttonContainer = this.add.container(window.innerWidth * 0.80, window.innerHeight * 0.70, [buttonDebrief, textDebrief])
 
 		this.add.text(window.innerWidth * 0.05, window.innerHeight * 0.20, qIntro1, { fontFamily: 'monogram', fontSize: '18px', color: '#000000' });
 		this.add.text(window.innerWidth * 0.05, window.innerHeight * 0.30, qIntro2, { fontFamily: 'monogram', fontSize: '18px', fontStyle: "bold",  color: '#000000' });

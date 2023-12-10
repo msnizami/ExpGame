@@ -278,29 +278,38 @@ class UFCE():
         f_end = 0
         for f in feat2change:
             if f in uf.keys():
-                # print('test here', f, test[f].values)
-                f_start = test[f].values
-                # print('test here', test[f].values[0], uf[f])
-                max_limit = test[f].values[0] + uf[f]  # new line
-                if max_limit >= 6: # the upper limit of the feature
-                    max_limit = 6
-                if isinstance(uf[f], float):
-                    space = np.arange(test[f].values[0], max_limit, 1) #intentionally changed to integers, could be reversed to 0.1
-                    if len(space) != 0:
-                        f_end = random.choice(space)  # test[f].values + uf[f]
-                    else:
-                        f_end = test[f].values[0]
-                else:
-                    space = np.arange(test[f].values[0], max_limit, 1)
-                    if len(space) != 0:
-                        f_end = random.choice(space)  # test[f].values + uf[f]
-                    else:
-                        f_end = test[f].values[0]
-                # if f_end >= nn[f].max():
-                #     intervals[f] = [f_start, nn[f].max()]
+                # if (uf[f] >= test[f].values):
+                f_start = 0 #test[f].values[0]
+                f_end = uf[f]  #f1_start + uf[f1]  # new line 
                 # else:
-                #     intervals[f] = [f_start, f_end]
-                intervals[f] = [f_start, max_limit] # in this case the nn is not considered for game
+                #     f_start = 0 #uf[f]
+                #     f_end = uf[f] #test[f].values[0]
+                # if f_end >= 6:
+                #     f_end = 6
+                # # print('test here', f, test[f].values)
+                # f_start = test[f].values
+
+                # # print('test here', test[f].values[0], uf[f])
+                # max_limit = test[f].values[0] + uf[f]  # new line
+                # if max_limit >= 6: # the upper limit of the feature
+                #     max_limit = 6
+                # if isinstance(uf[f], float):
+                #     space = np.arange(test[f].values[0], max_limit, 1) #intentionally changed to integers, could be reversed to 0.1
+                #     if len(space) != 0:
+                #         f_end = random.choice(space)  # test[f].values + uf[f]
+                #     else:
+                #         f_end = test[f].values[0]
+                # else:
+                #     space = np.arange(test[f].values[0], max_limit, 1)
+                #     if len(space) != 0:
+                #         f_end = random.choice(space)  # test[f].values + uf[f]
+                #     else:
+                #         f_end = test[f].values[0]
+                # # if f_end >= nn[f].max():
+                # #     intervals[f] = [f_start, nn[f].max()]
+                # # else:
+                # #     intervals[f] = [f_start, f_end]
+                intervals[f] = [f_start, f_end] # in this case the nn is not considered for game
                 # print(intervals)
         return intervals
 
@@ -318,42 +327,65 @@ class UFCE():
             f1 = featurepair[0]
             f2 = featurepair[1]
             f1_start, f1_end, f2_start, f2_end = 0, 0, 0, 0
-            f1_start = test[f1].values
-            ###
-            max_limit1 = f1_start + uf[f1]  # new line
-            if max_limit1 >= 6:
-                max_limit1 = 6
-            if isinstance(uf[f1], float):
-                space1 = np.arange(f1_start, max_limit1, 1) #changed to integer, could be revrsed
-                if len(space1) != 0:
-                    f1_end = random.choice(space1)
-                else:
-                    f1_end = f1_start
-            else:
-                space1 = np.arange(f1_start, max_limit1, 1)
-                if len(space1) != 0:
-                    f1_end = random.choice(space1)
-                else:
-                    f1_end = f1_start
+            # if (uf[f1] >= test[f1].values):
+            f1_start = 0 #test[f1].values[0]
+            f1_end = uf[f1]  #f1_start + uf[f1]  # new line 
+            # else:
+            #     f1_start = 0 # uf[f1]
+            #     f1_end = uf[f1] # test[f1].values[0]
+            # if f1_end >= 6:
+            #     f1_end = 6
+            # from here
+            # f1 = featurepair[0]
+            # f2 = featurepair[1]
+            # f1_start, f1_end, f2_start, f2_end = 0, 0, 0, 0
+            # if (uf[f1] >= test[f1].values):
+            #     f1_start = test[f1].values[0]
+            #     f1_end = uf[f1]  #f1_start + uf[f1]  # new line 
+            # else:
+            #     f1_start = uf[f1]
+            #     f1_end = test[f1].values[0]
+            # if f1_end >= 6:
+            #     f1_end = 6
+            # until here
+            # if isinstance(uf[f1], float):
+            #     space1 = np.arange(f1_start, max_limit1, 1) #changed to integer, could be revrsed
+            #     if len(space1) != 0:
+            #         f1_end = random.choice(space1)
+            #     else:
+            #         f1_end = f1_start
+            # else:
+            #     space1 = np.arange(f1_start, max_limit1, 1)
+            #     if len(space1) != 0:
+            #         f1_end = random.choice(space1)
+            #     else:
+            #         f1_end = f1_start
             ###
             # f1_end = test[f1].values + uf[f1]
-            f2_start = test[f2].values
+            # if (uf[f2] >= test[f2].values):
+            f2_start = 0 #test[f2].values[0]
+            f2_end = uf[f2]
+            # else:
+            #     f2_start = 0 #uf[f2]
+            #     f2_end = uf[f2] # test[f2].values[0]
+            # if f2_end >= 6:
+            #     f2_end = 6
             ##
-            max_limit2 = f2_start + uf[f2]  # new line
-            if max_limit2 >= 6:
-                max_limit2 = 6
-            if isinstance(uf[f2], float):
-                space2 = np.arange(f2_start, max_limit2, 1)
-                if len(space2) != 0:
-                    f2_end = random.choice(space2)  # test[f].values + uf[f]
-                else:
-                    f2_end = f2_start
-            else:
-                space2 = np.arange(f2_start, max_limit2, 1)
-                if len(space2) != 0:
-                    f2_end = random.choice(space2)  # test[f].values + uf[f]
-                else:
-                    f2_end = f2_start
+            # max_limit2 = f2_start + uf[f2]  # new line
+            # if max_limit2 >= 6:
+            #     max_limit2 = 6
+            # if isinstance(uf[f2], float):
+            #     space2 = np.arange(f2_start, max_limit2, 1)
+            #     if len(space2) != 0:
+            #         f2_end = random.choice(space2)  # test[f].values + uf[f]
+            #     else:
+            #         f2_end = f2_start
+            # else:
+            #     space2 = np.arange(f2_start, max_limit2, 1)
+            #     if len(space2) != 0:
+            #         f2_end = random.choice(space2)  # test[f].values + uf[f]
+            #     else:
+            #         f2_end = f2_start
             ###
             # f2_end = test[f2].values + uf[f2]
 
@@ -365,8 +397,8 @@ class UFCE():
             #     faithful_interval[f2] = [test[f2].values[0], nn[f2].max()]
             # else:
             #     faithful_interval[f2] = [test[f2].values[0], f2_end]
-            faithful_interval[f1] = [test[f1].values[0], max_limit1] # bypass the nn, if needed open above lines
-            faithful_interval[f2] = [test[f2].values[0], max_limit2] # bypass the nn
+            faithful_interval[f1] = [f1_start, f1_end] # bypass the nn, if needed open above lines
+            faithful_interval[f2] = [f2_start, f2_end] # bypass the nn
         return faithful_interval
 
     def pred_for_binsearch(self, tempdf, feature, start, mid, end, model):
@@ -382,7 +414,7 @@ class UFCE():
         pred = model.predict(tempdf.values)
         return pred, tempdf
 
-    def Single_F(self, test_instance, u_cat_f_list, user_term_intervals, model, outcome, step, regressors):
+    def Single_F(self, test_instance, u_cat_f_list, f2change, user_term_intervals, model, outcome, step, regressors):
         """
         :param test_instance:
         :param u_cat_f_list:
@@ -396,28 +428,30 @@ class UFCE():
         tempdf = pd.DataFrame()
         tempdfcat = pd.DataFrame()
 
-        for feature in user_term_intervals.keys():
+        for feature in f2change:
             if feature not in u_cat_f_list:
                 tempdf = test_instance.copy()
                 one_feature_data = pd.DataFrame()
                 interval_term_range = user_term_intervals[feature]
-                if len(interval_term_range) != 0 and interval_term_range[0] != interval_term_range[1]:
-                    start = interval_term_range[0]
-                    end = interval_term_range[1]
-                    step_size = step[feature]
-                    cfdf = pd.DataFrame()
-                    while start <= end:
-                        mid = np.round((start + (end - start) / 2), 2).astype(int)
-                        pred, tempdf1 = self.pred_for_binsearch(tempdf, feature, start, mid, end, model)
-                        # tempdf.loc[:, feature] = mid
+                # if len(interval_term_range) != 0 and interval_term_range[0] != interval_term_range[1]:
+                start = int(interval_term_range[0])
+                end = int(interval_term_range[1])
+                step_size = step[feature]
+                cfdf = pd.DataFrame()
+                items = list(range(start, end+1))
+                for i in items:
+                        # mid = np.round((start + (end - start) / 2), 2).astype(int)
+                        # pred, tempdf1 = self.pred_for_binsearch(tempdf, feature, start, mid, end, model)
+                    tempdf.loc[:, feature] = i
                         # pred = regressors[feature]["model"].predict(tempdf.values)
                         # print('in one f pred ', pred)
-                        if pred == outcome:
-                            cfdf = tempdf1.copy()
-                            end = np.round((mid - step_size), 2).astype(int)
-                        else:
-                            start = np.round((mid + step_size), 2).astype(int)
-                    # print('cf from binsearch: ', cfdf)
+                    pred = model.predict(tempdf.values)
+                    if pred == outcome:
+                        cfdf = tempdf.copy()
+                    #     end = np.round((mid - step_size), 2).astype(int)
+                    #     else:
+                    #         start = np.round((mid + step_size), 2).astype(int)
+                    # # print('cf from binsearch: ', cfdf)
                     cfdfout = pd.concat([cfdfout, cfdf], ignore_index=True, axis=0)
             else:
 
@@ -468,7 +502,7 @@ class UFCE():
         ba = balanced_accuracy_score(y_test, y_pred)
         return log_reg, ba
 
-    def Double_F(self, df, test_instance, protected_features, feature_pairs, u_cat_f_list, numf, user_term_intervals,
+    def Double_F(self, df, test_instance, protected_features, f2change, feature_pairs, u_cat_f_list, numf, user_term_intervals,
                  features, model, desired_outcome, regressors):
         """
         :param df:
@@ -497,45 +531,58 @@ class UFCE():
             tempdf1 = pd.DataFrame()
             tempdf1 = test_instance.copy()
             if (f1 in numf and f2 in numf) and (
-                    f1 not in protected_features and f2 not in protected_features):  # both numerical
+                    f1 in f2change and f2 in f2change):  # both numerical
                 if f1 and f2 in user_term_intervals.keys():
                     interval_term_range1 = user_term_intervals[f1]
+                    interval_term_range2 = user_term_intervals[f2]
                     start1 = int(interval_term_range1[0])
                     end1 = int(interval_term_range1[1])
+                    start2 = int(interval_term_range2[0])
+                    end2 = int(interval_term_range2[1])
                     # reg_model, mse, rmse = self.regressionModel(df, f1, f2)
                     # print('in double f mse ', mse)
                     # reg_model, mse, rmse = self.regressionModel_intervalconfined(df, f1, user_term_intervals[f1], f2)
-                    if isinstance(start1, int) and isinstance(end1, int):
-                        f1_space = [item for item in range(start1, end1 + 1)]
-                    else:
-                        f1_space = sorted(np.round(random.uniform(start1, end1), 2) for _ in range(8))
-                    if regressors[f2]["mse"] > 0.5:
-                        iter = 0
-                        while len(f1_space) != 0:
-                            if len(f1_space) != 0:
-                                low = 0
-                                high = len(f1_space) - 1
-                                mid = math.ceil((high - low) / 2)
-                                # print("lowmidhigh", f1_space[low], f1_space[mid], f1_space[high])
-                            tempdf1.loc[:, f1] = f1_space[mid]
-                            temptempdf = tempdf1.copy()
-                            tempdf1 = tempdf1.loc[:, tempdf1.columns != f2]
-                            f2_val = regressors[f2]["model"].predict(tempdf1.values) #reg_model.predict(tempdf1.values)
-                            if isinstance(f2, float):
-                                temptempdf.loc[:, f2] = math.ceil(f2_val[0])
-                            else:
-                                temptempdf.loc[:, f2] = math.ceil((f2_val[0]))
-                            if df[f2].min() <= math.ceil(f2_val[0]) <= df[f2].max():  # f2_val >= start2 and f2_val <= end2:
-                                two_feature_explore = pd.concat([two_feature_explore, temptempdf], ignore_index=True,
-                                                                axis=0, sort=False)
-                                pred = model.predict(temptempdf.values)
-                                if pred == desired_outcome:  #
-                                    cfdf = pd.concat([cfdf, temptempdf], ignore_index=True, axis=0, sort=False)
-                                    iter += 1
-                            try:
-                                del f1_space[:mid + 1]
-                            except:
-                                pass
+                    # if isinstance(start1, int) and isinstance(end1, int):
+                    #     f1_space = [item for item in range(start1, end1 + 1)]
+                    # else:
+                    #     f1_space = sorted(np.round(random.uniform(start1, end1), 2) for _ in range(8))
+                    # if regressors[f2]["mse"] > 0.5:
+                    #     iter = 0
+                    #     while len(f1_space) != 0:
+                    #         if len(f1_space) != 0:
+                    #             low = 0
+                    #             high = len(f1_space) - 1
+                    #             mid = math.ceil((high - low) / 2)
+                    #             # print("lowmidhigh", f1_space[low], f1_space[mid], f1_space[high])
+                    #         tempdf1.loc[:, f1] = f1_space[mid]
+                    #         temptempdf = tempdf1.copy()
+                    #         tempdf1 = tempdf1.loc[:, tempdf1.columns != f2]
+                    #         f2_val = regressors[f2]["model"].predict(tempdf1.values) #reg_model.predict(tempdf1.values)
+                    #         if isinstance(f2, float):
+                    #             temptempdf.loc[:, f2] = math.ceil(f2_val[0])
+                    #         else:
+                    #             temptempdf.loc[:, f2] = math.ceil((f2_val[0]))
+                    #         if df[f2].min() <= math.ceil(f2_val[0]) <= df[f2].max():  # f2_val >= start2 and f2_val <= end2:
+                    #             two_feature_explore = pd.concat([two_feature_explore, temptempdf], ignore_index=True,
+                    #                                             axis=0, sort=False)
+                    #             pred = model.predict(temptempdf.values)
+                    #             if pred == desired_outcome:  #
+                    #                 cfdf = pd.concat([cfdf, temptempdf], ignore_index=True, axis=0, sort=False)
+                    #                 iter += 1
+                    #         try:
+                    #             del f1_space[:mid + 1]
+                    #         except:
+                    #             pass
+                    f1_items = list(range(start1, end1 + 1))
+                    f2_items = list(range(start2, end2+1))
+                    for i in f1_items:
+                        tempdf1.loc[:, f1] = i
+                        temptempdf = tempdf1.copy()
+                        for j in f2_items:
+                            temptempdf.loc[:, f2] = j
+                            pred = model.predict(temptempdf.values)
+                            if pred == desired_outcome:  #
+                                cfdf = pd.concat([cfdf, temptempdf], ignore_index=True, axis=0, sort=False)
             elif (f1 in u_cat_f_list and f2 in u_cat_f_list) and f1 and f2 not in protected_features:  # both categorical
                 if f1 and f2 in user_term_intervals.keys():
                     tempdfcat = test_instance.copy()
@@ -597,12 +644,14 @@ class UFCE():
                         two_feature_explore = pd.concat([two_feature_explore, temptempdf], ignore_index=True, axis=0,
                                                         sort=False)
                         if df[f2].min() <= math.ceil(f2_val[0]) <= df[f2].max():  # f2_val >= start2 and f2_val <= end2:
-                            pred = model.predict(temptempdf)
+                            pred = model.predict(temptempdf.values)
                             if pred == desired_outcome:
                                 cfdf = pd.concat([cfdf, temptempdf], ignore_index=True, axis=0)
                                 iter += 1
             else:
-                print("could'nt found counterfactuals for the features: ", f1, f2)
+                # print("could'nt found counterfactuals for the features: ", f1, f2)
+                pass
+
 
     # if len(cfdf) != 0:
     #    cfdf.drop_duplicates(inplace=True)
@@ -611,7 +660,7 @@ class UFCE():
     # print("OUTLIER INSTANCES WITH MD:", list_of_outliers)
         return cfdf, two_feature_explore
 
-    def Triple_F(self, df, test_instance, protected_features, feature_pairs, u_cat_f_list, numf, user_term_intervals,
+    def Triple_F(self, df, test_instance, protected_features, f2change, feature_pairs, u_cat_f_list, numf, user_term_intervals,
                  features_2change, model, desired_outcome, regressors):
         """
         :param df:
@@ -639,59 +688,75 @@ class UFCE():
             temptempdf = pd.DataFrame()
             tempdf1 = pd.DataFrame()
             tempdf1 = test_instance.copy()
-            if (f1 and f2 in numf) and (f1 and f2 not in protected_features):  # both numerical
+            if (f1 and f2 in numf) and (f1 and f2 in f2change):  # both numerical
                 if f1 and f2 in user_term_intervals.keys():
                     interval_term_range1 = user_term_intervals[f1]
+                    interval_term_range2 = user_term_intervals[f2]
                     start1 = int(interval_term_range1[0])
                     end1 = int(interval_term_range1[1])
-                    # reg_model, mse, rmse = self.regressionModel(df, f1, f2)
-                    # reg_model, mse, rmse = self.regressionModel_intervalconfined(df, f1, user_term_intervals[f1], f2)
-                    if isinstance(start1, int) and isinstance(end1, int):
-                        f1_space = [item for item in range(start1, end1 + 1)]
-                    else:
-                        f1_space = sorted(np.round(random.uniform(start1, end1), 2) for _ in range(8))
-                    if regressors[f2]["mse"] > 0.5:
-                        iter = 0
-                        while len(f1_space) != 0:
-                            if len(f1_space) != 0:
-                                low = 0
-                                high = len(f1_space) - 1
-                                mid = (high - low) // 2
-                            else:
-                                break
-                            tempdf1.loc[:, f1] = f1_space[mid]
-                            temptempdf = tempdf1.copy()
-                            tempdf1 = tempdf1.loc[:, tempdf1.columns != f2]
-                            f2_val = regressors[f2]["model"].predict(tempdf1.values) #updated with regressors
-                            if isinstance(f2, float):
-                                temptempdf.loc[:, f2] = f2_val[0]
-                            else:
-                                temptempdf.loc[:, f2] = math.ceil(f2_val[0])
-                            if df[f2].min() <= math.ceil(f2_val[0]) <= df[f2].max():  # f2_val >= start2 and f2_val <= end2:
-                                for f3 in features_2change:
-                                    if f3 != f1 and f3 != f2 and f3 not in protected_features:
-                                        if f3 in numf:  # if f3 is numerical
-                                            # reg_model_inner, mse, rmse = self.regressionModel(df, f1, f3)
-                                            # reg_model_inner, mse, rmse = self.regressionModel_intervalconfined(df, f1, user_term_intervals[f1], f3)
-                                            tempdf1 = temptempdf.copy()
-                                            tempdf1 = tempdf1.loc[:, tempdf1.columns != f3]
-                                            f3_val = regressors[f3]["model"].predict(tempdf1.values)
-                                            if isinstance(f3, float):
-                                                temptempdf.loc[:, f3] = f3_val[0]
-                                            else:
-                                                temptempdf.loc[:, f3] = math.ceil(f3_val[0])
-                                            three_feature_explore = pd.concat([three_feature_explore, temptempdf],
-                                                                              ignore_index=True, axis=0, sort=False)
-                                            tempdf1 = temptempdf.copy()
-                                            pred = model.predict(temptempdf)
-                                            if pred == desired_outcome:  #
-                                                cfdf = pd.concat([cfdf, temptempdf], ignore_index=True, axis=0,
-                                                                 sort=False)
-                                                iter += 1
+                    start2 = int(interval_term_range2[0])
+                    end2 = int(interval_term_range2[1])
+                    # # reg_model, mse, rmse = self.regressionModel(df, f1, f2)
+                    # # reg_model, mse, rmse = self.regressionModel_intervalconfined(df, f1, user_term_intervals[f1], f2)
+                    # if isinstance(start1, int) and isinstance(end1, int):
+                    #     f1_space = [item for item in range(start1, end1 + 1)]
+                    # else:
+                    #     f1_space = sorted(np.round(random.uniform(start1, end1), 2) for _ in range(8))
+                    # if regressors[f2]["mse"] > 0.5:
+                    #     iter = 0
+                    #     while len(f1_space) != 0:
+                    #         if len(f1_space) != 0:
+                    #             low = 0
+                    #             high = len(f1_space) - 1
+                    #             mid = (high - low) // 2
+                    #         else:
+                    #             break
+                    #         tempdf1.loc[:, f1] = f1_space[mid]
+                    #         temptempdf = tempdf1.copy()
+                    #         tempdf1 = tempdf1.loc[:, tempdf1.columns != f2]
+                    #         f2_val = regressors[f2]["model"].predict(tempdf1.values) #updated with regressors
+                    #         if isinstance(f2, float):
+                    #             temptempdf.loc[:, f2] = f2_val[0]
+                    #         else:
+                    #             temptempdf.loc[:, f2] = math.ceil(f2_val[0])
+                    #         if df[f2].min() <= math.ceil(f2_val[0]) <= df[f2].max():  # f2_val >= start2 and f2_val <= end2:
+                    f1_items = list(range(start1, end1 + 1))
+                    f2_items = list(range(start2, end2 + 1))
+                    for i in f1_items:
+                        tempdf1.loc[:, f1] = i
+                        temptempdf = tempdf1.copy()
+                        for j in f2_items:
+                            temptempdf.loc[:, f2] = j
+                            for f3 in f2change:
+                                if f3 != f1 and f3 != f2 and f3 in numf:
+                                    interval_term_range3 = user_term_intervals[f3]
+                                    start3 = int(interval_term_range3[0])
+                                    end3 = int(interval_term_range3[1])
+                                    f3_items = list(range(start3, end3 + 1))
+                                    for k in f3_items:
+                                        tempdf1 = temptempdf.copy()
+                                        tempdf1.loc[:, f3] = k
+                                        pred = model.predict(tempdf1.values)
+                                        if pred == desired_outcome:  #
+                                            cfdf = pd.concat([cfdf, tempdf1], ignore_index=True, axis=0, sort=False)
+                                            # tempdf1 = tempdf1.loc[:, tempdf1.columns != f3]
+                                            # f3_val = regressors[f3]["model"].predict(tempdf1.values)
+                                            # if isinstance(f3, float):
+                                            #     temptempdf.loc[:, f3] = f3_val[0]
+                                            # else:
+                                            #     temptempdf.loc[:, f3] = math.ceil(f3_val[0])
+                                            # three_feature_explore = pd.concat([three_feature_explore, temptempdf],
+                                            #                                   ignore_index=True, axis=0, sort=False)
+                                            # tempdf1 = temptempdf.copy()
+                                            # pred = model.predict(temptempdf.values)
+                                            # if pred == desired_outcome:  #
+                                            #     cfdf = pd.concat([cfdf, temptempdf], ignore_index=True, axis=0,
+                                            #                      sort=False)
+                                            #     iter += 1
                                         elif f3 in u_cat_f_list:  # f3 is categorical
                                             log_model_inner, ba = self.catclassifyModel(df, f1, f3)
                                             # log_model_inner, ba = self.catclassifyModel_confined(df, f1, user_term_intervals[f1], f3)
-                                            if ba > .8:
+                                            if ba > .5:
                                                 tempdf1 = temptempdf.copy()
                                                 tempdf1 = tempdf1.loc[:, tempdf1.columns != f3]
                                                 f3_val = log_model_inner.predict(tempdf1.values)
@@ -699,17 +764,17 @@ class UFCE():
                                                                                   ignore_index=True,
                                                                                   axis=0, sort=False)
                                                 tempdf1 = temptempdf.copy()
-                                                pred = model.predict(temptempdf)
+                                                pred = model.predict(temptempdf.values)
                                                 if pred == desired_outcome:  #
                                                     cfdf = pd.concat([cfdf, temptempdf], ignore_index=True, axis=0,
                                                                      sort=False)
                                                     iter += 1
                                         else:
                                             pass
-                            try:
-                                del f1_space[:mid + 1]
-                            except:
-                                pass
+                            # try:
+                            #     del f1_space[:mid + 1]
+                            # except:
+                            #     pass
             elif f1 and f2 in u_cat_f_list:  # both categorical
                 # for feature in [f1, f2]:
                 if f1 and f2 in user_term_intervals.keys():
@@ -866,7 +931,8 @@ class UFCE():
                                                                  sort=False)
                                                 iter += 1
             else:
-                print("Could'nt found counterfactuals for the features: ", f1, f2)
+                # print("Could'nt found counterfactuals for the features: ", f1, f2)
+                pass
         # if len(cfdf) != 0:
         #    cfdf.drop_duplicates(inplace=True)
         # test_outliers_df = pd.concat([df, cfdf], ignore_index=True, axis=0)

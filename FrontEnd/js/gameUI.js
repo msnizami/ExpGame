@@ -140,6 +140,7 @@ class GameInitializer {
           "testno": 1,
           "budget":60,
           "glob_Budget":60,
+          "globcost":0,
           "testvalMenu":[0,0,0,0,0],
           "getScaledUnit":this.getScaledWidth,
           "getScaledWidth":this.getScaledWidth,

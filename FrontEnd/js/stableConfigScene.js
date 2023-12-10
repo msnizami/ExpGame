@@ -18,6 +18,7 @@ class StableConfigScene extends Phaser.Scene {
   totalBudget = 0;
   currentBudget = 0;
   attemptsCount = 2;
+  attemptslimit = 2;
   triesText;
   levelTextContainer;
   RoundTextContainer;
@@ -39,16 +40,21 @@ class StableConfigScene extends Phaser.Scene {
       this.gameData.clickCountVar4 * costsArray[imgindex].leaves[3].cost +
       this.gameData.clickCountVar5 * costsArray[imgindex].leaves[4].cost;
 
+    // if (this.attemptsCount < this.attemptslimit){
+    //   this.currentBudget = this.gameData.glob_Budget - this.gameData.globcost ;
+    // }
+
+    
     if (this.currentBudget > totalCost) {
       const values = this.gameData.testInstances.at(this.gameData.testno - 1); //testvalMenu
-      console.log(values);
+      // console.log(values);
       for (let i = 1; i <= values?.length; i++) {
         // this.gameData.dropDownRanges.at(i).max = values.at(i);
         this.gameData["clickCountVar" + i] = values.at(i - 1);
       }
     } else {
       const values = this.gameData.testvalMenu; //testInstances.at(this.gameData.testno-1) //testvalMenu
-      console.log(values);
+      // console.log(values);
       for (let i = 1; i <= values?.length; i++) {
         // this.gameData.dropDownRanges.at(i).max = values.at(i);
         this.gameData["clickCountVar" + i] = values.at(i - 1);

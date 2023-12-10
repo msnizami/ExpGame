@@ -30,9 +30,9 @@ class PredictNewShubNoHandler(BasisRequestHandler):
         except Exception as ex:
             pass
 
-    def __compute_counterfactual(self, x, uf):
+    def __compute_counterfactual(self, x, blockcount, uf):
         # print('in cf compute', x)
-        return compute_counterfactual_of_model(x, uf, self.model["model"]) #updated according to ufce
+        return compute_counterfactual_of_model(x, blockcount, uf, self.model["model"]) #updated according to ufce
 
     # def __compute_counterfactual_control(self, x):
     #     # print('in cf compute', x)
@@ -97,7 +97,6 @@ class PredictNewShubNoHandler(BasisRequestHandler):
         x = np.array([input_vars["Var1"], input_vars["Var2"], input_vars["Var3"], input_vars["Var4"], input_vars["Var5"]], dtype=float).reshape(1, -1)
         # print('test x in shub', x)
         x = pd.DataFrame(x, columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
-        # print('test x in shub', x)
         new_pred = self.model["model"].predict(x)
 
         # Compute new number of shubs
@@ -123,8 +122,9 @@ class PredictNewShubNoHandler(BasisRequestHandler):
 
 
         # Compute a closest counterfactual explanation if the user is in the experimental group
-        x_cf1 = self.__compute_counterfactual(x, input_vars) #updated
-        # print(x_cf1)
+        x_cf1 = self.__compute_counterfactual(x, block_count, input_vars)  #updated
+        x_cf1 = x_cf1.reset_index(drop=True)
+        # x = x.applymap(lambda k: int(k) if isinstance(k, (float, int)) else k)
 
         # Log everything!
         log_data = {
@@ -145,6 +145,7 @@ class PredictNewShubNoHandler(BasisRequestHandler):
         if x_cf1 is not None:
             # print('in log data,', x_cf1)
             x_cf1 = x_cf1.to_dict()
+            # print(x_cf1)
 
             log_data["counterfactualCountVars"] =  {
                     "Var1": x_cf1["Var1"][0],
@@ -175,13 +176,15 @@ class PredictNewShubNoHandler(BasisRequestHandler):
             }
             # need to change the difference according to our approach
             x = x.to_dict()
+            # print(x)
+            
             results["diffCountVars"] = {
                 "Var1": x_cf1["Var1"][0] - x["Var1"][0],
                 "Var2": x_cf1["Var2"][0] - x["Var2"][0],
                 "Var3": x_cf1["Var3"][0] - x["Var3"][0],
                 "Var4": x_cf1["Var4"][0] - x["Var4"][0],
                 "Var5": x_cf1["Var5"][0] - x["Var5"][0]
-            }
+                 }
         # print('results:', results)
         self.write(json.dumps(results))
 

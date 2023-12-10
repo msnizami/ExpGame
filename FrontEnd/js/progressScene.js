@@ -1,6 +1,7 @@
 import StableConfigScene from './stableConfigScene.js';
 import StableScene from './stableScene.js';
 import QuestionnaireScene1 from './questionnaireScene1.js';
+import { costsArray } from './constants.js';
 
 class ProgressScene extends Phaser.Scene {
 
@@ -76,6 +77,15 @@ class ProgressScene extends Phaser.Scene {
 		// progShub2.anims.delayedPlay(0, 'progMove', 0);
 		// progShub3.anims.delayedPlay(0, 'progMove', 0);
 
+
+		// const imgindex = +localStorage.getItem("imgindex");
+		// this.gameData.globcost =
+		// this.gameData.cf_array?.at(-1)?.at(0) * costsArray[imgindex].leaves[0].cost +
+		// this.gameData.cf_array?.at(-1)?.at(1) * costsArray[imgindex].leaves[1].cost +
+		// this.gameData.cf_array?.at(-1)?.at(2) * costsArray[imgindex].leaves[2].cost +
+		// this.gameData.cf_array?.at(-1)?.at(3) * costsArray[imgindex].leaves[3].cost +
+		// this.gameData.cf_array?.at(-1)?.at(4) * costsArray[imgindex].leaves[4].cost;
+
 		// Two cases, if testno is reached to 3 or 5 then move to questionair else move to next testcase(stableconfigscene)
 		if(this.gameData.testno == 3){
 			setTimeout(() => {
@@ -90,7 +100,7 @@ class ProgressScene extends Phaser.Scene {
 				messageContainer.add(infoDialog);
 
 				// Texts
-				const message = ['You played very well, Game is over. Please proceed to the post-game questionnaire.'];
+				const message = ['You played very well, Game is over. \n Please proceed to the post-game questionnaire.'];
 				const messageTxt = this.add.text(
 					(window.innerWidth * 0.5) - 280,
 					(window.innerHeight * 0.5) - 200,
@@ -119,7 +129,7 @@ class ProgressScene extends Phaser.Scene {
 				function hidePopup() {
 					messageContainer.setVisible(false);
 				}
-			}, 3000);
+			}, 3500);
 			// move to next screen anyhow with
 			setTimeout(() => {
 				this.gameData.testno += 1 ;
@@ -197,7 +207,7 @@ class ProgressScene extends Phaser.Scene {
 				this.scene.add('stableConfigScene', stableConfigScene);
 				this.scene.start('stableConfigScene');
 				
-			}, 6000);
+			}, 5000);
 		}
 
 			// compute new Shub no, based on user input

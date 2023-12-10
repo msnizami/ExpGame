@@ -99,6 +99,7 @@ def build_model():
     # y_pred = model.predict(X_test.values)
     # print('Accuracy of logistic regression classifier on train set: {:.2f}'.format(model.score(X_train, y_train)))
     # print('Accuracy of logistic regression classifier on test set: {:.2f}'.format(model.score(X_test, y_test)))
+    print('server is running...')
 
     # # Save dataset and model
     # # np.savez(fin_data_file_path, X_train=X_train, X_test=X_test, y_train=y_train, y_test=y_test)
@@ -129,9 +130,9 @@ def build_model():
     # y_test=dat['y_test']
 
     # # Evaluate
-    y_pred = model.predict(X_test.values)
-    print('Accuracy of logistic regression classifier on train set: {:.2f}'.format(model.score(X_train, y_train)))
-    print('Accuracy of logistic regression classifier on test set: {:.2f}'.format(model.score(X_test, y_test)))
+    #y_pred = model.predict(X_test.values)
+    # print('Accuracy of logistic regression classifier on train set: {:.2f}'.format(model.score(X_train, y_train)))
+    # print('Accuracy of logistic regression classifier on test set: {:.2f}'.format(model.score(X_test, y_test)))
 
     # # Serialize the model to JSON for using on frontend in js scripts
     # model_data = {
@@ -149,35 +150,32 @@ def build_model():
 # this will return user-constraints specific to data set, customise them
 # features, catf, numf, uf, step, f2change, outcome_label, desired_outcome, nbr_features, protectf, data_lab0, data_lab1 = get_bank_user_constraints(datasetdf)
 
-def compute_counterfactual_of_model(test_instance, uf, bb):
+def compute_counterfactual_of_model(test_instance, testno, uf, bb):
     train_and_save_regressors()
     regressors = load_regressors('modelData/data/regressors_EXP1.joblib')
     features = ['Var1','Var2', 'Var3', 'Var4', 'Var5']
     catf = []
     numf = features
-    print('test instance:', test_instance.values)
+    df2test = pd.read_csv("modelData/data/X_2test.csv")
+    print('test instance:', df2test[testno-1:testno].values) #df2test[testno-1:testno].values
     ### simulation of DiCE and printing its results and later saving in the db for comparison
     # dice start
     # print("DiCE CF")
     # std = time()
-    # source_data_file_path = "modelData/data/AFH_EXP1.csv"  # source data
-    # df = pd.read_csv(source_data_file_path)
-    # dataset = df.round().astype(int)
-    # d = dice_ml.Data(dataframe=dataset, continuous_features=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'], outcome_name='class')
-    # backend = 'sklearn'
-    # m = dice_ml.Model(model=bb, backend=backend)
-    # # initiate DiCE
-    # exp_random = dice_ml.Dice(d, m, method="kdtree")
-    # # generate counterfactuals
-    # dice_exp_random = exp_random.generate_counterfactuals(test_instance, total_CFs=1, desired_class="opposite", verbose=False)
-    # # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
-    # dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
-    # new_val1 = dice_cf['Var2']+1
-    # dice_cf['Var2'] = new_val1
-    # new_val2 = dice_cf['Var4']+1
-    # dice_cf['Var4'] = new_val2
-    # print('dice')
-    # print(dice_cf.values)
+    source_data_file_path = "modelData/data/AFH_EXP1.csv"  # source data
+    df = pd.read_csv(source_data_file_path)
+    dataset = df.round().astype(int)
+    d = dice_ml.Data(dataframe=dataset, continuous_features=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'], outcome_name='class')
+    backend = 'sklearn'
+    m = dice_ml.Model(model=bb, backend=backend)
+    # initiate DiCE
+    exp_random = dice_ml.Dice(d, m, method="kdtree")
+    # generate counterfactuals
+    dice_exp_random = exp_random.generate_counterfactuals(df2test[testno-1:testno], total_CFs=1, desired_class="opposite", verbose=False)
+    # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
+    dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
+    print('dice')
+    print(dice_cf.values)
     #TODO
     # need to extract from the json of user start and end. # consult # need to write a dedicated method
     # uf = {'Var1':3,'Var2':1, 'Var3':4, 'Var4':0, 'Var5':4}
@@ -185,7 +183,12 @@ def compute_counterfactual_of_model(test_instance, uf, bb):
     # set a specific small step size
     step = {'Var1':1,'Var2':1, 'Var3':1, 'Var4':1, 'Var5':1}
 
-    f2change = features # all features
+    # changing only features which are in uf
+    f2change = [] #features # all features
+    for f in df2test[testno-1:testno].columns: # also here df2test[testno-1:testno].columns
+            if df2test[testno-1:testno][f].values != uf[f]:
+                f2change.append(f)
+    # print(f2change)
     outcome_label = 'class'
     desired_outcome = 1
     nbr_features = 5
@@ -215,38 +218,45 @@ def compute_counterfactual_of_model(test_instance, uf, bb):
     k = 1
     protected_features = []
     data_lab1 = data_lab1.sample(frac=1)
-    nn, idx = ufc.NNkdtree(data_lab1[:10000], test_instance, 300) #increase radius size as per the dataset
+    nn, idx = ufc.NNkdtree(data_lab1[:10000], df2test[testno-1:testno], 300) #df2test[testno-1:testno] #increase radius size as per the dataset
     if nn.empty != True:
-        interval = ufc.make_intervals(nn, uf, f2change, test_instance) # also use cfs instead of nn #TODO it could be skipped by taking directly user upper and lower values
+        interval = ufc.make_intervals(nn, uf, f2change, test_instance) #df2test[testno-1:testno] # also use cfs instead of nn #TODO it could be skipped by taking directly user upper and lower values
         # print('one interval here', interval)
-        cc = ufc.Single_F(test_instance, catf, interval, bb, desired_outcome, step, regressors)
-        intervals = ufc.make_uf_nn_interval(nn, uf, MI_FP[:5], test_instance)
+        cc = ufc.Single_F(test_instance, catf, f2change, interval, bb, desired_outcome, step, regressors) #df2test[testno-1:testno]
+        intervals = ufc.make_uf_nn_interval(nn, uf, MI_FP[:5], test_instance) #df2test[testno-1:testno]
         # print('two intervals here', intervals)
-        cc2, _ = ufc.Double_F(df, test_instance, protected_features, MI_FP[:5], catf, numf, intervals, features, bb, desired_outcome, regressors)
-        # cc3, _ = ufc.Triple_F(df, test_instance, protected_features, MI_FP[:5], catf, numf, intervals, features, bb, desired_outcome, regressors)
+        cc2, _ = ufc.Double_F(df, test_instance, protected_features, f2change, MI_FP[:5], catf, numf, intervals, features, bb, desired_outcome, regressors) #df2test[testno-1:testno]
+        # cc3, _ = ufc.Triple_F(df, test_instance, protected_features, f2change, MI_FP[:5], catf, numf, intervals, features, bb, desired_outcome, regressors) #df2test[testno-1:testno]
     else:
         raise ValueError('no neighbourhood found in the given range.')
-    # print(cc2)
-    if cc2.empty == True:
-        #TODO: to load from the csv of counterfactuals already generated for all 5 test cases. 
-        df1 = pd.DataFrame(data=[[1,2,3,1,5]], columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
-        df2 = pd.DataFrame(data=[[5,5,6,6,6]], columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
-        return df1
+    # print(len(cc), len(cc2))
+    # print('cc', cc)
+    # print('cc2', cc2)
+
+    final_df = pd.DataFrame()
+    if cc.empty != True:
+        final_df = pd.concat([final_df, cc], ignore_index=True, axis=0, sort=False)
+    if cc2.empty != True:
+        final_df = pd.concat([final_df, cc2], ignore_index=True, axis=0, sort=False)
+    # if cc3.empty != True:
+    #     final_df = pd.concat([final_df, cc3], ignore_index=True, axis=0, sort=False)
+    # nearest cf
+    # x = np.array([0, 0, 0, 0, 0], dtype=int).reshape(1, -1)
+    # x = pd.DataFrame(x, columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
+    if final_df.empty != True:
+        distances = np.linalg.norm(final_df.values - df2test[testno-1:testno].values, axis=1)
+        nearest_row_index = np.argmin(distances)
+        nearest_cf = final_df.iloc[[nearest_row_index]]
     else:
-        ufdf = pd.DataFrame([uf])
-        # distances = cc2.apply(lambda row: np.linalg.norm(row - ufdf.iloc[0]), axis=1)
-        # nearest_row_index = distances.idxmin()
-        # nearest_row = cc2.loc[[nearest_row_index]].reset_index(drop=True)
-        # # nearest_row = nearest_row.astype(int)
-        # # nearest_row = nearest_row.clip(lower=None, upper=ufdf.values)
-        # # cc2 = pd.DataFrame(np.where(cc2 > ufdf, ufdf, cc2), columns=cc2.columns)
-        # nearest_row = pd.DataFrame(np.minimum(ufdf.values, nearest_row.values), columns=nearest_row.columns)
-        cfmax = ufdf.columns[ufdf.values.argmax(1)]
-        # Subtract 1 from the maximum value column
-        ufdf[cfmax] -= 1
-        print('ufce')
-        print(ufdf.values)
-        return ufdf
+        nearest_cf = pd.DataFrame([uf])
+        if bb.predict(nearest_cf.values) == desired_outcome:
+            return nearest_cf
+        else:
+            return final_df
+    # f_cf = nearest_cf.applymap(lambda x: int(x) if isinstance(x, (float, int)) else x)
+    print('ufce')
+    print(nearest_cf.values)
+    return nearest_cf
 
 def compute_counterfactual_of_model_control(dataset, test_instance, bb):
     #TODO: To load the dataset inside the body of function, and removing the dataset parameter from parameters. 
@@ -290,17 +300,23 @@ if __name__ == "__main__":
     # # Access an individual model by specifying the corresponding feature and 'model'
     # # X_test = m['X_test']
     # dataset = pd.read_csv('modelData/data/AFH_EXP1.csv')
-    # X_test = pd.read_csv('modelData/data/X_test.csv')
+    # X_test = pd.read_csv('modelData/data/X_2test.csv')
+    # uf = {'Var1':[4],'Var2':[3], 'Var3':[3], 'Var4':[1], 'Var5':[5]}
     # # X_test.sample(frac=1)
-    # for x in range(5):
-    #     if m['model'].predict(X_test[x:x+1].values) == 0:
-    #         print('Test',X_test[x:x+1])
-    #         print('DiCE')
+    # # for x in range(4):
+    # testno = 1
+    # uf_df = pd.DataFrame(uf)
+    # print("uf prediction:", m['model'].predict(uf_df.values))
+
+    # uf = {'Var1':2,'Var2':3, 'Var3':0, 'Var4':4, 'Var5':2}
+    # if m['model'].predict(X_test[0:1].values) == 0:
+    #     print('Test',X_test[0:1])
+    #         # print('DiCE')
     #         # compute_counterfactual_of_model_control(dataset, x, m['model'])
-    #         cc2 = compute_counterfactual_of_model(X_test[x:x+1], m['model'])
+    #     cc2 = compute_counterfactual_of_model(X_test[0:1],testno, uf, m['model'])
     #         # b1 = calculate_budget(X_test[x:x+1], cc[:1])
     #         # b2 = calculate_budget(X_test[x:x+1], cc2[:1])
     #         # print('one-f:', cc[:1].values,b1, 'two-f',cc2[:5].values,b2)
-    #         print('cc3:', cc2[:1])
+    #         # print('cc:', cc2[:1])
 
 
