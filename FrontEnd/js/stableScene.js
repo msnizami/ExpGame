@@ -16,11 +16,34 @@ class StableScene extends Phaser.Scene {
   healthIndicator;
   isShubInitialized = false;
   buttonContainer;
+  userCost = undefined;
+  incurCost = undefined;
 
   init() {}
 
   preload() {
-    this.currentBudget = this.gameData.budget;
+    // subtracting the actual cf cost incurred from the total budget
+    const imgindex = +localStorage.getItem("imgindex");
+    // this.currentBudget = this.gameData.budget;
+    console.log(this.gameData.budget);
+    this.userCost = this.gameData.clickCountVar1 * costsArray[imgindex].leaves[0].cost +
+    this.gameData.clickCountVar2 * costsArray[imgindex].leaves[1].cost +
+    this.gameData.clickCountVar3 * costsArray[imgindex].leaves[2].cost +
+    this.gameData.clickCountVar4 * costsArray[imgindex].leaves[3].cost +
+    this.gameData.clickCountVar5 * costsArray[imgindex].leaves[4].cost;  
+
+    this.incurCost = this.gameData.cf_array?.at(-1)?.at(0) * costsArray[imgindex].leaves[0].cost +
+    this.gameData.cf_array?.at(-1)?.at(1) * costsArray[imgindex].leaves[1].cost +
+    this.gameData.cf_array?.at(-1)?.at(2) * costsArray[imgindex].leaves[2].cost +
+    this.gameData.cf_array?.at(-1)?.at(3) * costsArray[imgindex].leaves[3].cost +
+    this.gameData.cf_array?.at(-1)?.at(4) * costsArray[imgindex].leaves[4].cost; 
+
+    const costdiff =  this.userCost - this.incurCost;
+    this.gameData.budget = this.gameData.budget + costdiff ;
+    console.log(this.userCost);
+    console.log(this.incurCost);
+    console.log(costdiff) ;
+    console.log(this.gameData.budget);
 
     if (!this.gameData.health) this.gameData.health = this.health;
 
@@ -349,6 +372,8 @@ class StableScene extends Phaser.Scene {
       (plantData) => plantData.image
     );
 
+    
+
     var progressScene = undefined;
     // add button to submit new input - change scene when pressed!
     const buttonFeed = this.add
@@ -357,7 +382,7 @@ class StableScene extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => this.logTimeFeed())
       .on("pointerdown", () => {
-        this.gameData.budget = this.currentBudget;
+        // this.gameData.budget = this.currentBudget;
 
         progressScene = new ProgressScene(this.gameData);
       })
