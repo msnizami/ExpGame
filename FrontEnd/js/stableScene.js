@@ -26,17 +26,17 @@ class StableScene extends Phaser.Scene {
     const imgindex = +localStorage.getItem("imgindex");
     // this.currentBudget = this.gameData.budget;
     console.log(this.gameData.budget);
-    this.userCost = this.gameData.clickCountVar1 * costsArray[imgindex].leaves[0].cost +
-    this.gameData.clickCountVar2 * costsArray[imgindex].leaves[1].cost +
-    this.gameData.clickCountVar3 * costsArray[imgindex].leaves[2].cost +
-    this.gameData.clickCountVar4 * costsArray[imgindex].leaves[3].cost +
-    this.gameData.clickCountVar5 * costsArray[imgindex].leaves[4].cost;  
+    this.userCost = this.gameData.clickCountVar1 * costsArray[imgindex-1].leaves[0].cost +
+    this.gameData.clickCountVar2 * costsArray[imgindex-1].leaves[1].cost +
+    this.gameData.clickCountVar3 * costsArray[imgindex-1].leaves[2].cost +
+    this.gameData.clickCountVar4 * costsArray[imgindex-1].leaves[3].cost +
+    this.gameData.clickCountVar5 * costsArray[imgindex-1].leaves[4].cost;  
 
-    this.incurCost = this.gameData.cf_array?.at(-1)?.at(0) * costsArray[imgindex].leaves[0].cost +
-    this.gameData.cf_array?.at(-1)?.at(1) * costsArray[imgindex].leaves[1].cost +
-    this.gameData.cf_array?.at(-1)?.at(2) * costsArray[imgindex].leaves[2].cost +
-    this.gameData.cf_array?.at(-1)?.at(3) * costsArray[imgindex].leaves[3].cost +
-    this.gameData.cf_array?.at(-1)?.at(4) * costsArray[imgindex].leaves[4].cost; 
+    this.incurCost = this.gameData.cf_array?.at(-1)?.at(0) * costsArray[imgindex-1].leaves[0].cost +
+    this.gameData.cf_array?.at(-1)?.at(1) * costsArray[imgindex-1].leaves[1].cost +
+    this.gameData.cf_array?.at(-1)?.at(2) * costsArray[imgindex-1].leaves[2].cost +
+    this.gameData.cf_array?.at(-1)?.at(3) * costsArray[imgindex-1].leaves[3].cost +
+    this.gameData.cf_array?.at(-1)?.at(4) * costsArray[imgindex-1].leaves[4].cost; 
 
     const costdiff =  this.userCost - this.incurCost;
     this.gameData.budget = this.gameData.budget + costdiff ;

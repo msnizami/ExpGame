@@ -1,5 +1,5 @@
 import StartScene from './startScene.js';
-import {costsArray} from './constants.js'
+import {costsArray} from './constants.js';
 
 class PreStartScene extends Phaser.Scene {
   constructor(gameData) {
@@ -29,11 +29,12 @@ class PreStartScene extends Phaser.Scene {
     
     
 
-    const imgindex = Math.floor(Math.random() * costsArray.length);
-    localStorage.setItem('imgindex', imgindex)
+    const img = this.gameData.testno; // Math.floor(Math.random() * costsArray.length);
+    // console.log(imgindex);
+    // localStorage.setItem('imgindex', imgindex);
     
-
-    this.load.image('surface', costsArray[imgindex].path);
+    // console.log(costsArray[imgindex-1].path)
+    this.load.image('surface', costsArray[img].path);
     this.load.spritesheet('shub', 'static/shub_spritesheet.png', { frameWidth: 50, frameHeight:  47 });
     }
 
@@ -42,13 +43,13 @@ class PreStartScene extends Phaser.Scene {
     const centerY = (this.gameData.game.config.height / 2)-((this.gameData.game.config.width / 2) *0.08);
 
     // Setting background image
-    this.add.image(centerX * 0.75, centerY, 'surface').setScale(this.gameData.getScaledUnit(.7));
+    this.add.image(centerX * 0.75, centerY, 'surface').setScale(this.gameData.getScaledUnit(.6));
 
     const textBlocks = [
       [""],
       ["On each planet, the leaves grow in different regions: they may be found at sea level, at the summit of mountains, or somewhere in between."],
       ["When you visit a new planet, your guardian station is always in sea level, making it easier for you to select some leaves than others."],
-      ["Therefore, each leaf has a different cost on each planet you visit, as shown below."],
+      ["Therefore, each leaf has a different cost on each planet you visit, an example is shown below."],
       [""],
       [""],
       [""],

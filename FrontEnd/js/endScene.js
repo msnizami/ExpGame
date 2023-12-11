@@ -10,13 +10,22 @@ class EndScene extends Phaser.Scene {
 	preload() {
 		// load button images
 		this.load.spritesheet('checkbox', 'static/CheckBoxSprites.png', { frameWidth: 51, frameHeight: 50 });
-		this.load.image('Uniurb', 'static/uniurb-logo.png');
-		// this.load.image('ITSML', 'static/.png');
+		this.load.image('URB', 'static/uniurb-logo.png');
+    	this.load.image('CITI', 'static/citius-logo.png');
+    	this.load.image('UBF', 'static/UBF-logo.png');
 		this.load.image('buttonAgree', 'static/buttonSubmit.png');
 
 	}
 
 	create() {
+		
+		const centerX = window.innerWidth ;
+    	const centerY = window.innerHeight ;
+
+    	// Uncomment these lines to add logos if needed
+    	this.add.image(centerX * 0.15, centerY * 0.06, 'URB').setScale(0.2);
+    	this.add.image(centerX * 0.5, centerY * 0.06, 'CITI').setScale(0.2);
+    	this.add.image(centerX * 0.85, centerY * 0.06, 'UBF').setScale(0.2);
 		this.varObj.api.logUserPayment();	// Store (ecrypted) paymentId on server
 
 		this.add.image(window.innerWidth * 0.1, window.innerHeight * 0.1, 'Uniurb').setScale(0.15);
@@ -32,7 +41,7 @@ class EndScene extends Phaser.Scene {
 			'',
 			this.varObj.api.paymentId,
 			'',
-			'Note down this code, return to AMT/Prolific and insert the code into the box to receive your payment.',
+			'Note down this code, return to Prolific and insert the code into the box to receive your payment.',
 		]
 
 		var qIntro3 = [
@@ -49,7 +58,7 @@ class EndScene extends Phaser.Scene {
 		// add button to start game and switch to fullscreen
 		var buttonDebrief = this.add.image(0, 0, 'buttonAgree').setScale(0.65)
 			.setInteractive()
-			.on('pointerdown', () => { window.open('https://www.uniurb.it/ateneo/persone-e-strutture/dipartimenti/dipartimento-di-scienze-pure-e-applicate-dispea/'); });
+			.on('pointerdown', () => { window.open('https://ieeexplore.ieee.org/document/9819899/'); });
 
 		var textDebrief = this.add.text(-100, -25, ['I want to learn more','about the study!'], { fontSize: '18px', color: '#ffffff' }).setOrigin(0);
 		var buttonContainer = this.add.container(window.innerWidth * 0.80, window.innerHeight * 0.70, [buttonDebrief, textDebrief])

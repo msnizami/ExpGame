@@ -51,10 +51,10 @@ class InfoScene extends Phaser.Scene {
 			"We will do our best to keep your information confidential.",
 			"",
 			"The results of this study will be used for scholarly purposes only.",
-			"If you have any questions about the research study, please contact Dott. Muhammad Suffian at m.suffian@campus.uniurb.it .",
+			"If you have any questions about the research study, please contact Mr. Muhammad Suffian at m.suffian@campus.uniurb.it .",
 			"",
       "The information that we collect is in agreement with European Union's General Data Protection Regulation (GDPR).",
-			"The study was approved by the Ethics Committee at University of Urbino, Italy.",
+			"Ethics approval for this study was granted by University of Urbino with the reference code XXXXX.",
       "After completion of the study, the research data collected will be made publicly available in an anonymized form through a suitable data archive.",
       "The purpose, type, and scope of potential subsequent use are currently not foreseeable.",
       "The data will only be published in a way that does not allow any conclusions to be drawn at any time about individual or specific persons."

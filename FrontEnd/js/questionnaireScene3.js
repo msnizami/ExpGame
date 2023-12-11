@@ -59,7 +59,7 @@ class QuestionnaireScene3 extends Phaser.Scene {
 			];
 		} else {
 		var item6 = [
-			"6. I was able to use the feedback on what choice would have led to a better result to increase the number of Shubs."
+			"6. I was able to use the feedback on what choice would have led to a better result to increase the fitness of Shubs."
 		];
 		}
 

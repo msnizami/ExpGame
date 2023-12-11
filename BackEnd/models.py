@@ -171,7 +171,7 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
     # initiate DiCE
     exp_random = dice_ml.Dice(d, m, method="kdtree")
     # generate counterfactuals
-    dice_exp_random = exp_random.generate_counterfactuals(df2test[testno-1:testno].values, total_CFs=1, desired_class="opposite", verbose=False)
+    dice_exp_random = exp_random.generate_counterfactuals(df2test[testno-1:testno], total_CFs=1, desired_class="opposite", verbose=False)
     # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
     dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
     print('dice')

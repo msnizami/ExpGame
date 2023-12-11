@@ -32,18 +32,21 @@ class StableConfigScene extends Phaser.Scene {
   preload() {
     this.currentBudget = this.gameData.budget;
 
-    const imgindex = +localStorage.getItem("imgindex");
+    const imgindex = this.gameData.testno; // Math.floor(Math.random() * costsArray.length);
+    // console.log(imgindex);
+    localStorage.setItem('imgindex', imgindex);
+
+    
+    // this.imgindex = +localStorage.getItem("imgindex");
+    // console.log(imgindex-1)
+    this.load.image('surface', costsArray[imgindex-1].path);
+
     const totalCost =
-      this.gameData.clickCountVar1 * costsArray[imgindex].leaves[0].cost +
-      this.gameData.clickCountVar2 * costsArray[imgindex].leaves[1].cost +
-      this.gameData.clickCountVar3 * costsArray[imgindex].leaves[2].cost +
-      this.gameData.clickCountVar4 * costsArray[imgindex].leaves[3].cost +
-      this.gameData.clickCountVar5 * costsArray[imgindex].leaves[4].cost;
-
-    // if (this.attemptsCount < this.attemptslimit){
-    //   this.currentBudget = this.gameData.glob_Budget - this.gameData.globcost ;
-    // }
-
+      this.gameData.clickCountVar1 * costsArray[imgindex-1].leaves[0].cost +
+      this.gameData.clickCountVar2 * costsArray[imgindex-1].leaves[1].cost +
+      this.gameData.clickCountVar3 * costsArray[imgindex-1].leaves[2].cost +
+      this.gameData.clickCountVar4 * costsArray[imgindex-1].leaves[3].cost +
+      this.gameData.clickCountVar5 * costsArray[imgindex-1].leaves[4].cost;
     
     if (this.currentBudget > totalCost) {
       const values = this.gameData.testInstances.at(this.gameData.testno - 1); //testvalMenu
@@ -342,6 +345,7 @@ class StableConfigScene extends Phaser.Scene {
       screenHeight: this.scale.height,
     };
 
+    // planets costs box
     this.gameData.api.creteBorderBox(
       constants.screenWidth * 0.03,
       constants.screenHeight * 0.25,
@@ -349,7 +353,6 @@ class StableConfigScene extends Phaser.Scene {
       constants.screenHeight * 0.15,
       this.add
     );
-
     this.add.text(
       constants.screenWidth * 0.045,
       constants.screenHeight * 0.25,
@@ -361,16 +364,24 @@ class StableConfigScene extends Phaser.Scene {
       }
     );
 
-    // leaves and costs
 
+
+    // leaves and costs
     const imgindex = +localStorage.getItem("imgindex");
 
-    for (let i = 0; i < costsArray[imgindex].leaves.length; i++) {
+
+    // //setting planet costs surface image for each planet dynamically
+    // const centerX = (this.gameData.game.config.width / 2)+((this.gameData.game.config.width / 2) *0.06);
+    // const centerY = (this.gameData.game.config.height / 2)-((this.gameData.game.config.width / 2) *0.2);
+    // this.add.image(centerX * 0.75, centerY, 'surface').setScale(this.gameData.getScaledUnit(.4));
+
+    //remaining code of planet cost boxes above
+    for (let i = 0; i < costsArray[imgindex-1].leaves.length; i++) {
       const xPos = constants.screenWidth * (0.05 + i * 0.1);
       const yPos = constants.screenHeight * 0.3;
       const costPerUnitText = ":";
       const plantKey = `plant${i + 1}`;
-      const plantCost = costsArray[imgindex].leaves[i].cost;
+      const plantCost = costsArray[imgindex-1].leaves[i].cost;
 
       this.add.image(xPos, yPos + 20, plantKey).setScale(0.1);
       this.add.text(xPos + 50, yPos, `${costPerUnitText} ${plantCost}`, {
@@ -507,7 +518,7 @@ class StableConfigScene extends Phaser.Scene {
             // this.gameData[`clickCountVar${i}`] *
             if (
               this.gameData[`clickCountVar${i}`] < 6 &&
-              this.currentBudget >= costsArray[imgindex].leaves[i - 1].cost
+              this.currentBudget >= costsArray[imgindex-1].leaves[i - 1].cost
             ) {
               this.gameData[`clickCountVar${i}`]++;
               clickCountTextVar.setText(this.gameData[`clickCountVar${i}`]);
@@ -609,7 +620,7 @@ class StableConfigScene extends Phaser.Scene {
                 this.add.text(
                   window.innerWidth * 0.025,
                   window.innerHeight * 0.42,
-                  "Unfortunately, your selection of ranges was to strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
+                  "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
                   { fontFamily: "monogram", fontSize: "20px", color: "#FF0000" }
                 );
                 helpContainer.setVisible(true);
@@ -721,7 +732,7 @@ class StableConfigScene extends Phaser.Scene {
                     this.errorText = this.add.text(
                       window.innerWidth * 0.025,
                       window.innerHeight * 0.42,
-                      "Unfortunately, your selection of ranges was to strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
+                      "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
                       {
                         fontFamily: "monogram",
                         fontSize: "20px",
@@ -1142,11 +1153,11 @@ class StableConfigScene extends Phaser.Scene {
   updateBudget() {
     const imgindex = +localStorage.getItem("imgindex");
     const totalCost =
-      this.gameData.clickCountVar1 * costsArray[imgindex].leaves[0].cost +
-      this.gameData.clickCountVar2 * costsArray[imgindex].leaves[1].cost +
-      this.gameData.clickCountVar3 * costsArray[imgindex].leaves[2].cost +
-      this.gameData.clickCountVar4 * costsArray[imgindex].leaves[3].cost +
-      this.gameData.clickCountVar5 * costsArray[imgindex].leaves[4].cost;
+      this.gameData.clickCountVar1 * costsArray[imgindex-1].leaves[0].cost +
+      this.gameData.clickCountVar2 * costsArray[imgindex-1].leaves[1].cost +
+      this.gameData.clickCountVar3 * costsArray[imgindex-1].leaves[2].cost +
+      this.gameData.clickCountVar4 * costsArray[imgindex-1].leaves[3].cost +
+      this.gameData.clickCountVar5 * costsArray[imgindex-1].leaves[4].cost;
 
     // Ensure the totalCost does not exceed the totalBudget
     const newBudget = Math.max(0, this.totalBudget - totalCost);

@@ -54,7 +54,7 @@ class StartScene extends Phaser.Scene {
     const specialNote = [
       "Today, you will visit 3 planets, with a single budget that covers all 3 visits.",
       "When you arrive at a new planet, you will see an example of a non-optimal diet for this planet.",
-      "Also, you will see a box showing the planets environment, highlighting the costs for the plants for current planet.",
+      "Also, you will see a box showing the planets environment, highlighting the costs of each leaf for current planet.",
       "",
       "Your first task is to provide the AlienNutriSolver with preliminary ranges of leaves for this planet.",
       "Watch your budget because all suggested ranges will be deducted from it.",

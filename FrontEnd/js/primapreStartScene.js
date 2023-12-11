@@ -49,7 +49,8 @@ class PrimapreStartScene extends Phaser.Scene {
             "This tool uses cutting-edge algorithms to process and analyze vast arrays of data, simulating",
             "the current environment and dietary needs of alien species across planets.",
             "",
-            "To work with the AlienNutriSolver, you need to provide preliminary ranges of leaves for each planet.",
+            "To work with the AlienNutriSolver, for each planet, you have to set beforehand preliminary ranges of leaves.",
+            "These ranges are taken as global constraints in the search for optimal solutions by the AlienNutriSolver.",
             "The tool will conduct a thorough exploration of potential combinations within those limits, to suggest a healthier diet for the current planet.",
             "Your task is to travel to the different planets, experiment with leaves and the AlienNutriSolver, and find the healthiest diet for each group of Shubs."
     ];
