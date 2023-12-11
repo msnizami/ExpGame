@@ -171,7 +171,7 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
     # initiate DiCE
     exp_random = dice_ml.Dice(d, m, method="kdtree")
     # generate counterfactuals
-    dice_exp_random = exp_random.generate_counterfactuals(df2test[testno-1:testno], total_CFs=1, desired_class="opposite", verbose=False)
+    dice_exp_random = exp_random.generate_counterfactuals(df2test[testno-1:testno].values, total_CFs=1, desired_class="opposite", verbose=False)
     # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
     dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
     print('dice')
@@ -247,12 +247,16 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
         distances = np.linalg.norm(final_df.values - df2test[testno-1:testno].values, axis=1)
         nearest_row_index = np.argmin(distances)
         nearest_cf = final_df.iloc[[nearest_row_index]]
+        # print('final_df', nearest_cf)
     else:
         nearest_cf = pd.DataFrame([uf])
         if bb.predict(nearest_cf.values) == desired_outcome:
+            # print('nearest_cf', nearest_cf)
             return nearest_cf
         else:
-            return final_df
+            x = np.array([0, 0, 0, 0, 0], dtype=int).reshape(1, -1)
+            nearest_cf = pd.DataFrame(x, columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
+            return nearest_cf
     # f_cf = nearest_cf.applymap(lambda x: int(x) if isinstance(x, (float, int)) else x)
     print('ufce')
     print(nearest_cf.values)

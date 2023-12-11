@@ -17,7 +17,7 @@ class StableConfigScene extends Phaser.Scene {
   errorText;
   totalBudget = 0;
   currentBudget = 0;
-  attemptsCount = 2;
+  attemptsCount = 3;
   attemptslimit = 2;
   triesText;
   levelTextContainer;
@@ -728,9 +728,9 @@ class StableConfigScene extends Phaser.Scene {
                         color: "#FF0000",
                       }
                     );
-                    this.diffCountVars = Object.values(
-                      newShubData?.diffCountVars
-                    );
+                    // this.diffCountVars = Object.values(
+                    //   newShubData?.diffCountVars
+                    // );
                     helpContainer.setVisible(true);
                     let differenceLeaves = [];
                     for (let i = 0; i < this.diffCountVars?.length; i++) {
