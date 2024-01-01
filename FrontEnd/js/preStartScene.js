@@ -143,7 +143,7 @@ class PreStartScene extends Phaser.Scene {
 
   logTime() {
     const time = new Date().getTime() - this.startTime;
-    this.gameData.api.logTime(2, time);
+    this.gameData.api.logTime(3, time);
   }
 }
 

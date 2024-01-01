@@ -253,7 +253,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 		}.bind(this));
 
 		var itemAge = [
-			"Plase indicate your age:"
+			"Please indicate your age:"
 		]
 
 		// add item 1

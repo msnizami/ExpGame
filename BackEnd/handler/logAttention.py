@@ -73,7 +73,7 @@ class LogAttentionHandler(BasisRequestHandler):
             "trialCount": trial_count
         }
 
-        if self.datamgr.log_user_stuff(user_id, json.dumps(log_data)) is False:
+        if self.datamgr.log_user_attention(user_id, json.dumps(log_data)) is False:
             self.send_custom_error(500, "Internal server error")
         else:
             self.finish()

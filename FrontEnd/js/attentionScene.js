@@ -19,7 +19,7 @@ class AttentionScene extends Phaser.Scene {
 
     this.startTime = new Date().getTime();
 
-    this.add.text(window.innerWidth * 0.1, window.innerHeight * 0.1, 'Quick question: What was the shub\'s health in the last round?', { fontFamily: "monogram", fontSize: '18px', color: '#000000' });
+    this.add.text(window.innerWidth * 0.1, window.innerHeight * 0.1, 'Quick question: What was the shub\'s health level on Planet-1?', { fontFamily: "monogram", fontSize: '18px', color: '#000000' });
     this.add.text(window.innerWidth * 0.1, window.innerHeight * 0.2, 'Please enter the number in the box below before continuing.', { fontFamily: "monogram", fontSize: '18px', color: '#000000' });
 
     this.inputText = this.add.rexInputText(window.innerWidth * 0.1, window.innerHeight * 0.4, 200, 50, {
@@ -63,82 +63,84 @@ class AttentionScene extends Phaser.Scene {
 
   onBtnContinue() {
     if(this.inputText.text == "") {
+		this.logAnswer();
+		this.logTime();
 			// alerts cause issues in fullscreen mode, here's a workaround:
 
-			// background
-			var warnDialogBG = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0xFFFFFF, 0.5).setOrigin(0);
-			// dialog
-			var warnDialog = this.add.rectangle((window.innerWidth * 0.5)-200, (window.innerHeight * 0.5)-130, 400, 200, 0xFFFFFF, 1).setOrigin(0);
-			warnDialog.setStrokeStyle(1, 0x1000000, 1);
-			var warnDialogTxt = this.add.text((window.innerWidth * 0.5)-150, (window.innerHeight * 0.5)-80, "Please enter a number!", { fontFamily: "monogram", fontSize: '25px', color: '#000000' }).setOrigin(0);
-			// text
-			var buttonOK = this.add.rectangle((window.innerWidth * 0.5)-50, (window.innerHeight * 0.5)-25, 100, 50, 0x1a65ac, 1).setOrigin(0);
-			buttonOK.setStrokeStyle(1, 0x1000000, 1);
-			var buttontextOK = this.add.text((window.innerWidth * 0.5)-20, (window.innerHeight * 0.5)-12.5, 'Ok', { fontFamily: "monogram", fontSize: '25px', color: '#FFFFFF' }).setOrigin(0);
+		// background
+		var warnDialogBG = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0xFFFFFF, 0.5).setOrigin(0);
+		// dialog
+		var warnDialog = this.add.rectangle((window.innerWidth * 0.5)-200, (window.innerHeight * 0.5)-130, 400, 200, 0xFFFFFF, 1).setOrigin(0);
+		warnDialog.setStrokeStyle(1, 0x1000000, 1);
+		var warnDialogTxt = this.add.text((window.innerWidth * 0.5)-150, (window.innerHeight * 0.5)-80, "Please enter a number!", { fontFamily: "monogram", fontSize: '25px', color: '#000000' }).setOrigin(0);
+		// text
+		var buttonOK = this.add.rectangle((window.innerWidth * 0.5)-50, (window.innerHeight * 0.5)-25, 100, 50, 0x1a65ac, 1).setOrigin(0);
+		buttonOK.setStrokeStyle(1, 0x1000000, 1);
+		var buttontextOK = this.add.text((window.innerWidth * 0.5)-20, (window.innerHeight * 0.5)-12.5, 'Ok', { fontFamily: "monogram", fontSize: '25px', color: '#FFFFFF' }).setOrigin(0);
 
-			// make interactive and remove all after clicking ok
-			buttonOK
-				.setInteractive()
-				.on('pointerdown', () => { warnDialogBG.destroy(); })
-				.on('pointerdown', () => { warnDialog.destroy(); })
-				.on('pointerdown', () => { warnDialogTxt.destroy(); })
-				.on('pointerdown', () => { buttonOK.destroy(); })
-				.on('pointerdown', () => { buttontextOK.destroy(); });
+		// make interactive and remove all after clicking ok
+		buttonOK
+			.setInteractive()
+			.on('pointerdown', () => { warnDialogBG.destroy(); })
+			.on('pointerdown', () => { warnDialog.destroy(); })
+			.on('pointerdown', () => { warnDialogTxt.destroy(); })
+			.on('pointerdown', () => { buttonOK.destroy(); })
+			.on('pointerdown', () => { buttontextOK.destroy(); });
     }
     else {
       this.logAnswer();
       this.logTime();
 
-			////////
-			if(this.gameData.shubOldHealth.at(-1)==this.inputText.text){
+		//////// shubOldealth.at(-1)
+		if(this.gameData.health==this.inputText.text){
 
-				var infoTxt = [
-					'Your answer was correct! Good job!',
-					'',
-					'Please keep paying close attention to',
-					'ALL aspects of the game at any time.',
-					'',
-					'If your responses fail to meet our quality control standards,',
-					'your HIT is likely to be rejected!',
-				]
+			var infoTxt = [
+				'Your answer was correct! Good job!',
+				'',
+				'Please keep paying close attention to',
+				'ALL aspects of the game at any time.',
+				'',
+				'If your responses fail to meet our quality control standards,',
+				'your HIT is likely to be rejected!',
+			]
 
-			} else {
+		} else {
 
-				var infoTxt = [
-					'Your answer was NOT correct! Oh no!',
-					'',
-					'Please keep paying close attention to',
-					'ALL aspects of the game at any time.',
-					'',
-					'If your responses fail to meet our quality control standards,',
-					'your HIT is likely to be rejected!',
-				]
-			}
+			var infoTxt = [
+				'Your answer was NOT correct! Oh no!',
+				'',
+				'Please keep paying close attention to',
+				'ALL aspects of the game at any time.',
+				'',
+				'If your responses fail to meet our quality control standards,',
+				'your HIT is likely to be rejected!',
+			]
+		}
 
-			var infoDialogBG = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0xFFFFFF, 0.5).setOrigin(0);
-			// dialog and text
-			var infoDialog = this.add.rectangle((window.innerWidth * 0.5)-300, (window.innerHeight * 0.5)-260, 800, 400, 0xFFFFFF, 1).setOrigin(0);
-			infoDialog.setStrokeStyle(1, 0x1000000, 1);
+		var infoDialogBG = this.add.rectangle(0, 0, window.innerWidth, window.innerHeight, 0xFFFFFF, 0.5).setOrigin(0);
+		// dialog and text
+		var infoDialog = this.add.rectangle((window.innerWidth * 0.5)-300, (window.innerHeight * 0.5)-260, 800, 400, 0xFFFFFF, 1).setOrigin(0);
+		infoDialog.setStrokeStyle(1, 0x1000000, 1);
 
-			var infoDialogTxt = this.add.text((window.innerWidth * 0.5)-220, (window.innerHeight * 0.5)-200, infoTxt, { fontFamily: "monogram", fontSize: '25px', color: '#000000', align: 'center' }).setOrigin(0);
+		var infoDialogTxt = this.add.text((window.innerWidth * 0.5)-220, (window.innerHeight * 0.5)-200, infoTxt, { fontFamily: "monogram", fontSize: '25px', color: '#000000', align: 'center' }).setOrigin(0);
 
-			setTimeout(function() {
-				var buttonOK = this.add.rectangle((window.innerWidth * 0.5)+50, (window.innerHeight * 0.5)+25, 100, 50, 0x1a65ac, 1).setOrigin(0);
-				buttonOK.setStrokeStyle(1, 0x1000000, 1);
-				var buttontextOK = this.add.text((window.innerWidth * 0.5)+80, (window.innerHeight * 0.5)+35, 'Ok', { fontFamily: "monogram", fontSize: '25px', color: '#FFFFFF' }).setOrigin(0);
+		setTimeout(function() {
+			var buttonOK = this.add.rectangle((window.innerWidth * 0.5)+50, (window.innerHeight * 0.5)+25, 100, 50, 0x1a65ac, 1).setOrigin(0);
+			buttonOK.setStrokeStyle(1, 0x1000000, 1);
+			var buttontextOK = this.add.text((window.innerWidth * 0.5)+80, (window.innerHeight * 0.5)+35, 'Ok', { fontFamily: "monogram", fontSize: '25px', color: '#FFFFFF' }).setOrigin(0);
 
-				var progressScene = new ProgressScene(this.gameData);
+			var progressScene = new ProgressScene(this.gameData);
 
-				buttonOK
-					.setInteractive()
-					.on('pointerdown', () => { infoDialogBG.destroy(); })
-					.on('pointerdown', () => { infoDialog.destroy(); })
-					.on('pointerdown', () => { infoDialogTxt.destroy(); })
-					.on('pointerdown', () => { buttonOK.destroy(); })
-					.on('pointerdown', () => { buttontextOK.destroy(); })
-					.on('pointerdown', () => { this.scene.remove('progressScene', progressScene); })
-					.on('pointerdown', () => { this.scene.add('progressScene', progressScene); })
-					.on('pointerdown', () => { this.scene.start('progressScene'); });
+			buttonOK
+				.setInteractive()
+				.on('pointerdown', () => { infoDialogBG.destroy(); })
+				.on('pointerdown', () => { infoDialog.destroy(); })
+				.on('pointerdown', () => { infoDialogTxt.destroy(); })
+				.on('pointerdown', () => { buttonOK.destroy(); })
+				.on('pointerdown', () => { buttontextOK.destroy(); })
+				.on('pointerdown', () => { this.scene.remove('progressScene', progressScene); })
+				.on('pointerdown', () => { this.scene.add('progressScene', progressScene); })
+				.on('pointerdown', () => { this.scene.start('progressScene'); });
 
 			}.bind(this), this.gameData.btnOkayShowDelay);
 
@@ -147,7 +149,7 @@ class AttentionScene extends Phaser.Scene {
   }
 
   logAnswer() {
-    this.gameData.api.logAttention(this.inputText.text, this.gameData.trialCount, this.gameData.oldNumber);
+    this.gameData.api.logAttention(this.inputText.text, this.gameData.testno, this.gameData.health);
   }
 
   logTime() {

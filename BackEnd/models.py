@@ -175,6 +175,7 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
     # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
     dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
     print('dice')
+    print(dice_cf.columns)
     print(dice_cf.values)
     #TODO
     # need to extract from the json of user start and end. # consult # need to write a dedicated method
@@ -252,15 +253,16 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
         nearest_cf = pd.DataFrame([uf])
         if bb.predict(nearest_cf.values) == desired_outcome:
             # print('nearest_cf', nearest_cf)
-            return nearest_cf
+            return nearest_cf, dice_cf
         else:
             x = np.array([0, 0, 0, 0, 0], dtype=int).reshape(1, -1)
             nearest_cf = pd.DataFrame(x, columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
-            return nearest_cf
+            return nearest_cf, dice_cf
     # f_cf = nearest_cf.applymap(lambda x: int(x) if isinstance(x, (float, int)) else x)
     print('ufce')
+    print(nearest_cf.columns)
     print(nearest_cf.values)
-    return nearest_cf
+    return nearest_cf, dice_cf
 
 def compute_counterfactual_of_model_control(dataset, test_instance, bb):
     #TODO: To load the dataset inside the body of function, and removing the dataset parameter from parameters. 

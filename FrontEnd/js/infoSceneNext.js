@@ -70,10 +70,11 @@ class InfoSceneNext extends Phaser.Scene {
 
   // Handle button click event
   onClickBtnAgree() {
+    this.logTime();
     if (!this.isBrowserWindowMaximized()) {
       alert("Please maximize your browser window before continuing by pressing F11!");
     } else {
-      this.logTime();
+      // this.logTime();
       this.scale.startFullscreen();
       this.gameData.game.config.width = window.innerWidth
       this.gameData.game.config.height = window.innerHeight
@@ -96,7 +97,7 @@ class InfoSceneNext extends Phaser.Scene {
   // Log the time
   logTime() {
     const time = new Date().getTime() - this.startTime;
-    this.gameData.api.logTime(0, time);
+    this.gameData.api.logTime(1, time);
   }
 }
 

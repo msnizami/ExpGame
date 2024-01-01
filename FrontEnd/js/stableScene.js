@@ -372,38 +372,74 @@ class StableScene extends Phaser.Scene {
       (plantData) => plantData.image
     );
 
-    
+    // start : to call the attention scene
+    if (this.gameData.testno == 2) {
+          // instatiate and add new progress scene with current data
+          var attentionScene = undefined;
+          // add button to submit new input - change scene when pressed!
+          const buttonFeed = this.add
+            .image(0, 0, "buttonFeed")
+            .setScale(0.4)
+            .setInteractive()
+            .on("pointerdown", () => this.logTimeFeed())
+            .on(
+              "pointerdown",
+              () => {
+                //this.gameData.budget = this.currentBudget;
+                attentionScene = new AttentionScene(this.gameData)}
+            )
+            .on("pointerdown", () =>
+              this.scene.remove("attentionScene", attentionScene)
+            )
+            .on("pointerdown", () =>
+              this.scene.add("attentionScene", attentionScene)
+            )
+            .on("pointerdown", () => this.scene.start("attentionScene"))
+  
+          var textFeed = this.add
+            .text(-70, -15, "Feeding time!", {
+              fontSize: "20px",
+              color: "#ffffff",
+            })
+            .setOrigin(0);
+          var buttonContainer = this.add.container(
+            window.innerWidth * 0.8,
+            window.innerHeight * 0.6,
+            [buttonFeed, textFeed]
+          );
+        }// end : to call the attention scene
+    else{ 
+        // to remove the attentionscene need to remove if else and do 2 back tabs to the following code.
+        var progressScene = undefined;
+        // add button to submit new input - change scene when pressed!
+        const buttonFeed = this.add
+          .image(0, 0, "buttonFeed")
+          .setScale(0.4)
+          .setInteractive()
+          .on("pointerdown", () => this.logTimeFeed())
+          .on("pointerdown", () => {
+            // this.gameData.budget = this.currentBudget;
 
-    var progressScene = undefined;
-    // add button to submit new input - change scene when pressed!
-    const buttonFeed = this.add
-      .image(0, 0, "buttonFeed")
-      .setScale(0.4)
-      .setInteractive()
-      .on("pointerdown", () => this.logTimeFeed())
-      .on("pointerdown", () => {
-        // this.gameData.budget = this.currentBudget;
+            progressScene = new ProgressScene(this.gameData);
+          })
+          .on("pointerdown", () =>
+            this.scene.remove("progressScene", progressScene)
+          )
+          .on("pointerdown", () => this.scene.add("progressScene", progressScene))
+          .on("pointerdown", () => this.scene.start("progressScene"));
 
-        progressScene = new ProgressScene(this.gameData);
-      })
-      .on("pointerdown", () =>
-        this.scene.remove("progressScene", progressScene)
-      )
-      .on("pointerdown", () => this.scene.add("progressScene", progressScene))
-      .on("pointerdown", () => this.scene.start("progressScene"));
-
-    var textFeed = this.add
-      .text(-70, -15, "Feeding time!", {
-        fontSize: "20px",
-        color: "#ffffff",
-      })
-      .setOrigin(0);
-    var buttonContainer = this.add.container(
-      window.innerWidth * 0.8,
-      window.innerHeight * 0.6,
-      [buttonFeed, textFeed]
-    );
-
+        var textFeed = this.add
+          .text(-70, -15, "Feeding time!", {
+            fontSize: "20px",
+            color: "#ffffff",
+          })
+          .setOrigin(0);
+        var buttonContainer = this.add.container(
+          window.innerWidth * 0.8,
+          window.innerHeight * 0.6,
+          [buttonFeed, textFeed]
+        );
+      }
     // // updating budget to global
     // const imgindex = +localStorage.getItem('imgindex')
     // this.currentBudget =
@@ -686,9 +722,9 @@ class StableScene extends Phaser.Scene {
   logTimeFeed() {
     var time = new Date().getTime() - this.startTime;
     this.gameData.api.logTime(
-      3,
+      6,
       time,
-      this.gameData.blockCount,
+      this.gameData.testno,
       this.gameData.trialCount
     );
   }

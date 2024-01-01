@@ -150,6 +150,8 @@ class ProgressScene extends Phaser.Scene {
 		}
 		else{
 
+			
+
 			setTimeout(() => {
 				// message popup for user-satisfaction
 				const messageContainer = this.add.container(0, 0).setDepth(100);

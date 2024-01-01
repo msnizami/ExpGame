@@ -122,15 +122,53 @@ class PredictNewShubNoHandler(BasisRequestHandler):
 
 
         # Compute a closest counterfactual explanation if the user is in the experimental group
-        x_cf1 = self.__compute_counterfactual(x, block_count, input_vars)  #updated
+        x_cf1, cf_dice = self.__compute_counterfactual(x, block_count, input_vars)  #updated
         x_cf1 = x_cf1.reset_index(drop=True)
         x_cf1 = x_cf1.applymap(lambda k: int(k) if isinstance(k, (float, int)) else k)
+        cf_dice = cf_dice.reset_index(drop=True)
+        cf_dice = cf_dice.applymap(lambda i: int(i) if isinstance(i, (float, int)) else i)
         x = x.applymap(lambda j: int(j) if isinstance(j, (float, int)) else j)
         
         # print(x_cf1)
         
 
-        # Log everything!
+        # dice log
+        log_data_dice = {
+            #"prediction": pred,
+            "oldpred": cur_pred,
+            "newpred": new_pred.item(),
+            "trialCount": trial_count,
+            "blockCount": block_count,
+            "inputVars": {
+                "Var1": input_vars["Var1"],
+                "Var2": input_vars["Var2"],
+                "Var3": input_vars["Var3"],
+                "Var4": input_vars["Var4"],
+                "Var5": input_vars["Var5"]
+            }
+        }
+        #if control_group is False:
+        if cf_dice is not None:
+            # print('in log data,', x_cf1)
+            cf_dice = cf_dice.to_dict()
+            # print('x_cf1')
+            # print(x_cf1)
+
+            log_data_dice["counterfactualCountVars"] =  {
+                    "Var1": cf_dice['Var1'][0],
+                    "Var2": cf_dice['Var2'][0],
+                    "Var3": cf_dice['Var3'][0],
+                    "Var4": cf_dice['Var4'][0],
+                    "Var5": cf_dice['Var5'][0]
+                }
+        # user_id = 111
+        # print(log_data)
+        if self.datamgr.log_user_stuff_dice(user_id, json.dumps(log_data_dice)) is False:
+            print("Sending an error")
+            self.send_custom_error(500, "Internal server errorzzzzzzzzzz")
+            return
+
+        # ufce Log everything!
         log_data = {
             #"prediction": pred,
             "oldpred": cur_pred,

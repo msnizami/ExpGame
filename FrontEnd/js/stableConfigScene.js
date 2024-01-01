@@ -18,7 +18,7 @@ class StableConfigScene extends Phaser.Scene {
   totalBudget = 0;
   currentBudget = 0;
   attemptsCount = 3;
-  attemptslimit = 2;
+  attemptslimit = 3;
   triesText;
   levelTextContainer;
   RoundTextContainer;
@@ -554,7 +554,7 @@ class StableConfigScene extends Phaser.Scene {
             }
           });
       }
-
+      
       if (this.gameData.attentionTrials.includes(this.gameData.trialCount)) {
         var stableScene = undefined;
         const buttonFeed = this.add
@@ -564,6 +564,7 @@ class StableConfigScene extends Phaser.Scene {
           .on("pointerdown", () => {
             this.logTimeFeed();
             this.gameData.budget = this.currentBudget;
+            this.logAnswer();
 
             stableScene = new StableScene(this.gameData);
             this.scene.remove("stableScene", stableScene);
@@ -599,6 +600,7 @@ class StableConfigScene extends Phaser.Scene {
           .setInteractive()
           .on("pointerdown", () => {
             this.logTimeFeed();
+            this.logAnswer();
 
             let isDataChanged = false;
             for (let i = 0; i < 6; i++) {
@@ -654,6 +656,7 @@ class StableConfigScene extends Phaser.Scene {
               .then((newShubData) => 
               {
                 this.attemptsCount--;
+                this.logAnswer();
                 loadingContainer.setVisible(false);
                 buttonContainer.setVisible(true);
                 if (newShubData?.cur_pred) { //|| this.attemptsCount == 0
@@ -722,6 +725,7 @@ class StableConfigScene extends Phaser.Scene {
                   this.triesText.setText("Available Attempts:" + this.attemptsCount);
                   this.gameData.showWrongRangeSelectionMessage = true;
                   this.gameData.isStableConfigured = false;
+                  this.logAnswer();
                   if (
                     !this.gameData.isStableConfigured &&
                     this.gameData.showWrongRangeSelectionMessage
@@ -965,6 +969,11 @@ class StableConfigScene extends Phaser.Scene {
     }
   }
 
+  logAnswer() {
+    // need to define it according to lograndfeedback for 6-7 variables
+    // this.gameData.api.logAttention(this.gameData.budget, this.attemptsCount, this.gameData.health);
+  }
+
   clickBtnFeedback() {
     this.logTimeFeedback();
     this.gameData.budget = this.currentBudget;
@@ -977,13 +986,13 @@ class StableConfigScene extends Phaser.Scene {
   logTimeFeed() {
     var time = new Date().getTime() - this.startTime;
     this.gameData.api.logTime(
-      3,
+      5,
       time,
-      this.gameData.blockCount,
-      this.gameData.trialCount
+      this.gameData.testno,
+      this.attemptsCount //this.gameData.trialCount
     );
   }
-
+  // this is not used in the current version as feedbacksceene is not called
   logTimeFeedback() {
     var time = new Date().getTime() - this.startTime;
     this.gameData.api.logTime(

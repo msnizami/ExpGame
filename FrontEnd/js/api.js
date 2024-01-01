@@ -233,7 +233,7 @@ class AlienZooApi {
             const data = {
                         "userId": this.userId,
                         "cur_pred": 0,
-                        "trialCount": gameData.trialCount, //attempts
+                        "trialCount": gameData.trialCount, //attempts/trialCount
                         "blockCount": gameData.testno, //test no from blockcount
                         "inputVars": {
                             "Var1": gameData.clickCountVar1,

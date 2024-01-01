@@ -5,11 +5,11 @@ from crypt import *
 # import mysql.connector.connect as con
 
 
-database = "sys" #"sql12643926"   # INSERT NAME OF YOUR CHOICE FOR YOUR DB
-user_name = "root" #"sql12643926"  # INSERT NAME OF YOUR CHOICE
+database = "Test_db" #"sql12643926"   # INSERT NAME OF YOUR CHOICE FOR YOUR DB
+user_name = "tester" #"sql12643926"  # INSERT NAME OF YOUR CHOICE
                                 # USER 'user_name'@'localhost' IDENTIFIED BY 'useralienzoopw123456' WILL BE CREATED
                                 # WILL GRANT ALL PRIVILEGES ON 'database'. * TO 'user_name'@'localhost';
-user_pw = "laboratorio" #"7Rek46WKjE" 
+user_pw = "54321" #"7Rek46WKjE" 
 
 
 public_key_file = "public_key.bin"
@@ -43,7 +43,7 @@ class DataMgr():
         #         cursor.close()
         #         connection.close()
         #         print("MySQL connection is closed")
-        return mysql.connector.connect(host="localhost", port=3306, user=user_name, password=user_pw, database=database, auth_plugin='mysql_native_password') 
+        return mysql.connector.connect(host="85.235.144.146", port=3306, user=user_name, password=user_pw, database=database, auth_plugin='mysql_native_password') 
 
 
     def __init_database(self):
@@ -53,6 +53,8 @@ class DataMgr():
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS demographics (userId TEXT NOT NULL, varAge1 INT NOT NULL, varAge2 INT NOT NULL, varAge3 INT NOT NULL, varAge4 INT NOT NULL, varAge5 INT NOT NULL, varAge6 INT NOT NULL, varAge7 INT NOT NULL, varGender1 INT NOT NULL, varGender2 INT NOT NULL, varGender3 INT NOT NULL, varGender4 INT NOT NULL, varGender5 INT NOT NULL, varGender6 INT NOT NULL, varGender7 INT NOT NULL)")
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS elapsedtime_logs (userId TEXT NOT NULL, eventId INT NOT NULL, timeElapsed INT NOT NULL, blockId INT NOT NULL, trialId INT NOT NULL)")
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS users_payout (userId TEXT NOT NULL, paymentId TEXT NOT NULL)")
+        self.db.cursor().execute("CREATE TABLE IF NOT EXISTS logs_dice (userId TEXT NOT NULL, timestamp DATETIME DEFAULT '2023-9-1', data TEXT NOT NULL)")
+        self.db.cursor().execute("CREATE TABLE IF NOT EXISTS logs_attention (userId TEXT NOT NULL, timestamp DATETIME DEFAULT '2023-9-1', data TEXT NOT NULL)")
         self.db.commit()
 
 
@@ -116,6 +118,30 @@ class DataMgr():
             db = self.__connect_to_database()
 
             db.cursor().execute("INSERT INTO logs (userId, data) VALUES(%s,%s)", (user_id, data))
+            db.commit()
+
+            return True
+        except Exception as ex:
+            print(ex)
+            return False
+
+    def log_user_stuff_dice(self, user_id, data):
+        try:
+            db = self.__connect_to_database()
+
+            db.cursor().execute("INSERT INTO logs_dice (userId, data) VALUES(%s,%s)", (user_id, data))
+            db.commit()
+
+            return True
+        except Exception as ex:
+            print(ex)
+            return False
+
+    def log_user_attention(self, user_id, data):
+        try:
+            db = self.__connect_to_database()
+
+            db.cursor().execute("INSERT INTO logs_attention (userId, data) VALUES(%s,%s)", (user_id, data))
             db.commit()
 
             return True

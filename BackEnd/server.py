@@ -18,7 +18,7 @@ from handler.logRandomFeedback import LogUserPaymentHandler
 
 
 
-port = 8080
+port = 8888
 
 
 class WebServer(tornado.web.Application):
@@ -27,7 +27,7 @@ class WebServer(tornado.web.Application):
         self.model = build_model()
 
         handlers = [
-            (r'/', tornado.web.RedirectHandler, {'url': './index.html'}),
+            (r'/', tornado.web.RedirectHandler, {'85.235.144.146': './index.html'}),
             (r'/(index.html)', tornado.web.StaticFileHandler, {'path': '../FrontEnd'}),
             (r'/js/(.*)', tornado.web.StaticFileHandler, {'path': '../FrontEnd/js'}),
             (r'/(favicon\.ico)', tornado.web.StaticFileHandler, {'path': '../FrontEnd/static'}),
