@@ -30,6 +30,7 @@ class StartScene extends Phaser.Scene {
     this.load.image('buttonUp', 'static/buttonUp.png');
     this.load.image('buttonDown', 'static/buttonDown.png');
     this.load.image('buttonFeed', 'static/buttonSubmit.png');
+    this.load.image('flow', 'static/flow.png');
 
     for (let i = 0; i < this.gameData.plants.length; i++) {
       const plantKey = `plant${i + 1}`;
@@ -44,7 +45,7 @@ class StartScene extends Phaser.Scene {
     };
 
     const leafBudgetHeading = [
-      "Information about the selection of leaves, budget, allowed attempts, and scoring mechanism.",
+      "Information about the selection of leaves, budget, allowed attempts, and fitness score.",
     ];
 
     const costsHeading = [""];
@@ -52,13 +53,15 @@ class StartScene extends Phaser.Scene {
     const costPerUnitText = "Cost: .";
 
     const specialNote = [
+      "A quick flow of your playing journey is shown in the diagram, and details are as follows:",
       "Today, you will visit 3 planets, with a single budget that covers all 3 visits.",
-      "When you arrive at a new planet, you will see an example of a non-optimal diet for this planet.",
-      "Also, you will see a box showing the planets environment, highlighting the costs of each leaf for current planet.",
+      "When you arrive at a new planet, you will see an example of a non-optimal ",
+      "diet for this planet. Also, you will see a box showing the planets environment,",
+      " highlighting the costs of each leaf for current planet.",
       "",
       "Your first task is to provide the AlienNutriSolver with preliminary ranges of leaves for this planet.",
       "Watch your budget because all suggested ranges will be deducted from it.",
-      "You have 5 attempts to select a suitable range, with the following goals:",
+      "You have 3 attempts to select a suitable range, with the following goals:",
       "   1. Keep the number of attempts to a minimum.",
       "   2. Keep the overall costs to a minimum, so you will have some budget left for the next planet.",
       "You can select a value of up to 6 for each type of leaf, provided your budget allows it.",
@@ -68,7 +71,7 @@ class StartScene extends Phaser.Scene {
     ];
 
     this.add.text(
-      constants.screenWidth * 0.1,
+      constants.screenWidth * 0.06,
       constants.screenHeight * 0.085,
       leafBudgetHeading,
       {
@@ -109,7 +112,7 @@ class StartScene extends Phaser.Scene {
 
     this.add.text(
       constants.screenWidth * 0.055,
-      constants.screenHeight * 0.25,
+      constants.screenHeight * 0.2,
       specialNote,
       {
         fontFamily: "Arial",
@@ -119,6 +122,9 @@ class StartScene extends Phaser.Scene {
         lineSpacing: 10,
       }
     );
+
+    this.add.image(constants.screenWidth * 0.85, constants.screenHeight * 0.4, 'flow').setScale(this.gameData.getScaledUnit(.4));
+
 
     setTimeout(() => {
       // Instantiate and add a new stable scene with current data
@@ -142,7 +148,7 @@ class StartScene extends Phaser.Scene {
         .setOrigin(0);
       const buttonContainer = this.add.container(
         constants.screenWidth * 0.85,
-        constants.screenHeight * 0.75,
+        constants.screenHeight * 0.85,
         [buttonStart, textStart]
       );
     }, this.gameData.btnStartShowDelay);

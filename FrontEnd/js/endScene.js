@@ -58,13 +58,13 @@ class EndScene extends Phaser.Scene {
 		// add button to start game and switch to fullscreen
 		var buttonDebrief = this.add.image(0, 0, 'buttonAgree').setScale(0.65)
 			.setInteractive()
-			.on('pointerdown', () => { window.open('https://ieeexplore.ieee.org/document/9819899/'); });
+			.on('pointerdown', () => { window.open('https://github.com/msnizami/Cognitive-Learning-with-XAI/tree/main'); });
 
 		var textDebrief = this.add.text(-100, -25, ['I want to learn more','about the study!'], { fontSize: '18px', color: '#ffffff' }).setOrigin(0);
 		var buttonContainer = this.add.container(window.innerWidth * 0.80, window.innerHeight * 0.70, [buttonDebrief, textDebrief])
 
 		this.add.text(window.innerWidth * 0.05, window.innerHeight * 0.20, qIntro1, { fontFamily: 'monogram', fontSize: '18px', color: '#000000' });
-		this.add.text(window.innerWidth * 0.05, window.innerHeight * 0.30, qIntro2, { fontFamily: 'monogram', fontSize: '18px', fontStyle: "bold",  color: '#000000' });
+		// this.add.text(window.innerWidth * 0.05, window.innerHeight * 0.30, qIntro2, { fontFamily: 'monogram', fontSize: '18px', fontStyle: "bold",  color: '#000000' });
 		this.add.text(window.innerWidth * 0.05, window.innerHeight * 0.50, qIntro3, { fontFamily: 'monogram', fontSize: '18px', color: '#000000' });
 
 

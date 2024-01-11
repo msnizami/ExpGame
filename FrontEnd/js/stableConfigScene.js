@@ -74,10 +74,10 @@ class StableConfigScene extends Phaser.Scene {
       frameHeight: 47,
     });
 
-    this.load.spritesheet("coin", "static/Coin.png", {
-      frameWidth: 7,
-      frameHeight: 8,
-    });
+    // this.load.spritesheet("coin", "static/Coin.png", {
+    //   frameWidth: 7,
+    //   frameHeight: 8,
+    // });
 
     this.load.image("buttonUp", "static/buttonUp.png");
     this.load.image("buttonDown", "static/buttonDown.png");
@@ -165,7 +165,7 @@ class StableConfigScene extends Phaser.Scene {
           window.innerWidth * 0.5 - 280,
           window.innerHeight * 0.5 - 200 + index * 50,
           suggestion,
-          { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
+          { fontFamily: "monogram", fontSize: "16px", color: "#000000" } //fontStyle: "bold"
         )
         .setOrigin(0);
       popupContainer.add(suggestionTxt);
@@ -200,6 +200,7 @@ class StableConfigScene extends Phaser.Scene {
       .text(window.innerWidth * 0.5 + 80, window.innerHeight * 0.5 + 30, "Ok", {
         fontFamily: "monogram",
         fontSize: "25px",
+        //fontStyle: "bold",
         color: "#ffffff",
       })
       .setOrigin(0);
@@ -256,7 +257,7 @@ class StableConfigScene extends Phaser.Scene {
         window.innerWidth * 0.5 - 280,
         window.innerHeight * 0.5 - 150,
         "You finished your attempts, now proceed to next planet.", //Do you want to borrow two more attempts."
-        { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
+        { fontFamily: "monogram", fontSize: "16px",  color: "#000000" }
       )
       .setOrigin(0);
     borrowPopupContainer.add(borrowInfoDialogTxt);
@@ -360,6 +361,7 @@ class StableConfigScene extends Phaser.Scene {
       {
         fontFamily: "monogram",
         fontSize: "18px",
+        // fontStyle: "bold",
         color: "#000000",
       }
     );
@@ -387,6 +389,7 @@ class StableConfigScene extends Phaser.Scene {
       this.add.text(xPos + 50, yPos, `${costPerUnitText} ${plantCost}`, {
         fontFamily: "monogram",
         fontSize: "18px",
+        // fontStyle: "bold",
         color: "#000000",
       });
     }
@@ -404,7 +407,7 @@ class StableConfigScene extends Phaser.Scene {
     this.budget = this.add.text(
       window.innerWidth * 0.03 + 15,
       window.innerHeight * 0.52,
-      "AlienNutriSolver: Select the range of admissible values for each leaf. These ranges constraint the space of cases in which \n I can look for recommending you the most suitable diet to feed Shub. \n \n Available Budget:",
+      "AlienNutriSolver: Select the range of admissible values for each leaf.\n These ranges limit the time I need to find a good diet for the Shubs. \n \n Available Budget:",
       { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
     );
 
@@ -450,6 +453,7 @@ class StableConfigScene extends Phaser.Scene {
       this.add.text(posX, startY, `x ${plantValue}`, {
         fontFamily: "monogram",
         fontSize: "20px",
+        // fontStyle: "bold",
         color: "#000000",
       });
     }
@@ -576,7 +580,7 @@ class StableConfigScene extends Phaser.Scene {
         this.triesText = this.add.text(
           window.innerWidth * 0.8(window.innerHeight * 0.55) - 10,
           "Available Attempts :" + this.attemptsCount,
-          { fontFamily: "Ariel", fontStyle: "bold", fontSize: "16px", color: "#000000" }
+          { fontFamily: "Ariel", fontSize: "16px", fontStyle: "bold", color: "#000000" }
         );
 
         var textFeed = this.add
@@ -1175,7 +1179,7 @@ class StableConfigScene extends Phaser.Scene {
     if (newBudget >= 0) {
       this.currentBudget = newBudget;
       this.budget.setText(
-        "AlienNutriSolver: Select the range of admissible values for each leaf. These ranges constraint the space of cases in which \n I can look for recommending you the most suitable diet to feed Shub. \n \n Available Budget: " +
+        "AlienNutriSolver: Select the range of admissible values for each leaf.\n These ranges limit the time I need to find a good diet for the Shubs. \n \n Available Budget: " +
           this.currentBudget
       );
 

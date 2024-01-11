@@ -44,7 +44,7 @@ class ProgressScene extends Phaser.Scene {
 		this.add.image(window.innerWidth * 0.38, window.innerHeight * 0.175, 'plant4').setScale(0.15);
 		this.add.text(window.innerWidth * 0.40, window.innerHeight * 0.175, 'x ' + this.gameData.cf_array?.at(-1)?.at(3), { fontFamily: "monogram", fontSize: '20px', color: '#000000' });
 		this.add.image(window.innerWidth * 0.49, window.innerHeight * 0.175, 'plant5').setScale(0.15);
-		this.add.text(window.innerWidth * 0.51, window.innerHeight * 0.175, 'x ' + this.gameData.cf_array?.at(-1)?.at(4), { fontFamily: "monogram", fontSize: '20px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.51, window.innerHeight * 0.175, 'x ' + this.gameData.cf_array?.at(-1)?.at(4), { fontFamily: "monogram", fontSize: '20px',  color: '#000000' });
 
 		// add three shubs as 'loading animation'
 		var progShubs = {
@@ -129,7 +129,7 @@ class ProgressScene extends Phaser.Scene {
 				function hidePopup() {
 					messageContainer.setVisible(false);
 				}
-			}, 3500);
+			}, 2000);
 			// move to next screen anyhow with
 			setTimeout(() => {
 				this.gameData.testno += 1 ;
@@ -144,7 +144,7 @@ class ProgressScene extends Phaser.Scene {
 				this.scene.add("questionnaireScene1", questionnaireScene1);
 				this.scene.start("questionnaireScene1");
 				
-			}, 4000);
+			}, 5000);
 
 
 		}
@@ -193,7 +193,7 @@ class ProgressScene extends Phaser.Scene {
 				function hidePopup() {
 					messageContainer.setVisible(false);
 				}
-			}, 4000);
+			}, 3000);
 			// move to next screen anyhow with
 			setTimeout(() => {
 				this.gameData.testno += 1 ;
@@ -209,7 +209,7 @@ class ProgressScene extends Phaser.Scene {
 				this.scene.add('stableConfigScene', stableConfigScene);
 				this.scene.start('stableConfigScene');
 				
-			}, 5000);
+			}, 6000);
 		}
 
 			// compute new Shub no, based on user input

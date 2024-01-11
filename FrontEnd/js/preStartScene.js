@@ -124,7 +124,7 @@ class PreStartScene extends Phaser.Scene {
       .on('pointerdown', () => this.scale.startFullscreen())
       .on('pointerdown', () => this.startGame());
 
-    const textStart = this.add.text(-40, -15, 'Start!', { fontSize: '20px', color: '#ffffff' }).setOrigin(0);
+    const textStart = this.add.text(-40, -15, 'Next', { fontSize: '20px', color: '#ffffff' }).setOrigin(0);
     this.add.container(this.gameData.game.config.width * 0.9, this.gameData.game.config.height * 0.75, [buttonStart, textStart]);
   }
 

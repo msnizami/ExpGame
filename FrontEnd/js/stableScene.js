@@ -25,7 +25,7 @@ class StableScene extends Phaser.Scene {
     // subtracting the actual cf cost incurred from the total budget
     const imgindex = +localStorage.getItem("imgindex");
     // this.currentBudget = this.gameData.budget;
-    console.log(this.gameData.budget);
+    // console.log(this.gameData.budget);
     this.userCost = this.gameData.clickCountVar1 * costsArray[imgindex-1].leaves[0].cost +
     this.gameData.clickCountVar2 * costsArray[imgindex-1].leaves[1].cost +
     this.gameData.clickCountVar3 * costsArray[imgindex-1].leaves[2].cost +
@@ -40,10 +40,10 @@ class StableScene extends Phaser.Scene {
 
     const costdiff =  this.userCost - this.incurCost;
     this.gameData.budget = this.gameData.budget + costdiff ;
-    console.log(this.userCost);
-    console.log(this.incurCost);
-    console.log(costdiff) ;
-    console.log(this.gameData.budget);
+    // console.log(this.userCost);
+    // console.log(this.incurCost);
+    // console.log(costdiff) ;
+    // console.log(this.gameData.budget);
 
     if (!this.gameData.health) this.gameData.health = this.health;
 
@@ -255,7 +255,7 @@ class StableScene extends Phaser.Scene {
         window.innerWidth * 0.025,
         window.innerHeight * 0.2,
         "Based on the provided range of leaves, a healthier combination is suggested below:",
-        { fontFamily: "monogram", fontSize: "20px", color: "#03ff30" }
+        { fontFamily: "monogram", fontSize: "20px", color: "#000ff0" }
       );
       this.add.text(
         window.innerWidth * 0.025,

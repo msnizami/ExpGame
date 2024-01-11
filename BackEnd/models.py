@@ -6,6 +6,7 @@ import joblib
 import itertools
 import numpy as np
 import pandas as pd
+import recourse as rs
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
@@ -157,7 +158,7 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
     catf = []
     numf = features
     df2test = pd.read_csv("modelData/data/X_2test.csv")
-    print('test instance:', df2test[testno-1:testno].values) #df2test[testno-1:testno].values
+    #print('test instance:', df2test[testno-1:testno].values) #df2test[testno-1:testno].values
     ### simulation of DiCE and printing its results and later saving in the db for comparison
     # dice start
     # print("DiCE CF")
@@ -175,10 +176,34 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
     # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
     dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
     print('dice')
-    print(dice_cf.columns)
+    #print(dice_cf.columns)
     print(dice_cf.values)
-    #TODO
-    # need to extract from the json of user start and end. # consult # need to write a dedicated method
+    
+    ### AR
+    # source_data_file_path = "modelData/data/AFH_EXP1.csv"  # source data
+    # df = pd.read_csv(source_data_file_path)
+    # df = df.round().astype(int)
+    # X = df.drop('class', axis=1)
+    # y = df['class']
+    # A = rs.ActionSet(X)
+    # from IPython.core.display import display, HTML
+    # A.set_alignment(bb)
+    # ar_cfs = pd.DataFrame()
+    # fs = rs.Flipset(df2test[testno-1:testno].values, action_set = A, clf = bb)
+    # fs.populate(enumeration_type='distinct_subsets', total_items = 1) #'mutually_exclusive'
+    # f_list = ['Var1', 'Var2', 'Var3', 'Var4', 'Var5'] #['Income', 'Family', 'CCAvg', 'Education', 'Mortgage', 'Securities Account', 'CD Account', 'Online', 'CreditCard']
+    # #features that need to be changed and could flip the outcome bt fs
+    # feat2change = fs.df['features']
+    # values_2change = fs.df['x_new']
+    # changed_instance = df2test[testno-1:testno].copy()
+
+    # for f, i in enumerate(feat2change):
+    #     changed_instance[i] = values_2change[f]
+    # ar_cfs = pd.concat([ar_cfs, changed_instance], ignore_index = True, axis = 0)
+    # print("AR cfs")
+    # print(ar_cfs)
+
+    ### UFCE
     # uf = {'Var1':3,'Var2':1, 'Var3':4, 'Var4':0, 'Var5':4}
 
     # set a specific small step size
@@ -260,11 +285,11 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
             return nearest_cf, dice_cf
     # f_cf = nearest_cf.applymap(lambda x: int(x) if isinstance(x, (float, int)) else x)
     print('ufce')
-    print(nearest_cf.columns)
+    #print(nearest_cf.columns)
     print(nearest_cf.values)
     return nearest_cf, dice_cf
 
-def compute_counterfactual_of_model_control(dataset, test_instance, bb):
+def compute_counterfactual_of_DiCE(dataset, test_instance, bb):
     #TODO: To load the dataset inside the body of function, and removing the dataset parameter from parameters. 
     #      Thus, the same handler can be utilised to call the compute_counterfactual_of_model_control(), and other control functions.
     d = dice_ml.Data(dataframe=dataset, continuous_features=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'], outcome_name='class')
@@ -278,6 +303,26 @@ def compute_counterfactual_of_model_control(dataset, test_instance, bb):
     # dice_cf = dice_exp_random.cf_examples_list[0]
     # if len(dice_cf) != 0:
     #     print(dice_cf)
+
+def compute_counterfactual_of_AR(dataset, test_instance, bb):
+    X = dataset.drop('class', axis=1)
+    A = rs.ActionSet(X)
+    from IPython.core.display import display, HTML
+    A.set_alignment(bb)
+    ar_cfs = pd.DataFrame()
+    for x in range(len(X_test)):
+        fs = rs.Flipset(X_test[x:x+1].values, action_set = A, clf = bb)
+        fs.populate(enumeration_type='distinct_subsets', total_items = 1) #'mutually_exclusive'
+        f_list = numf #['Income', 'Family', 'CCAvg', 'Education', 'Mortgage', 'Securities Account', 'CD Account', 'Online', 'CreditCard']
+        #features that need to be changed and could flip the outcome bt fs
+        feat2change = fs.df['features']
+        values_2change = fs.df['x_new']
+        changed_instance = X_test[x:x+1].copy()
+
+        for f, i in enumerate(feat2change):
+            changed_instance[i] = values_2change[f]
+        ar_cfs = pd.concat([ar_cfs, changed_instance], ignore_index = True, axis = 0)
+
 def compute_sggestion_counterfactual(test_instance, bb, uf_flexible):
     feature_suggestion = []
     feature_new_values = []
