@@ -45,7 +45,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 		]
 
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.05, qIntro1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px',fontStyle: "bold italic", color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px',color: '#000000' });
 
 		if (this.gameData.api.controlGroup) {
 			var item9 = [
@@ -59,7 +59,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 		}
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item9, { fontFamily: 'monogram', fontSize: '17px', fontStyle: "bold", color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item9, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.3, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -235,7 +235,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 		}
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item10, { fontFamily: 'monogram', fontSize: '17px', fontStyle: "bold", color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item10, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.475, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });

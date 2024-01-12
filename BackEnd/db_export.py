@@ -6,9 +6,9 @@ import mysql.connector
 from crypt import load_key, decrypt
 
 
-database = "Test_db"
-user_name = "tester"
-user_pw = "54321"
+database = "Test_db" # "sys"
+user_name = "tester" # "root"
+user_pw = "54321" # "laboratorio"
 
 
 class DataMgr():
@@ -220,7 +220,7 @@ class DataMgr():
             data_demographics_checked = []
 
             cur = self.db.cursor()
-            cur.execute("SELECT userId, varAge1, varAge2, varAge3, varAge4, varAge5, varAge6, varAge7, varGender1, varGender2, varGender3, varGender4, varGender5, varGender6, varGender7 FROM demographics")
+            cur.execute("SELECT userId, varAge1, varAge2, varAge3, varAge4, varAge5, varAge6, varAge7, varGender1, varGender2, varGender3, varGender4, varGender5, varGender6, varGender7, varEdu1, varEdu2, varEdu3, varEdu4, varEdu5, varEdu6, varEdu7, varBack1, varBack2, varBack3, varBack4, varBack5, varBack6, varBack7, varReg1, varReg2, varReg3, varReg4, varReg5, varReg6, varReg7, varEng1, varEng2, varEng3, varEng4, varEng5, varEng6, varEng7 FROM demographics") 
             for row in cur.fetchall():
                 for i in range(1, 8):
                     data_demographics_userId.append(str(row[0]))
@@ -235,6 +235,36 @@ class DataMgr():
                     data_demographics_item.append("gender")
 
                     data_demographics_responseNo.append(i - 7)
+                    data_demographics_checked.append(int(row[i]))
+                for i in range(15, 22):
+                    data_demographics_userId.append(str(row[0]))
+                    data_demographics_group.append(self.user_groups[str(row[0])])
+                    data_demographics_item.append("education")
+                    # print(i, data_demographics_item)
+
+                    data_demographics_responseNo.append(i - 14)
+                    # print(data_demographics_responseNo)
+                    data_demographics_checked.append(int(row[i]))
+                for i in range(22, 29):
+                    data_demographics_userId.append(str(row[0]))
+                    data_demographics_group.append(self.user_groups[str(row[0])])
+                    data_demographics_item.append("background")
+
+                    data_demographics_responseNo.append(i - 21)
+                    data_demographics_checked.append(int(row[i]))
+                for i in range(29, 36):
+                    data_demographics_userId.append(str(row[0]))
+                    data_demographics_group.append(self.user_groups[str(row[0])])
+                    data_demographics_item.append("region")
+
+                    data_demographics_responseNo.append(i - 28)
+                    data_demographics_checked.append(int(row[i]))
+                for i in range(36, 43):
+                    data_demographics_userId.append(str(row[0]))
+                    data_demographics_group.append(self.user_groups[str(row[0])])
+                    data_demographics_item.append("language")
+
+                    data_demographics_responseNo.append(i - 35)
                     data_demographics_checked.append(int(row[i]))
 
             df_demographics = pd.DataFrame({"userId": data_demographics_userId, "group": data_demographics_group, "item": data_demographics_item, "responseNo": data_demographics_responseNo, "checked": data_demographics_checked})

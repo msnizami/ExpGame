@@ -62,14 +62,21 @@ class AlienZooApi {
         });
     }
 
-    logDemographics(itemAgeVar1Checked, itemAgeVar2Checked, itemAgeVar3Checked, itemAgeVar4Checked, itemAgeVar5Checked, itemAgeVar6Checked, itemAgeVar7Checked, itemGenderVar1Checked, itemGenderVar2Checked, itemGenderVar3Checked, itemGenderVar4Checked, itemGenderVar5Checked, itemGenderVar6Checked, itemGenderVar7Checked) {
+    logDemographics(itemAgeVar1Checked, itemAgeVar2Checked, itemAgeVar3Checked, itemAgeVar4Checked, itemAgeVar5Checked, itemAgeVar6Checked, itemAgeVar7Checked, itemGenderVar1Checked, itemGenderVar2Checked, itemGenderVar3Checked, itemGenderVar4Checked, itemGenderVar5Checked, itemGenderVar6Checked, itemGenderVar7Checked, itemEduVar1Checked, itemEduVar2Checked, itemEduVar3Checked, itemEduVar4Checked, itemEduVar5Checked, itemEduVar6Checked, itemEduVar7Checked,
+        itemBackVar1Checked, itemBackVar2Checked, itemBackVar3Checked, itemBackVar4Checked, itemBackVar5Checked, itemBackVar6Checked, itemBackVar7Checked,
+        itemRegVar1Checked, itemRegVar2Checked, itemRegVar3Checked, itemRegVar4Checked, itemRegVar5Checked, itemRegVar6Checked,itemRegVar7Checked,
+        itemEngVar1Checked, itemEngVar2Checked, itemEngVar3Checked, itemEngVar4Checked, itemEngVar5Checked, itemEngVar6Checked, itemEngVar7Checked) {
         const data = {
             "userId": this.userId,
             "questionId": -1,
             "checkboxValues": [itemAgeVar1Checked, itemAgeVar2Checked, itemAgeVar3Checked, itemAgeVar4Checked, itemAgeVar5Checked, itemAgeVar6Checked, itemAgeVar7Checked,
-                itemGenderVar1Checked, itemGenderVar2Checked, itemGenderVar3Checked, itemGenderVar4Checked, itemGenderVar5Checked, itemGenderVar6Checked, itemGenderVar7Checked]
+                itemGenderVar1Checked, itemGenderVar2Checked, itemGenderVar3Checked, itemGenderVar4Checked, itemGenderVar5Checked, itemGenderVar6Checked, itemGenderVar7Checked,
+                itemEduVar1Checked, itemEduVar2Checked, itemEduVar3Checked, itemEduVar4Checked, itemEduVar5Checked, itemEduVar6Checked, itemEduVar7Checked,
+                itemBackVar1Checked, itemBackVar2Checked, itemBackVar3Checked, itemBackVar4Checked, itemBackVar5Checked, itemBackVar6Checked, itemBackVar7Checked,
+                itemRegVar1Checked, itemRegVar2Checked, itemRegVar3Checked, itemRegVar4Checked, itemRegVar5Checked, itemRegVar6Checked,itemRegVar7Checked,
+                itemEngVar1Checked, itemEngVar2Checked, itemEngVar3Checked, itemEngVar4Checked, itemEngVar5Checked, itemEngVar6Checked, itemEngVar7Checked]
         };
-
+        // console.log(data)
         return new Promise(resolve => {
             fetch("/api/log/questionnaireAnswer", {
                 method: "POST",

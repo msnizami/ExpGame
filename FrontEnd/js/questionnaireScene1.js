@@ -46,14 +46,14 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		]
 
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.05, qIntro1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.15, qIntro2, { fontFamily: 'monogram', fontSize: '17px',fontStyle: "bold italic", color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.15, qIntro2, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item1 = [
 			"1. What do you think: Which plants were relevant to increase the fitness of Shub?\n Please select ALL that you think were relevant."
 		];
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.3, item1, { fontFamily: 'monogram', fontSize: '17px', fontStyle: "bold", color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.3, item1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// plant 1
 		this.add.image(window.innerWidth * 0.05, window.innerHeight * 0.425, 'plant1').setScale(0.15);
@@ -182,7 +182,7 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		];
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.55, item2, { fontFamily: 'monogram', fontSize: '17px', fontStyle: "bold", color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.55, item2, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// plant 1
 		this.add.image(window.innerWidth * 0.05, window.innerHeight * 0.675, 'plant1').setScale(0.15);

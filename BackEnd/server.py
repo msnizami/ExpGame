@@ -18,7 +18,8 @@ from handler.logRandomFeedback import LogUserPaymentHandler
 
 
 
-port = 8888
+port = 8888 # server
+#port = 8080 #local
 
 
 class WebServer(tornado.web.Application):

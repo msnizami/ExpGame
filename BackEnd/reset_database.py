@@ -3,7 +3,7 @@ import sys
 import mysql.connector
 
 
-database = "Test_db"
+database =  "Test_db" #"sys"
 
 
 if __name__ == "__main__":

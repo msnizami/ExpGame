@@ -5,11 +5,11 @@ from crypt import *
 # import mysql.connector.connect as con
 
 
-database = "Test_db" #"sql12643926"   # INSERT NAME OF YOUR CHOICE FOR YOUR DB
-user_name = "tester" #"sql12643926"  # INSERT NAME OF YOUR CHOICE
+database = "Test_db" # "sys"    # INSERT NAME OF YOUR CHOICE FOR YOUR DB
+user_name = "tester" # "root" # INSERT NAME OF YOUR CHOICE
                                 # USER 'user_name'@'localhost' IDENTIFIED BY 'useralienzoopw123456' WILL BE CREATED
                                 # WILL GRANT ALL PRIVILEGES ON 'database'. * TO 'user_name'@'localhost';
-user_pw = "54321" #"7Rek46WKjE" 
+user_pw = "54321" # "laboratorio"
 
 
 public_key_file = "public_key.bin"
@@ -43,19 +43,30 @@ class DataMgr():
         #         cursor.close()
         #         connection.close()
         #         print("MySQL connection is closed")
-        return mysql.connector.connect(host="85.235.144.146", port=3306, user=user_name, password=user_pw, database=database, auth_plugin='mysql_native_password') 
+        return mysql.connector.connect(host="85.235.144.146", port=3306, user=user_name, password=user_pw, database=database, auth_plugin='mysql_native_password')
+        #return mysql.connector.connect(host="localhost", port=3306, user=user_name, password=user_pw, database=database, auth_plugin='mysql_native_password') 
 
 
     def __init_database(self):
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS users (userId TEXT NOT NULL, controlGroup INT NOT NULL)")
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS logs (userId TEXT NOT NULL, timestamp DATETIME DEFAULT '2023-9-1', data TEXT NOT NULL)")
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS questionnaire_logs (userId TEXT NOT NULL, questionId INT NOT NULL, var1 INT NOT NULL, var2 INT NOT NULL, var3 INT NOT NULL, var4 INT NOT NULL, var5 INT NOT NULL, var6 INT NOT NULL)")
-        self.db.cursor().execute("CREATE TABLE IF NOT EXISTS demographics (userId TEXT NOT NULL, varAge1 INT NOT NULL, varAge2 INT NOT NULL, varAge3 INT NOT NULL, varAge4 INT NOT NULL, varAge5 INT NOT NULL, varAge6 INT NOT NULL, varAge7 INT NOT NULL, varGender1 INT NOT NULL, varGender2 INT NOT NULL, varGender3 INT NOT NULL, varGender4 INT NOT NULL, varGender5 INT NOT NULL, varGender6 INT NOT NULL, varGender7 INT NOT NULL)")
+        self.db.cursor().execute("CREATE TABLE IF NOT EXISTS demographics (userId TEXT NOT NULL, varAge1 INT NOT NULL, varAge2 INT NOT NULL, varAge3 INT NOT NULL, varAge4 INT NOT NULL, varAge5 INT NOT NULL, varAge6 INT NOT NULL, varAge7 INT NOT NULL, varGender1 INT NOT NULL, varGender2 INT NOT NULL, varGender3 INT NOT NULL, varGender4 INT NOT NULL, varGender5 INT NOT NULL, varGender6 INT NOT NULL, varGender7 INT NOT NULL, varEdu1 INT NOT NULL, varEdu2 INT NOT NULL, varEdu3 INT NOT NULL, varEdu4 INT NOT NULL, varEdu5 INT NOT NULL, varEdu6 INT NOT NULL, varEdu7 INT NOT NULL, varBack1 INT NOT NULL, varBack2 INT NOT NULL, varBack3 INT NOT NULL, varBack4 INT NOT NULL, varBack5 INT NOT NULL, varBack6 INT NOT NULL, varBack7 INT NOT NULL, varReg1 INT NOT NULL, varReg2 INT NOT NULL, varReg3 INT NOT NULL, varReg4 INT NOT NULL, varReg5 INT NOT NULL, varReg6 INT NOT NULL, varReg7 INT NOT NULL, varEng1 INT NOT NULL, varEng2 INT NOT NULL, varEng3 INT NOT NULL, varEng4 INT NOT NULL, varEng5 INT NOT NULL, varEng6 INT NOT NULL, varEng7 INT NOT NULL)") 
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS elapsedtime_logs (userId TEXT NOT NULL, eventId INT NOT NULL, timeElapsed INT NOT NULL, blockId INT NOT NULL, trialId INT NOT NULL)")
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS users_payout (userId TEXT NOT NULL, paymentId TEXT NOT NULL)")
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS logs_dice (userId TEXT NOT NULL, timestamp DATETIME DEFAULT '2023-9-1', data TEXT NOT NULL)")
         self.db.cursor().execute("CREATE TABLE IF NOT EXISTS logs_attention (userId TEXT NOT NULL, timestamp DATETIME DEFAULT '2023-9-1', data TEXT NOT NULL)")
         self.db.commit()
+        ### testing code
+        # table_name = 'demographics'
+        # db = self.__connect_to_database()
+        # cur = db.cursor()
+        # cur.execute(f"DESCRIBE {table_name}")
+        # schema_info = cur.fetchall()
+        # # Print the table schema
+        # for column in schema_info:
+        #     print(f"Column Name: {column[0]}, Type: {column[1]}")
+        
 
 
     def add_new_user(self, user_id, control_group):
@@ -85,11 +96,19 @@ class DataMgr():
     def log_questionnaire_answers(self, user_id, question_id, checkbox_values):
         try:
             db = self.__connect_to_database()
-
+            # varEdu1, varEdu2, varEdu3, varEdu4, varEdu5, varEdu6, varEdu7, varBack1, varBack2, varBack3, varBack4, varBack5, varBack6, varBack7, varReg1, varReg2, varReg3, varReg4, varReg5, varReg6, varReg7, varEng1, varEng2, varEng3, varEng4, varEng5, varEng6, varEng7
+            # , %s,%s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s,%s, %s,%s,%s,%s,%s,%s,%s
             if question_id == -1:
-                db.cursor().execute("INSERT INTO demographics (userId, varAge1, varAge2, varAge3, varAge4, varAge5, varAge6, varAge7, varGender1, varGender2, varGender3, varGender4, varGender5, varGender6, varGender7) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
+                db.cursor().execute("INSERT INTO demographics (userId, varAge1, varAge2, varAge3, varAge4, varAge5, varAge6, varAge7, varGender1, varGender2, varGender3, varGender4, varGender5, varGender6, varGender7, varEdu1, varEdu2, varEdu3, varEdu4, varEdu5, varEdu6, varEdu7, varBack1, varBack2, varBack3, varBack4, varBack5, varBack6, varBack7, varReg1, varReg2, varReg3, varReg4, varReg5, varReg6, varReg7, varEng1, varEng2, varEng3, varEng4, varEng5, varEng6, varEng7) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", 
                                     (user_id, int(checkbox_values[0]), int(checkbox_values[1]), int(checkbox_values[2]), int(checkbox_values[3]), int(checkbox_values[4]), int(checkbox_values[5]), int(checkbox_values[6]),
-                                    int(checkbox_values[7]), int(checkbox_values[8]), int(checkbox_values[9]), int(checkbox_values[10]), int(checkbox_values[11]), int(checkbox_values[12]), int(checkbox_values[13])))
+                                    int(checkbox_values[7]), int(checkbox_values[8]), int(checkbox_values[9]), int(checkbox_values[10]), int(checkbox_values[11]), int(checkbox_values[12]), int(checkbox_values[13]),
+                                    int(checkbox_values[14]), int(checkbox_values[15]), int(checkbox_values[16]), int(checkbox_values[17]), int(checkbox_values[18]), int(checkbox_values[19]), int(checkbox_values[20]),
+                                    int(checkbox_values[21]), int(checkbox_values[22]), int(checkbox_values[23]), int(checkbox_values[24]), int(checkbox_values[25]), int(checkbox_values[26]), int(checkbox_values[27]),
+                                    int(checkbox_values[28]), int(checkbox_values[29]), int(checkbox_values[30]), int(checkbox_values[31]), int(checkbox_values[32]), int(checkbox_values[33]), int(checkbox_values[34]),
+                                    int(checkbox_values[35]), int(checkbox_values[36]), int(checkbox_values[37]), int(checkbox_values[38]), int(checkbox_values[39]), int(checkbox_values[40]), int(checkbox_values[41])
+                                   ))
+                #  int(checkbox_values[14]), int(checkbox_values[15]), int(checkbox_values[16]), int(checkbox_values[17]), int(checkbox_values[18]), int(checkbox_values[19]), int(checkbox_values[20]),
+                
 
             else:
                 db.cursor().execute("INSERT INTO questionnaire_logs (userId, questionId, var1, var2, var3, var4, var5, var6) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",

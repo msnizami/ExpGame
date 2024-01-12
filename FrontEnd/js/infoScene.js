@@ -2,7 +2,7 @@
 
 // import PreStartScene from './preStartScene.js';
 import InfoSceneNext from './infoSceneNext.js';
-import QuestionnaireScene2 from './questionnaireScene2.js';
+// import QuestionnaireScene2 from './questionnaireScene2.js';
 
 class InfoScene extends Phaser.Scene {
   constructor(gameData) {
@@ -93,7 +93,7 @@ class InfoScene extends Phaser.Scene {
       const infoSceneNext = new InfoSceneNext(this.gameData);
       this.scene.add('infoSceneNext', infoSceneNext);
       this.scene.start('infoSceneNext');
-      // const questionnaireScene2 = new QuestionnaireScene2(this.gameData);
+      // const questionnaireScene2 = new QuestionnaireScene2(this.gameData); //for testing open it
       // this.scene.add('questionnaireScene2', questionnaireScene2);
       // this.scene.start('questionnaireScene2');
     }
