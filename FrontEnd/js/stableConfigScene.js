@@ -74,10 +74,10 @@ class StableConfigScene extends Phaser.Scene {
       frameHeight: 47,
     });
 
-    // this.load.spritesheet("coin", "static/Coin.png", {
-    //   frameWidth: 7,
-    //   frameHeight: 8,
-    // });
+    this.load.spritesheet("coin", "static/Coin.png", {
+      frameWidth: 7,
+      frameHeight: 8,
+    });
 
     this.load.image("buttonUp", "static/buttonUp.png");
     this.load.image("buttonDown", "static/buttonDown.png");
@@ -112,6 +112,9 @@ class StableConfigScene extends Phaser.Scene {
         this.gameData.plants.at(i).cost = val.at(i);
       }
     }
+
+    this.errText = null;
+    this.helpCounter = 0;
 
     /**
      * Help container starts here
@@ -403,6 +406,8 @@ class StableConfigScene extends Phaser.Scene {
     //   { fontFamily: "monogram", fontSize: "16px", color: "#000000" }
     // );
 
+    // Control case, change the text below for control case
+    
     // this.budget.setText("Try to help me to select range of each leaf (or a few leaves) for which I can find a solution for the better fitness of Shub \n Available Budget: " + this.Budget);
     this.budget = this.add.text(
       window.innerWidth * 0.03 + 15,
@@ -569,6 +574,7 @@ class StableConfigScene extends Phaser.Scene {
             this.logTimeFeed();
             this.gameData.budget = this.currentBudget;
             this.logAnswer();
+            this.incrementhelpCounter(); //to count help button hits
 
             stableScene = new StableScene(this.gameData);
             this.scene.remove("stableScene", stableScene);
@@ -623,13 +629,21 @@ class StableConfigScene extends Phaser.Scene {
                 !this.gameData.isStableConfigured &&
                 this.gameData.showWrongRangeSelectionMessage
               ) {
-                this.add.text(
+                //new code testing
+                if (this.errText) {
+                  this.errText.destroy();
+                } // new code testing
+                // this.triesText.setText("Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!");
+                this.errText = this.add.text(
                   window.innerWidth * 0.025,
                   window.innerHeight * 0.42,
-                  "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
+                  // FOR CONTROL CASE, NEED TO CHANGE THE FOLLOWING TEXT
+                  //"Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, try again!",
+                  "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, try again!",
                   { fontFamily: "monogram", fontSize: "20px", color: "#FF0000" }
                 );
-                helpContainer.setVisible(true);
+                // FOR CONTROL CASE, COMMENT OR FALSE THE FOLLOWING HELPCONTAINER CALL
+                helpContainer.setVisible(false); // FOR CONTROL CASE
                 let differenceLeaves = [];
                 for (let i = 0; i < this.diffCountVars?.length; i++) {
                   if (this.diffCountVars[i] > 0) {
@@ -653,6 +667,8 @@ class StableConfigScene extends Phaser.Scene {
 
             buttonContainer.setVisible(false);
             loadingContainer.setVisible(true);
+            helpContainer.setVisible(false) // NEW  Testing code
+            this.hideerrText();  //new code testing
 
             this.gameData.shubOldHealth.push(this.gameData.health);
             this.gameData.api
@@ -674,6 +690,7 @@ class StableConfigScene extends Phaser.Scene {
 
                   this.gameData.cur_pred = newShubData?.cur_pred;
                   //this.gameData.cur_pred = 1;
+                  this.incrementhelpCounter(); //to count help button hits
 
                   /*
                    *If tries count is 0 that mean that user failed to get a range that is within the acceptable range
@@ -730,27 +747,33 @@ class StableConfigScene extends Phaser.Scene {
                   this.gameData.showWrongRangeSelectionMessage = true;
                   this.gameData.isStableConfigured = false;
                   this.logAnswer();
+                  //this.incrementhelpCounter();
                   if (
                     !this.gameData.isStableConfigured &&
                     this.gameData.showWrongRangeSelectionMessage
                   ) {
-                    if (this.errorText) {
-                      this.errorText.destroy();
+                    if (this.errText) {
+                      this.errText.destroy();
                     }
-                    this.errorText = this.add.text(
+                    // new code testing
+                    // this.triesText.setText("Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!");
+                    this.errText = this.add.text(
                       window.innerWidth * 0.025,
                       window.innerHeight * 0.42,
-                      "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
+                      //"Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
+                      "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, try again!",
                       {
                         fontFamily: "monogram",
                         fontSize: "20px",
                         color: "#FF0000",
                       }
                     );
+
                     // this.diffCountVars = Object.values(
                     //   newShubData?.diffCountVars
                     // );
-                    helpContainer.setVisible(true);
+                    // FOR CONTROL CASE,
+                    helpContainer.setVisible(false); //FOR CONTROL CASE,
                     let differenceLeaves = [];
                     for (let i = 0; i < this.diffCountVars?.length; i++) {
                       if (this.diffCountVars[i] > 0) {
@@ -881,6 +904,19 @@ class StableConfigScene extends Phaser.Scene {
       window.innerHeight * 0.7,
       [loadingButton, loadingText]
     );
+
+    // to use, this.triesText.setText("Available Attempts:" + this.attemptsCount);
+    
+    // var errorText = this.add.text(
+    //               window.innerWidth * 0.025,
+    //               window.innerHeight * 0.42,
+    //               // FOR CONTROL CASE, NEED TO CHANGE THE FOLLOWING TEXT
+    //               //"Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, try again!",
+    //               "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
+    //               { fontFamily: "monogram", fontSize: "20px", color: "#FF0000" }
+    //             );
+    // this.errorText.destroy()
+    // FOR CONTROL CASE, STARTS HERE
     var helpText = this.add
       .text(-70, -15, "  Help!", {
         fontSize: "20px",
@@ -894,6 +930,7 @@ class StableConfigScene extends Phaser.Scene {
       .setInteractive()
       .on("pointerdown", () => {
         showPopup();
+        this.helpCounter++;//this.incrementhelpCounter(); //to count help button hits
       });
 
     var helpContainer = this.add.container(
@@ -901,6 +938,7 @@ class StableConfigScene extends Phaser.Scene {
       window.innerHeight * 0.55,
       [helpButton, helpText]
     );
+    // // FOR CONTROL CASE, STOP HERE
 
     helpContainer.setVisible(false);
     loadingContainer.setVisible(false);
@@ -973,6 +1011,11 @@ class StableConfigScene extends Phaser.Scene {
     }
   }
 
+  hideerrText() {
+    if (this.errText) {
+        this.errText.visible = false;}
+  }
+
   logAnswer() {
     // need to define it according to lograndfeedback for 6-7 variables
     // this.gameData.api.logAttention(this.gameData.budget, this.attemptsCount, this.gameData.health);
@@ -987,13 +1030,22 @@ class StableConfigScene extends Phaser.Scene {
     this.scene.start("feedbackScene");
   }
 
+  incrementhelpCounter() {
+    //this.helpCounter++;
+    // console.log('Help Clicks:', this.helpCounter); // Log click count to console
+    // console.log('planetNo:', this.gameData.testno);
+    // console.log('health:', this.gameData.health);
+    // Call a backend API method to log the click count
+    this.gameData.api.logHelp(this.helpCounter, this.gameData.testno, this.gameData.health); //logClickCountToBackend(this.clickCounter);
+}
+
   logTimeFeed() {
     var time = new Date().getTime() - this.startTime;
     this.gameData.api.logTime(
       5,
       time,
       this.gameData.testno,
-      this.attemptsCount //this.gameData.trialCount
+      this.gameData.trialCount //this.gameData.trialCount
     );
   }
   // this is not used in the current version as feedbacksceene is not called
@@ -1002,7 +1054,7 @@ class StableConfigScene extends Phaser.Scene {
     this.gameData.api.logTime(
       4,
       time,
-      this.gameData.blockCount,
+      this.gameData.testno,
       this.gameData.trialCount
     );
   }
@@ -1176,6 +1228,7 @@ class StableConfigScene extends Phaser.Scene {
     const newBudget = Math.max(0, this.totalBudget - totalCost);
 
     // Update the currentBudget only if it doesn't go below 0
+    // Control case, change the text below for control case
     if (newBudget >= 0) {
       this.currentBudget = newBudget;
       this.budget.setText(

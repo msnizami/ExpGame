@@ -51,21 +51,21 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		]
 
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.05, qIntro1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px', fontStyle: "bold italic", color: '#000000' });  //
 
 
-		if (this.gameData.api.controlGroup) {
+		// if (this.gameData.api.controlGroup) {
 			var item3 = [
-				"3. I understood the suggestions on what choice would have led to a better result."
+				"3. I would have liked to have a “Help” button to get suggestions on what choice would have led to a better result."
 			];
-		} else {
-		var item3 = [
-			"3. I understood the suggestions on what choice would have led to a better result."
-		];
-		}
+		// } else {
+		// var item3 = [
+		// 	"3.  I often used the “Help” button to get suggestions on what choice would have led to a better result."
+		// ];
+		//}
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item3, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item3, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });//fontStyle: "bold",
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.30, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -229,21 +229,22 @@ class QuestionnaireScene2 extends Phaser.Scene {
 			}
 		}.bind(this));
 
-		if (this.gameData.api.controlGroup) {
+		// if (this.gameData.api.controlGroup) {
 			var item4 = [
-				"4. How satisfied are you with counterfactual explanations you received from the AlienNutriSolver?"
+				"4. I needed no support to understand which selection choices would have led to a better result."
 			];
-		} else {
-		var item4 = [
-			"4. How satisfied are you with counterfactual explanations you received from the AlienNutriSolver?"
-		];
-		}
+		// } else {
+		// var item4 = [
+		// 	"4. I “did not understand” the suggestions on what choice would have led to a better result provided by the “Help” button."
+		// ];
+		// }
 
 		// add item 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item4, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
+
 		// option 1
-		this.add.text(window.innerWidth * 0.022, window.innerHeight * 0.475, 'Very dissatisfied', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.475, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item4Sprite1 = this.add.sprite(window.innerWidth * 0.05, window.innerHeight * 0.55, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -270,7 +271,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 2
-		this.add.text(window.innerWidth * 0.155, window.innerHeight * 0.475, 'Moderately dissatisfied', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.475, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item4Sprite2 = this.add.sprite(window.innerWidth * 0.20, window.innerHeight * 0.55, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -324,7 +325,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 4
-		this.add.text(window.innerWidth * 0.465, window.innerHeight * 0.475, 'Moderately satisfied', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.485, window.innerHeight * 0.475, 'Agree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item4Sprite4 = this.add.sprite(window.innerWidth * 0.50, window.innerHeight * 0.55, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -351,7 +352,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 5
-		this.add.text(window.innerWidth * 0.615, window.innerHeight * 0.475, 'Very Satisfied', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.615, window.innerHeight * 0.475, 'Strongly agree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item4Sprite5 = this.add.sprite(window.innerWidth * 0.65, window.innerHeight * 0.55, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -404,21 +405,21 @@ class QuestionnaireScene2 extends Phaser.Scene {
 			}
 		}.bind(this));
 
-		if (this.gameData.api.controlGroup) {
+		// if (this.gameData.api.controlGroup) {
 			var item5 = [
-				"5. I found that counterfactual explanations helped me to increase the health of Shub."
+				"5. To show you are paying attention to this question, please select “I prefer not to answer”."
 			];
-		} else {
-		var item5 = [
-				"5. I found that counterfactual explanations helped me to increase the health of Shub."
-		];
-		}
+		// } else {
+		// var item5 = [
+		// 		"5. I have learned from the suggestions on what choice would have led to a better result provided by the “Help” button \n how to select a good diet to increase the fitness of the Shub."
+		// ];
+		// }
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.6, item5, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.61, item5, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.65, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.67, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item5Sprite1 = this.add.sprite(window.innerWidth * 0.05, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -445,7 +446,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 2
-		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.65, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.67, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item5Sprite2 = this.add.sprite(window.innerWidth * 0.20, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -472,7 +473,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 3
-		this.add.text(window.innerWidth * 0.335, window.innerHeight * 0.65, 'Neutral', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.335, window.innerHeight * 0.67, 'Neutral', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item5Sprite3 = this.add.sprite(window.innerWidth * 0.35, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -499,7 +500,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 4
-		this.add.text(window.innerWidth * 0.485, window.innerHeight * 0.65, 'Agree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.485, window.innerHeight * 0.67, 'Agree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item5Sprite4 = this.add.sprite(window.innerWidth * 0.50, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -526,7 +527,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 5
-		this.add.text(window.innerWidth * 0.615, window.innerHeight * 0.65, 'Strongly agree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.615, window.innerHeight * 0.67, 'Strongly agree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item5Sprite5 = this.add.sprite(window.innerWidth * 0.65, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -553,7 +554,7 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// Don't know
-		this.add.text(window.innerWidth * 0.755, window.innerHeight * 0.65, 'I prefer not to answer.', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.755, window.innerHeight * 0.66, 'I prefer not to answer.', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item5Sprite6 = this.add.sprite(window.innerWidth * 0.80, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
 

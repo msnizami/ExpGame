@@ -175,9 +175,9 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
     dice_exp_random = exp_random.generate_counterfactuals(df2test[testno-1:testno], total_CFs=1, desired_class="opposite", verbose=False)
     # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
     dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
-    print('dice')
-    #print(dice_cf.columns)
-    print(dice_cf.values)
+    # print('dice')
+    # #print(dice_cf.columns)
+    # print(dice_cf.values)
     
     ### AR
     # source_data_file_path = "modelData/data/AFH_EXP1.csv"  # source data
@@ -284,7 +284,7 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
             nearest_cf = pd.DataFrame(x, columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
             return nearest_cf, dice_cf
     # f_cf = nearest_cf.applymap(lambda x: int(x) if isinstance(x, (float, int)) else x)
-    print('ufce')
+    # print('ufce')
     #print(nearest_cf.columns)
     print(nearest_cf.values)
     return nearest_cf, dice_cf
@@ -304,24 +304,24 @@ def compute_counterfactual_of_DiCE(dataset, test_instance, bb):
     # if len(dice_cf) != 0:
     #     print(dice_cf)
 
-def compute_counterfactual_of_AR(dataset, test_instance, bb):
-    X = dataset.drop('class', axis=1)
-    A = rs.ActionSet(X)
-    from IPython.core.display import display, HTML
-    A.set_alignment(bb)
-    ar_cfs = pd.DataFrame()
-    for x in range(len(X_test)):
-        fs = rs.Flipset(X_test[x:x+1].values, action_set = A, clf = bb)
-        fs.populate(enumeration_type='distinct_subsets', total_items = 1) #'mutually_exclusive'
-        f_list = numf #['Income', 'Family', 'CCAvg', 'Education', 'Mortgage', 'Securities Account', 'CD Account', 'Online', 'CreditCard']
-        #features that need to be changed and could flip the outcome bt fs
-        feat2change = fs.df['features']
-        values_2change = fs.df['x_new']
-        changed_instance = X_test[x:x+1].copy()
+# def compute_counterfactual_of_AR(dataset, test_instance, bb):
+#     X = dataset.drop('class', axis=1)
+#     A = rs.ActionSet(X)
+#     from IPython.core.display import display, HTML
+#     A.set_alignment(bb)
+#     ar_cfs = pd.DataFrame()
+#     for x in range(len(X_test)):
+#         fs = rs.Flipset(X_test[x:x+1].values, action_set = A, clf = bb)
+#         fs.populate(enumeration_type='distinct_subsets', total_items = 1) #'mutually_exclusive'
+#         f_list = numf #['Income', 'Family', 'CCAvg', 'Education', 'Mortgage', 'Securities Account', 'CD Account', 'Online', 'CreditCard']
+#         #features that need to be changed and could flip the outcome bt fs
+#         feat2change = fs.df['features']
+#         values_2change = fs.df['x_new']
+#         changed_instance = X_test[x:x+1].copy()
 
-        for f, i in enumerate(feat2change):
-            changed_instance[i] = values_2change[f]
-        ar_cfs = pd.concat([ar_cfs, changed_instance], ignore_index = True, axis = 0)
+#         for f, i in enumerate(feat2change):
+#             changed_instance[i] = values_2change[f]
+#         ar_cfs = pd.concat([ar_cfs, changed_instance], ignore_index = True, axis = 0)
 
 def compute_sggestion_counterfactual(test_instance, bb, uf_flexible):
     feature_suggestion = []

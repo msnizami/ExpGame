@@ -187,55 +187,56 @@ class StableScene extends Phaser.Scene {
     if (this.gameData.trialCount == this.gameData.numTrialsPerBlock) {
       let feedText = this.add.text(
         window.innerWidth * 0.025,
-        window.innerHeight * 0.15,
+        window.innerHeight * 0.12,
         "Your selected leaf ranges are:",
         { fontFamily: "monogram", fontSize: "18px", color: "#000000" }
       );
     }
 
     // display everything:
+
     this.add
-      .image(window.innerWidth * 0.05, window.innerHeight * 0.125, "plant1")
+      .image(window.innerWidth * 0.05, window.innerHeight * 0.2, "plant1") //control case, increse it to lower on the screen, old 0.125
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.07,
-      window.innerHeight * 0.125,
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar1,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
     this.add
-      .image(window.innerWidth * 0.16, window.innerHeight * 0.125, "plant2")
+      .image(window.innerWidth * 0.16, window.innerHeight * 0.2, "plant2")
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.18,
-      window.innerHeight * 0.125,
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar2,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
     this.add
-      .image(window.innerWidth * 0.27, window.innerHeight * 0.125, "plant3")
+      .image(window.innerWidth * 0.27, window.innerHeight * 0.2, "plant3")
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.29,
-      window.innerHeight * 0.125,
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar3,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
     this.add
-      .image(window.innerWidth * 0.38, window.innerHeight * 0.125, "plant4")
+      .image(window.innerWidth * 0.38, window.innerHeight * 0.2, "plant4")
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.4,
-      window.innerHeight * 0.125,
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar4,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
     this.add
-      .image(window.innerWidth * 0.49, window.innerHeight * 0.125, "plant5")
+      .image(window.innerWidth * 0.49, window.innerHeight * 0.2, "plant5")
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.51,
-      window.innerHeight * 0.125,
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar5,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
@@ -243,79 +244,83 @@ class StableScene extends Phaser.Scene {
     //"Example diet with no positive outcome.",
     this.add.text(
       window.innerWidth * 0.025,
-      window.innerHeight * 0.05,
+      window.innerHeight * 0.12,  //control case, increse it to lower on the screen, old 0.05
       "Your selected leaf ranges are:",
       { fontFamily: "monogram", fontSize: "18px", color: "#000000" }
     );
     // Explaination modal here
 
+    // HERE NEED TO CHANGE OR COMMENT THE CODE FOR CONTROL CASE
+
     // if (this.gameData.trialCount > 1 && !this.gameData.cur_pred) {
     if (1) {
-      this.add.text(
-        window.innerWidth * 0.025,
-        window.innerHeight * 0.2,
-        "Based on the provided range of leaves, a healthier combination is suggested below:",
-        { fontFamily: "monogram", fontSize: "20px", color: "#000ff0" }
-      );
+      // this.add.text(
+      //   window.innerWidth * 0.025,
+      //   window.innerHeight * 0.3,
+      //   "Based on the provided range of leaves, a healthier combination is suggested below:",
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000ff0" }
+      // );
+      // this.add.text(
+      //   window.innerWidth * 0.025,
+      //   window.innerHeight * 0.4,
+      //   "The Shub's fitness level could have been better if you had selected the following:",
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+
       this.add.text(
         window.innerWidth * 0.025,
         window.innerHeight * 0.3,
-        "The Shub's fitness level could have been better if you had selected the following:",
+        "AlienNutriSolver found a solution and you are suggested to fed it to the Shub by clicking on the Feeding time button.",
         { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
       );
 
-      this.add.text(
-        window.innerWidth * 0.025,
-        window.innerHeight * 0.45,
-        "Consider the above suggestion as a diet for the Shub by clicking on the Feeding time button:",
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
+      // this.add
+      //   .image(window.innerWidth * 0.05, window.innerHeight * 0.48, "plant1")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.07,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(0),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+      // this.add
+      //   .image(window.innerWidth * 0.16, window.innerHeight * 0.48, "plant2")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.18,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(1),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+      // this.add
+      //   .image(window.innerWidth * 0.27, window.innerHeight * 0.48, "plant3")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.29,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(2),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+      // this.add
+      //   .image(window.innerWidth * 0.38, window.innerHeight * 0.48, "plant4")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.4,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(3),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+      // this.add
+      //   .image(window.innerWidth * 0.49, window.innerHeight * 0.48, "plant5")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.51,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(4),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
 
-      this.add
-        .image(window.innerWidth * 0.05, window.innerHeight * 0.35, "plant1")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.07,
-        window.innerHeight * 0.35,
-        "x " + this.gameData.cf_array?.at(-1)?.at(0),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
-      this.add
-        .image(window.innerWidth * 0.16, window.innerHeight * 0.35, "plant2")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.18,
-        window.innerHeight * 0.35,
-        "x " + this.gameData.cf_array?.at(-1)?.at(1),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
-      this.add
-        .image(window.innerWidth * 0.27, window.innerHeight * 0.35, "plant3")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.29,
-        window.innerHeight * 0.35,
-        "x " + this.gameData.cf_array?.at(-1)?.at(2),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
-      this.add
-        .image(window.innerWidth * 0.38, window.innerHeight * 0.35, "plant4")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.4,
-        window.innerHeight * 0.35,
-        "x " + this.gameData.cf_array?.at(-1)?.at(3),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
-      this.add
-        .image(window.innerWidth * 0.49, window.innerHeight * 0.35, "plant5")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.51,
-        window.innerHeight * 0.35,
-        "x " + this.gameData.cf_array?.at(-1)?.at(4),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
+      // CONTROL CASE UNTIL HERE
 
       var loadingText = this.add
         .text(-70, -15, "Loading...", {
@@ -333,6 +338,7 @@ class StableScene extends Phaser.Scene {
       );
       loadingContainer.setVisible(false);
     }
+
 
     // if three trails are done, get feedback and start a new block
     // if (this.gameData.feedback_flag) {
@@ -737,7 +743,7 @@ class StableScene extends Phaser.Scene {
     this.gameData.api.logTime(
       4,
       time,
-      this.gameData.blockCount,
+      this.gameData.testno,
       this.gameData.trialCount
     );
   }

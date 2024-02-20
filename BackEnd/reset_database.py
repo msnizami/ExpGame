@@ -3,7 +3,7 @@ import sys
 import mysql.connector
 
 
-database =  "Test_db" #"sys"
+database = "Test_db"
 
 
 if __name__ == "__main__":
@@ -23,6 +23,7 @@ if __name__ == "__main__":
             db.cursor().execute("DROP TABLE demographics")
             db.cursor().execute("DROP TABLE elapsedtime_logs")
             db.cursor().execute("DROP TABLE users_payout")
+            db.cursor().execute("DROP TABLE logs_help")
             db.commit()
         except Exception as ex:
             print(ex)

@@ -99,9 +99,9 @@ class AttentionScene extends Phaser.Scene {
 				'',
 				'Please keep paying close attention to',
 				'ALL aspects of the game at any time.',
-				'',
-				'If your responses fail to meet our quality control standards,',
-				'your HIT is likely to be rejected!',
+				// '',
+				// 'If your responses fail to meet our quality control standards,',
+				// 'your HIT is likely to be rejected!',
 			]
 
 		} else {
@@ -111,9 +111,9 @@ class AttentionScene extends Phaser.Scene {
 				'',
 				'Please keep paying close attention to',
 				'ALL aspects of the game at any time.',
-				'',
-				'If your responses fail to meet our quality control standards,',
-				'your HIT is likely to be rejected!',
+				// '',
+				// 'If your responses fail to meet our quality control standards,',
+				// 'your HIT is likely to be rejected!',
 			]
 		}
 

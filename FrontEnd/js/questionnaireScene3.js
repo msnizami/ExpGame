@@ -1,4 +1,5 @@
 import QuestionnaireScene4 from './questionnaireScene4.js';
+import QuestionnaireScene8 from './questionnaireScene8.js';
 
 class QuestionnaireScene3 extends Phaser.Scene {
 
@@ -51,17 +52,17 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		]
 
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.05, qIntro1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px',fontStyle: "bold italic", color: '#000000' });
 
-		if (this.gameData.api.controlGroup) {
+		// if (this.gameData.api.controlGroup) {
 			var item6 = [
-				"6. I was able to use the feedback on what choice would have led to a better result to increase the fitness of Shub."
+				"6. I found inconsistencies in the behavior of the AlienNutriSolver."
 			];
-		} else {
-		var item6 = [
-			"6. I was able to use the feedback on what choice would have led to a better result to increase the fitness of Shub."
-		];
-		}
+		// } else {
+		// var item6 = [
+		// 	"6. I found that suggestions on what choice would have led to a better result provided by the “Help” button are useful to  increase the fitness of the Shub."
+		// ];
+		// }
 
 		// add item 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item6, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -229,7 +230,8 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		}.bind(this));
 
 		var item7 = [
-			"7. Are you still paying attention? If so, please select 'I prefer not to answer' for this question."
+			// no control
+			"7. From interacting with the system, I do not understand how the AlienNutriSolver works."
 		];
 
 		// add item 1
@@ -397,16 +399,15 @@ class QuestionnaireScene3 extends Phaser.Scene {
 			}
 		}.bind(this));
 
-		if (this.gameData.api.controlGroup) {
-			var item8 = [
-				"8. I found inconsistencies in the feedback on what choice would have led to a better result."
-			];
-		} else {
+		// if (this.gameData.api.controlGroup) {
+		// 	var item8 = [
+		// 		"8. To show you are paying attention to this question, please select “I prefer not to answer”."
+		// 	];
+		// } else {
 		var item8 = [
-			"8. I found inconsistencies in the feedback on what choice would have led to a better result."
-			//"8. I think most people would learn to work with the feedback on what choice would have led to a better result very quickly."
+			"8. I trust the predictions of the AlienNutriSolver."
 		];
-		}
+		// }
 
 		// add item 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.6, item8, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -439,7 +440,7 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 2
-		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.65, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.475, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item8Sprite2 = this.add.sprite(window.innerWidth * 0.20, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
 
@@ -622,10 +623,15 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		else {
 			this.logAnswers();
 
-			var questionnaireScene4 = new QuestionnaireScene4(this.gameData);
-			this.scene.remove('questionnaireScene4', questionnaireScene4);
-			this.scene.add('questionnaireScene4', questionnaireScene4);
-			this.scene.start('questionnaireScene4');
+			// var questionnaireScene4 = new QuestionnaireScene4(this.gameData);
+			// this.scene.remove('questionnaireScene4', questionnaireScene4);
+			// this.scene.add('questionnaireScene4', questionnaireScene4);
+			// this.scene.start('questionnaireScene4');
+
+			var questionnaireScene8 = new QuestionnaireScene8(this.gameData);
+			this.scene.remove('questionnaireScene8', questionnaireScene8);
+			this.scene.add('questionnaireScene8', questionnaireScene8);
+			this.scene.start('questionnaireScene8');
 		}
 	}
 

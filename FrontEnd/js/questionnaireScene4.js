@@ -20,6 +20,13 @@ class QuestionnaireScene4 extends Phaser.Scene {
 		this.item10Var5Checked = false;
 		this.item10Var6Checked = false;
 
+		this.item11Var1Checked = false;
+		this.item11Var2Checked = false;
+		this.item11Var3Checked = false;
+		this.item11Var4Checked = false;
+		this.item11Var5Checked = false;
+		this.item11Var6Checked = false;
+
 	}
 
 	init() { }
@@ -45,18 +52,18 @@ class QuestionnaireScene4 extends Phaser.Scene {
 		]
 
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.05, qIntro1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px',color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px',fontStyle: "bold italic", color: '#000000' });
 
-		if (this.gameData.api.controlGroup) {
-			var item9 = [
-				"9. I think most people would learn to work with the feedback on what choice would have led to a better result very quickly."
-			];
-		} else {
+		// if (this.gameData.api.controlGroup) {
+		// 	var item9 = [
+		// 		"9. I found inconsistencies in the behavior of the AlienNutriSolver."
+		// 	];
+		// } else {
 		var item9 = [
-			"9. I think most people would learn to work with the feedback on what choice would have led to a better result very quickly."
+			"9. I found inconsistencies in the suggestions on what choice would have led to a better result provided by the “Help” button."
 			//"9. I received the feedback on what choice would have led to a better result in a timely and efficient manner."
 		];
-		}
+		// }
 
 		// add item 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item9, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -223,16 +230,16 @@ class QuestionnaireScene4 extends Phaser.Scene {
 			}
 		}.bind(this));
 
-		if (this.gameData.api.controlGroup) {
-			var item10 = [
-				"10. I received the suggestions on what choice would have led to a better result in a timely and efficient manner."
-			];
-		} else {
+		// if (this.gameData.api.controlGroup) {
+		// 	var item10 = [
+		// 		"10. From interacting with the system, I do not understand how the AlienNutriSolver works."
+		// 	];
+		// } else {
 		var item10 = [
-			"10. I received the suggestions on what choice would have led to a better result in a timely and efficient manner."
+			"10. From the suggestions on what choice would have led to a better result provided by the “Help” button, I “do not understand” how the AlienNutriSolver works."
 			//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
 		];
-		}
+		// }
 
 		// add item 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item10, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -399,6 +406,182 @@ class QuestionnaireScene4 extends Phaser.Scene {
 			}
 		}.bind(this));
 
+		// if (this.gameData.api.controlGroup) {
+		// 	var item11 = [
+		// 		"11. No question."
+		// 	];
+		// } else {
+		var item11 = [
+			"11. The suggestions on what choice would have led to a better result provided by the “Help” button are satisfying."
+			//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
+		];
+		// }
+
+		// add item 1
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.6, item11, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+
+		// option 1
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.65, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+
+		var item11Sprite1 = this.add.sprite(window.innerWidth * 0.05, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
+
+		item11Sprite1.on('pointerdown', function (pointer) {
+			if (this.item11Var1Checked) {
+				item11Sprite1.setFrame(0);
+				this.item11Var1Checked = false;
+			} else {
+				item11Sprite1.setFrame(1);
+				this.item11Var1Checked = true;
+
+				this.item11Var2Checked = false;
+				this.item11Var3Checked = false;
+				this.item11Var4Checked = false;
+				this.item11Var5Checked = false;
+				this.item11Var6Checked = false;
+				item11Sprite2.setFrame(0);
+				item11Sprite3.setFrame(0);
+				item11Sprite4.setFrame(0);
+				item11Sprite5.setFrame(0);
+				item11Sprite6.setFrame(0);
+
+			}
+		}.bind(this));
+
+		// option 2
+		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.475, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+
+		var item11Sprite2 = this.add.sprite(window.innerWidth * 0.20, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
+
+		item11Sprite2.on('pointerdown', function (pointer) {
+			if (this.item11Var2Checked) {
+				item11Sprite2.setFrame(0);
+				this.item11Var2Checked = false;
+			} else {
+				item11Sprite2.setFrame(1);
+				this.item11Var2Checked = true;
+
+				this.item11Var1Checked = false;
+				this.item11Var3Checked = false;
+				this.item11Var4Checked = false;
+				this.item11Var5Checked = false;
+				this.item11Var6Checked = false;
+				item11Sprite1.setFrame(0);
+				item11Sprite3.setFrame(0);
+				item11Sprite4.setFrame(0);
+				item11Sprite5.setFrame(0);
+				item11Sprite6.setFrame(0);
+
+			}
+		}.bind(this));
+
+		// option 3
+		this.add.text(window.innerWidth * 0.335, window.innerHeight * 0.65, 'Neutral', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+
+		var item11Sprite3 = this.add.sprite(window.innerWidth * 0.35, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
+
+		item11Sprite3.on('pointerdown', function (pointer) {
+			if (this.item11Var3Checked) {
+				item11Sprite3.setFrame(0);
+				this.item11Var3Checked = false;
+			} else {
+				item11Sprite3.setFrame(1);
+				this.item11Var3Checked = true;
+
+				this.item11Var1Checked = false;
+				this.item11Var2Checked = false;
+				this.item11Var4Checked = false;
+				this.item11Var5Checked = false;
+				this.item11Var6Checked = false;
+				item11Sprite1.setFrame(0);
+				item11Sprite2.setFrame(0);
+				item11Sprite4.setFrame(0);
+				item11Sprite5.setFrame(0);
+				item11Sprite6.setFrame(0);
+
+			}
+		}.bind(this));
+
+		// option 4
+		this.add.text(window.innerWidth * 0.485, window.innerHeight * 0.65, 'Agree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+
+		var item11Sprite4 = this.add.sprite(window.innerWidth * 0.50, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
+
+		item11Sprite4.on('pointerdown', function (pointer) {
+			if (this.item11Var4Checked) {
+				item11Sprite4.setFrame(0);
+				this.item11Var4Checked = false;
+			} else {
+				item11Sprite4.setFrame(1);
+				this.item11Var4Checked = true;
+
+				this.item11Var1Checked = false;
+				this.item11Var2Checked = false;
+				this.item11Var3Checked = false;
+				this.item11Var5Checked = false;
+				this.item11Var6Checked = false;
+				item11Sprite1.setFrame(0);
+				item11Sprite2.setFrame(0);
+				item11Sprite3.setFrame(0);
+				item11Sprite5.setFrame(0);
+				item11Sprite6.setFrame(0);
+
+			}
+		}.bind(this));
+
+		// option 5
+		this.add.text(window.innerWidth * 0.615, window.innerHeight * 0.65, 'Strongly agree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+
+		var item11Sprite5 = this.add.sprite(window.innerWidth * 0.65, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
+
+		item11Sprite5.on('pointerdown', function (pointer) {
+			if (this.item11Var5Checked) {
+				item11Sprite5.setFrame(0);
+				this.item11Var5Checked = false;
+			} else {
+				item11Sprite5.setFrame(1);
+				this.item11Var5Checked = true;
+
+				this.item11Var1Checked = false;
+				this.item11Var2Checked = false;
+				this.item11Var3Checked = false;
+				this.item11Var4Checked = false;
+				this.item11Var6Checked = false;
+				item11Sprite1.setFrame(0);
+				item11Sprite2.setFrame(0);
+				item11Sprite3.setFrame(0);
+				item11Sprite4.setFrame(0);
+				item11Sprite6.setFrame(0);
+
+			}
+		}.bind(this));
+
+		// Don't know
+		this.add.text(window.innerWidth * 0.755, window.innerHeight * 0.65, 'I prefer not to answer.', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+
+		var item11Sprite6 = this.add.sprite(window.innerWidth * 0.80, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
+
+		item11Sprite6.on('pointerdown', function (pointer) {
+			if (this.item11Var6Checked) {
+				item11Sprite6.setFrame(0);
+				this.item11Var6Checked = false;
+			} else {
+				item11Sprite6.setFrame(1);
+				this.item11Var6Checked = true;
+
+				this.item11Var1Checked = false;
+				this.item11Var2Checked = false;
+				this.item11Var3Checked = false;
+				this.item11Var4Checked = false;
+				this.item11Var5Checked = false;
+				item11Sprite1.setFrame(0);
+				item11Sprite2.setFrame(0);
+				item11Sprite3.setFrame(0);
+				item11Sprite4.setFrame(0);
+				item11Sprite5.setFrame(0);
+
+			}
+		}.bind(this));
+
 		// instatiate and add new end scene with current data
 		var questionnaireScene5 = undefined;
 
@@ -414,12 +597,14 @@ class QuestionnaireScene4 extends Phaser.Scene {
 
 	logAnswers() {
 		this.gameData.api.logQuestionnaire(8, this.item9Var1Checked, this.item9Var2Checked, this.item9Var3Checked, this.item9Var4Checked, this.item9Var5Checked, this.item9Var6Checked);
-		this.gameData.api.logQuestionnaire(9, this.item10Var1Checked, this.item10Var2Checked, this.item10Var3Checked, this.item10Var4Checked, this.item10Var5Checked, this.item10Var6Checked)
+		this.gameData.api.logQuestionnaire(9, this.item10Var1Checked, this.item10Var2Checked, this.item10Var3Checked, this.item10Var4Checked, this.item10Var5Checked, this.item10Var6Checked);
+		this.gameData.api.logQuestionnaire(10, this.item11Var1Checked, this.item11Var2Checked, this.item11Var3Checked, this.item11Var4Checked, this.item11Var5Checked, this.item11Var6Checked)
 	}
 
 	onBtnContinue() {
 		if ([this.item9Var1Checked, this.item9Var2Checked, this.item9Var3Checked, this.item9Var4Checked, this.item9Var5Checked, this.item9Var6Checked].every(a => a == false) ||
-		[this.item10Var1Checked, this.item10Var2Checked, this.item10Var3Checked, this.item10Var4Checked, this.item10Var5Checked, this.item10Var6Checked].every(a => a == false)) {
+		[this.item10Var1Checked, this.item10Var2Checked, this.item10Var3Checked, this.item10Var4Checked, this.item10Var5Checked, this.item10Var6Checked].every(a => a == false)|| 
+		[this.item11Var1Checked, this.item11Var2Checked, this.item11Var3Checked, this.item11Var4Checked, this.item11Var5Checked, this.item11Var6Checked].every(a => a == false)) {
 			// alerts cause issues in fullscreen mode, here's a workaround:
 
 			// background

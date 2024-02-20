@@ -36,7 +36,7 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		var qIntro1 = [
 			'You have completed the Alien Fitness Game!',
 			'',
-			'To complete the study, please answer the following 10 questions.',
+			'To complete the study, please answer the following questions.',
 		]
 
 		var qIntro2 = [
@@ -46,7 +46,7 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		]
 
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.05, qIntro1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.15, qIntro2, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.15, qIntro2, { fontFamily: 'monogram', fontSize: '17px',fontStyle: "bold italic", color: '#000000' });
 
 		var item1 = [
 			"1. What do you think: Which plants were relevant to increase the fitness of Shub?\n Please select ALL that you think were relevant."

@@ -15,11 +15,12 @@ from handler.logRandomFeedback import LogRandomFeedbackHandler, LogUserPaymentHa
 from handler.logAttention import LogAttentionHandler
 from handler.logUserPerformanceHandler import LogUserPerformanceHandler
 from handler.logRandomFeedback import LogUserPaymentHandler
+from handler.logHelp import LogHelpHandler
 
 
 
-port = 8888 # server
-#port = 8080 #local
+# port = 8080 # for local run
+port = 8888 # for server run
 
 
 class WebServer(tornado.web.Application):
@@ -40,7 +41,8 @@ class WebServer(tornado.web.Application):
             (r'/api/log/randomFeedback', LogRandomFeedbackHandler, dict(datamgr=self.datamgr)),
             (r'/api/log/userPerformance', LogUserPerformanceHandler, dict(datamgr=self.datamgr)),
             (r'/api/log/userPayment', LogUserPaymentHandler, dict(datamgr=self.datamgr)),
-            (r'/api/log/attention', LogAttentionHandler, dict(datamgr=self.datamgr))
+            (r'/api/log/attention', LogAttentionHandler, dict(datamgr=self.datamgr)),
+            (r'/api/log/loghelp', LogHelpHandler, dict(datamgr=self.datamgr))
         ]
 
         tornado.web.Application.__init__(self, handlers)

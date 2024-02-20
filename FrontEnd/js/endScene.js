@@ -23,7 +23,7 @@ class EndScene extends Phaser.Scene {
     	const centerY = window.innerHeight ;
 
     	// Uncomment these lines to add logos if needed
-    	this.add.image(centerX * 0.15, centerY * 0.06, 'URB').setScale(0.2);
+    	this.add.image(centerX * 0.15, centerY * 0.07, 'URB').setScale(0.2);
     	this.add.image(centerX * 0.5, centerY * 0.06, 'CITI').setScale(0.2);
     	this.add.image(centerX * 0.85, centerY * 0.06, 'UBF').setScale(0.2);
 		this.varObj.api.logUserPayment();	// Store (ecrypted) paymentId on server

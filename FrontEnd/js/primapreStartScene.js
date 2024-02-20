@@ -41,7 +41,7 @@ class PrimapreStartScene extends Phaser.Scene {
 
     var headtext = ["Game Scenario"];
     var content1 = [
-			      "You are the new guardian for a fictional alien species called Shubs.",
+			      "You are the new guardian for a fictional Alien species called Shubs.",
             "Different groups of Shubs live on different planets."];
     var content2 = [
             "On all planets, Shubs eat different types of leaves for their growth.",

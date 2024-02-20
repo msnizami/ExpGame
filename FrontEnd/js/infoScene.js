@@ -2,7 +2,7 @@
 
 // import PreStartScene from './preStartScene.js';
 import InfoSceneNext from './infoSceneNext.js';
-// import QuestionnaireScene2 from './questionnaireScene2.js';
+import QuestionnaireScene2 from './questionnaireScene2.js';
 
 class InfoScene extends Phaser.Scene {
   constructor(gameData) {
@@ -34,24 +34,24 @@ class InfoScene extends Phaser.Scene {
     const centerY = window.innerHeight ;
 
     // Uncomment these lines to add logos if needed
-    this.add.image(centerX * 0.15, centerY * 0.06, 'URB').setScale(0.2);
+    this.add.image(centerX * 0.15, centerY * 0.07, 'URB').setScale(0.2);
     this.add.image(centerX * 0.5, centerY * 0.06, 'CITI').setScale(0.2);
     this.add.image(centerX * 0.85, centerY * 0.06, 'UBF').setScale(0.2);
 
     var headtext = ["Welcome to the Alien Fitness Game study!"];
     var content = [
-			"The purpose of this study is to examine how human feedback impacts the automated generation of counterfactual explanations.",
+			"The purpose of this study is to examine how human feedback impacts the automated generation of counterfactual solutions (counterfactual explanations).",
 			"This is a research project being conducted by Mr. Muhammad Suffian at University of Urbino.",
 			"People of any gender, aged 18 and above, are invited to participate.",
 			"Your participation in this research study is voluntary. You may choose not to participate. If you decide to participate, you may withdraw at any time.",
 			"",
-			"The procedure involves playing a small online game that will take approximately 15 minutes.",
+			"The procedure involves playing a small online game that will take approximately 10-15 minutes.",
 			"Afterwards, you will be asked to answer a short questionnaire assessing your experience with the game.",
 			"Your responses will be confidential and we do not collect identifying information such as your name, email address or IP address.",
-			"We will do our best to keep your information confidential.",
+			"We will keep your information confidential.",
 			"",
 			"The results of this study will be used for scholarly purposes only.",
-			"If you have any questions about the research study, please contact Mr. Muhammad Suffian at m.suffian@campus.uniurb.it .",
+			"If you have any questions about the research study, please contact Mr. Muhammad Suffian at m.suffian@campus.uniurb.it.",
 			"",
       "The information that we collect is in agreement with European Union's General Data Protection Regulation (GDPR).",
 			"Ethics approval for this study was granted by University of Urbino with the reference code XXXXX.",
@@ -81,22 +81,22 @@ class InfoScene extends Phaser.Scene {
   // Handle button click event
   onClickBtnAgree() {
     this.logTime();
-    if (!this.isBrowserWindowMaximized()) {
-      alert("Please maximize your browser window before continuing by pressing F11!");
-    } else {
+    // if (!this.isBrowserWindowMaximized()) {
+    //   alert("Please maximize your browser window before continuing by pressing F11!");
+    // } else {
       // this.logTime();
-      this.scale.startFullscreen();
-      this.gameData.game.config.width = window.innerWidth
-      this.gameData.game.config.height = window.innerHeight
+      // this.scale.startFullscreen();
+      // this.gameData.game.config.width = window.innerWidth
+      // this.gameData.game.config.height = window.innerHeight
       
       // Start the PreStartScene
       const infoSceneNext = new InfoSceneNext(this.gameData);
       this.scene.add('infoSceneNext', infoSceneNext);
       this.scene.start('infoSceneNext');
-      // const questionnaireScene2 = new QuestionnaireScene2(this.gameData); //for testing open it
+      // const questionnaireScene2 = new QuestionnaireScene2(this.gameData);
       // this.scene.add('questionnaireScene2', questionnaireScene2);
       // this.scene.start('questionnaireScene2');
-    }
+    //}
   }
 
   // Check if the browser window is maximized

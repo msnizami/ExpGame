@@ -89,10 +89,10 @@ def merge_csv_files(csv1_path, csv2_path, output_path, output_path1):
     
 if __name__ == "__main__":
     # Define the file paths
-    csv1_path = 'logData/performance.csv'
-    csv2_path = 'logData/performance_dice.csv'
-    csv3_path = 'logData/results.csv'
-    csv3_path1 = 'logData/output.xlsx'
+    csv1_path = 'LogData/performance.csv'
+    csv2_path = 'LogData/performance_dice.csv'
+    csv3_path = 'LogData/results.csv'
+    csv3_path1 = 'LogData/output.xlsx'
 
     # Define columns to be extracted from each CSV
     columns_to_aggregate = ['CFplant1','CFplant2','CFplant3','CFplant4','CFplant5']

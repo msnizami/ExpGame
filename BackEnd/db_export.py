@@ -2,13 +2,14 @@
 from datetime import time
 import pandas as pd
 import json
+import csv
 import mysql.connector
 from crypt import load_key, decrypt
 
 
-database = "Test_db" # "sys"
-user_name = "tester" # "root"
-user_pw = "54321" # "laboratorio"
+database = "Test_db"
+user_name = "tester"
+user_pw = "54321"
 
 
 class DataMgr():
@@ -122,6 +123,7 @@ class DataMgr():
             cur = self.db.cursor()
             cur.execute("SELECT userId, eventId, timeElapsed, blockId, trialId FROM elapsedtime_logs")
             for row in cur.fetchall():
+                # print(row)
                 user_id = str(row[0])
                 event_id = int(row[1])
                 time_elapsed = int(row[2])
@@ -130,15 +132,18 @@ class DataMgr():
 
                 if user_id not in data: # Create structure
                     data[user_id] = {"timeAgreementScene": -1, "timeStartScene": -1, "blocks": {}}
+                    # print("1st condition", data[user_id])
                 if block_id != -1:
                     if block_id not in data[user_id]["blocks"]:
                         data[user_id]["blocks"][block_id] = {"trialNr": {}, "timestableScene": -1}
+                        # print("2nd condition", data[user_id])
                     if block_id - 1 not in data[user_id]["blocks"]:
-                        data[user_id]["blocks"][block_id-1] = {"trialNr": {}, "timestableScene": -1}
+                        data[user_id]["blocks"][block_id - 1] = {"trialNr": {}, "timestableScene": -1}
+                        # print("3rd condition", data[user_id])
                 if trial_id != -1:
                     if trial_id not in data[user_id]["blocks"][block_id]["trialNr"]:
                         data[user_id]["blocks"][block_id]["trialNr"][trial_id] = {"timestableConfigScene": -1}
-
+                        # print("4th condition", data[user_id])
                 # Process event
                 if event_id == 0: # timeAgreementScene
                     data[user_id]["timeAgreementScene"] = time_elapsed
@@ -154,6 +159,7 @@ class DataMgr():
                     data[user_id]["timestableConfigScene"] = time_elapsed
                 elif event_id == 6:  # timeStartScene
                     data[user_id]["timestableScene"] = time_elapsed
+                    # print("in last scene")
                 # elif event_id == 5:  # timeStableUntilFeeding
                 #     data[user_id]["blocks"][block_id]["trialNr"][trial_id]["timeStableUntilFeeding"] = time_elapsed
                 # elif event_id == 4:  # timeStableClickFeedbackScene
@@ -183,7 +189,19 @@ class DataMgr():
 
             df = pd.DataFrame({"userId": data_userId, "group": data_group, "planetNo": data_BlockNr, "attemptNo": data_TrialNr, "timeAgreementScene": data_timeAgreementScene, "timeStartScene": data_timeStartScene, "timestableConfigScene": data_timeStableUntilFeeding, "timestableScene": data_timeFeedbackScene})
             df.to_csv(file_out, index=False)
-
+            
+            
+            ### code for only configuration screens
+            cur.execute("SELECT userId, eventId, timeElapsed, blockId, trialId FROM elapsedtime_logs WHERE eventId IN (5, 6)")
+            rows = cur.fetchall()
+            with open('LogData/ConfigScreenTime.csv', 'w', newline='') as csvfile:
+                csv_writer = csv.writer(csvfile)
+    
+                # Write header row
+                csv_writer.writerow(['userId', 'eventId', 'time', 'planetNo', 'attemptNo'])
+                # Write rows where eventId is 5 or 6
+                for row in rows:
+                    csv_writer.writerow(row)
             return True
         except Exception as ex:
             print(ex)
@@ -220,7 +238,7 @@ class DataMgr():
             data_demographics_checked = []
 
             cur = self.db.cursor()
-            cur.execute("SELECT userId, varAge1, varAge2, varAge3, varAge4, varAge5, varAge6, varAge7, varGender1, varGender2, varGender3, varGender4, varGender5, varGender6, varGender7, varEdu1, varEdu2, varEdu3, varEdu4, varEdu5, varEdu6, varEdu7, varBack1, varBack2, varBack3, varBack4, varBack5, varBack6, varBack7, varReg1, varReg2, varReg3, varReg4, varReg5, varReg6, varReg7, varEng1, varEng2, varEng3, varEng4, varEng5, varEng6, varEng7 FROM demographics") 
+            cur.execute("SELECT userId, varAge1, varAge2, varAge3, varAge4, varAge5, varAge6, varAge7, varGender1, varGender2, varGender3, varGender4, varGender5, varGender6, varGender7, varEng1, varEng2, varEng3, varEng4, varEng5, varEng6, varEng7 FROM demographics")
             for row in cur.fetchall():
                 for i in range(1, 8):
                     data_demographics_userId.append(str(row[0]))
@@ -239,32 +257,11 @@ class DataMgr():
                 for i in range(15, 22):
                     data_demographics_userId.append(str(row[0]))
                     data_demographics_group.append(self.user_groups[str(row[0])])
-                    data_demographics_item.append("education")
+                    data_demographics_item.append("language")
                     # print(i, data_demographics_item)
 
                     data_demographics_responseNo.append(i - 14)
                     # print(data_demographics_responseNo)
-                    data_demographics_checked.append(int(row[i]))
-                for i in range(22, 29):
-                    data_demographics_userId.append(str(row[0]))
-                    data_demographics_group.append(self.user_groups[str(row[0])])
-                    data_demographics_item.append("background")
-
-                    data_demographics_responseNo.append(i - 21)
-                    data_demographics_checked.append(int(row[i]))
-                for i in range(29, 36):
-                    data_demographics_userId.append(str(row[0]))
-                    data_demographics_group.append(self.user_groups[str(row[0])])
-                    data_demographics_item.append("region")
-
-                    data_demographics_responseNo.append(i - 28)
-                    data_demographics_checked.append(int(row[i]))
-                for i in range(36, 43):
-                    data_demographics_userId.append(str(row[0]))
-                    data_demographics_group.append(self.user_groups[str(row[0])])
-                    data_demographics_item.append("language")
-
-                    data_demographics_responseNo.append(i - 35)
                     data_demographics_checked.append(int(row[i]))
 
             df_demographics = pd.DataFrame({"userId": data_demographics_userId, "group": data_demographics_group, "item": data_demographics_item, "responseNo": data_demographics_responseNo, "checked": data_demographics_checked})
@@ -303,6 +300,34 @@ class DataMgr():
             print(ex)
             return False
     
+    def export_logHelp(self, file_out="LogData/logHelp.csv"):
+        try:
+            data_userId = []
+            data_group = []
+            data_planetNo = []
+            data_helpCount = []
+            data_shubHealth = []
+        
+            cur = self.db.cursor()
+            cur.execute("SELECT userId, data FROM logs_help")
+            for row in cur.fetchall():
+                d = json.loads(row[1])
+                #print(row)
+                if "planetNo" in d:
+                    data_userId.append(str(row[0]))
+                    # data_group.append(self.user_groups[str(row[0])])
+                    data_planetNo.append(int(d["planetNo"]))
+                    data_helpCount.append(int(d["helpCount"]))
+                    data_shubHealth.append(int(d["shub_health"])) #"shubNo": data_shubNo     
+
+            df = pd.DataFrame({"userId": data_userId, "planetNo": data_planetNo, "help_hits": data_helpCount, "ShubHealth": data_shubHealth}) #  "group": data_group,
+            df.to_csv(file_out, index=False)
+
+            return True
+        except Exception as ex:
+            print(ex)
+            return False
+
     def export_decrypted_payment_ids(self, file_out="LogData/decryptedPaymentIds.csv"):
         try:
             data_userId = []
@@ -326,7 +351,7 @@ class DataMgr():
             return False
 
     def export_everything(self):
-        return self.export_performance() and self.export_performance_dice() and self.export_reactionTimes() and self.export_attentionCheck() and self.export_survey() and self.export_decrypted_payment_ids()
+        return self.export_performance() and self.export_performance_dice() and self.export_reactionTimes() and self.export_attentionCheck() and self.export_survey() and self.export_decrypted_payment_ids() and self.export_logHelp()
 
 if __name__ == "__main__":
     dbmgr = DataMgr()

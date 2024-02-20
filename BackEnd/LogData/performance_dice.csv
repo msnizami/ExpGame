@@ -1,5 +1,2 @@
 userId,planetNo,attemptNo,plant1,plant2,plant3,plant4,plant5,CFplant1,CFplant2,CFplant3,CFplant4,CFplant5,oldPred,newPred,incurredCost,budgetLeft
-0c5a398850274513a524ca25489177dd,1,1,2,3,3,3,2,2,3,3,1,2,0,1,29,61
-0c5a398850274513a524ca25489177dd,2,1,2,2,2,3,2,3,3,2,2,3,0,0,47,14
-0c5a398850274513a524ca25489177dd,2,2,2,3,2,3,2,3,3,2,2,3,0,1,47,43
-0c5a398850274513a524ca25489177dd,3,1,0,3,0,3,0,2,3,4,1,1,0,1,35,8
+d482a28165234201acf8b943bb0505a3,1,1,2,3,3,3,2,2,3,3,1,2,0,1,29,61
