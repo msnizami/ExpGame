@@ -1,5 +1,4 @@
 import QuestionnaireScene4 from './questionnaireScene4.js';
-import QuestionnaireScene8 from './questionnaireScene8.js';
 
 class QuestionnaireScene3 extends Phaser.Scene {
 
@@ -55,13 +54,13 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px',fontStyle: "bold italic", color: '#000000' });
 
 		// if (this.gameData.api.controlGroup) {
-			var item6 = [
-				"6. I found inconsistencies in the behavior of the AlienNutriSolver."
-			];
+		// 	var item6 = [
+		// 		"6. No question...."
+		// 	];
 		// } else {
-		// var item6 = [
-		// 	"6. I found that suggestions on what choice would have led to a better result provided by the “Help” button are useful to  increase the fitness of the Shub."
-		// ];
+		var item6 = [
+			"6. I found that suggestions on what choice would have led to a better result provided by the “Help” button are useful to  increase the fitness of the Shub."
+		];
 		// }
 
 		// add item 1
@@ -231,7 +230,7 @@ class QuestionnaireScene3 extends Phaser.Scene {
 
 		var item7 = [
 			// no control
-			"7. From interacting with the system, I do not understand how the AlienNutriSolver works."
+			"7. I “did not use” the suggestions on what choice would have led to a better result provided by the “Help” button to increase the fitness of Shub."
 		];
 
 		// add item 1
@@ -405,7 +404,7 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		// 	];
 		// } else {
 		var item8 = [
-			"8. I trust the predictions of the AlienNutriSolver."
+			"8. To show you are paying attention to this question, please select “I prefer not to answer”."
 		];
 		// }
 
@@ -623,15 +622,10 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		else {
 			this.logAnswers();
 
-			// var questionnaireScene4 = new QuestionnaireScene4(this.gameData);
-			// this.scene.remove('questionnaireScene4', questionnaireScene4);
-			// this.scene.add('questionnaireScene4', questionnaireScene4);
-			// this.scene.start('questionnaireScene4');
-
-			var questionnaireScene8 = new QuestionnaireScene8(this.gameData);
-			this.scene.remove('questionnaireScene8', questionnaireScene8);
-			this.scene.add('questionnaireScene8', questionnaireScene8);
-			this.scene.start('questionnaireScene8');
+			var questionnaireScene4 = new QuestionnaireScene4(this.gameData);
+			this.scene.remove('questionnaireScene4', questionnaireScene4);
+			this.scene.add('questionnaireScene4', questionnaireScene4);
+			this.scene.start('questionnaireScene4');
 		}
 	}
 

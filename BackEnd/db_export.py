@@ -7,7 +7,7 @@ import mysql.connector
 from crypt import load_key, decrypt
 
 
-database = "Test_db"
+database = "Test_db"  
 user_name = "tester"
 user_pw = "54321"
 

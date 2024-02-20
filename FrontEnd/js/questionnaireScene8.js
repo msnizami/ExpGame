@@ -1339,7 +1339,7 @@ class QuestionnaireScene8 extends Phaser.Scene {
 			.on('pointerdown', () => this.onBtnContinue());
 
 		var textContinue = this.add.text(-50, -15, 'Continue!', { fontSize: '18px', color: '#ffffff' })
-		var buttonContainer = this.add.container(window.innerWidth * 0.9, window.innerHeight * 0.80, [buttonContinue, textContinue])
+		var buttonContainer = this.add.container(window.innerWidth * 0.9, window.innerHeight * 0.70, [buttonContinue, textContinue])
 
 	}
 

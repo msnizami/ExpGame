@@ -55,13 +55,13 @@ class QuestionnaireScene2 extends Phaser.Scene {
 
 
 		// if (this.gameData.api.controlGroup) {
-			var item3 = [
-				"3. I would have liked to have a “Help” button to get suggestions on what choice would have led to a better result."
-			];
+		// 	var item3 = [
+		// 		"3. I would have liked to have a “Help” button to get suggestions on what choice would have led to a better result."
+		// 	];
 		// } else {
-		// var item3 = [
-		// 	"3.  I often used the “Help” button to get suggestions on what choice would have led to a better result."
-		// ];
+		var item3 = [
+			"3.  I often used the “Help” button to get suggestions on what choice would have led to a better result."
+		];
 		//}
 
 		// add item 1
@@ -230,13 +230,13 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// if (this.gameData.api.controlGroup) {
-			var item4 = [
-				"4. I needed no support to understand which selection choices would have led to a better result."
-			];
+		// 	var item4 = [
+		// 		"4. I needed no support to understand which selection choices would have led to a better result."
+		// 	];
 		// } else {
-		// var item4 = [
-		// 	"4. I “did not understand” the suggestions on what choice would have led to a better result provided by the “Help” button."
-		// ];
+		var item4 = [
+			"4. I “did not understand” the suggestions on what choice would have led to a better result provided by the “Help” button."
+		];
 		// }
 
 		// add item 1
@@ -406,13 +406,13 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// if (this.gameData.api.controlGroup) {
-			var item5 = [
-				"5. To show you are paying attention to this question, please select “I prefer not to answer”."
-			];
+		// 	var item5 = [
+		// 		"5. No question......"
+		// 	];
 		// } else {
-		// var item5 = [
-		// 		"5. I have learned from the suggestions on what choice would have led to a better result provided by the “Help” button \n how to select a good diet to increase the fitness of the Shub."
-		// ];
+		var item5 = [
+				"5. I have learned from the suggestions on what choice would have led to a better result provided by the “Help” button \n how to select a good diet to increase the fitness of the Shub."
+		];
 		// }
 
 		// add item 1

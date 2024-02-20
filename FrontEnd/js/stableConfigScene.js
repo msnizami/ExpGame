@@ -639,11 +639,11 @@ class StableConfigScene extends Phaser.Scene {
                   window.innerHeight * 0.42,
                   // FOR CONTROL CASE, NEED TO CHANGE THE FOLLOWING TEXT
                   //"Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, try again!",
-                  "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, try again!",
+                  "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
                   { fontFamily: "monogram", fontSize: "20px", color: "#FF0000" }
                 );
                 // FOR CONTROL CASE, COMMENT OR FALSE THE FOLLOWING HELPCONTAINER CALL
-                helpContainer.setVisible(false); // FOR CONTROL CASE
+                helpContainer.setVisible(true); // FOR CONTROL CASE
                 let differenceLeaves = [];
                 for (let i = 0; i < this.diffCountVars?.length; i++) {
                   if (this.diffCountVars[i] > 0) {
@@ -760,8 +760,8 @@ class StableConfigScene extends Phaser.Scene {
                     this.errText = this.add.text(
                       window.innerWidth * 0.025,
                       window.innerHeight * 0.42,
-                      //"Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
-                      "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, try again!",
+                      "Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, notice that you can ask for Help and try again!",
+                      //"Unfortunately, your selection of ranges was too strict and I could not find any admissible solution. \n Please, try again!",
                       {
                         fontFamily: "monogram",
                         fontSize: "20px",
@@ -773,7 +773,7 @@ class StableConfigScene extends Phaser.Scene {
                     //   newShubData?.diffCountVars
                     // );
                     // FOR CONTROL CASE,
-                    helpContainer.setVisible(false); //FOR CONTROL CASE,
+                    helpContainer.setVisible(true); //FOR CONTROL CASE,
                     let differenceLeaves = [];
                     for (let i = 0; i < this.diffCountVars?.length; i++) {
                       if (this.diffCountVars[i] > 0) {
