@@ -48,12 +48,26 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.05, qIntro1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.15, qIntro2, { fontFamily: 'monogram', fontSize: '17px',fontStyle: "bold italic", color: '#000000' });
 
-		var item1 = [
-			"1. What do you think: Which plants were relevant to increase the fitness of Shub?\n Please select ALL that you think were relevant."
-		];
+		// var item1 = [
+		// 	"1. What do you think: Which plants were relevant to increase the fitness of Shub?\n Please select ALL that you think were relevant."
+		// ];
+
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+				{ text: "1. What do you think: Which plants were ", style: textStyle },
+				{ text: "relevant", style: textStyle1 },
+				{ text: " to increase the fitness of Shub? Please select ALL that you think were relevant.", style: textStyle },
+			];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.3;
+		sentenceParts.forEach(part => {
+				var text = this.add.text(x, y, part.text, part.style);
+				x += text.width; // Update x position for next text part
+		});
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.3, item1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.3, item1, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// plant 1
 		this.add.image(window.innerWidth * 0.05, window.innerHeight * 0.425, 'plant1').setScale(0.15);
@@ -177,12 +191,26 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		}.bind(this));
 
 
-		var item2 = [
-			"2. What do you think: Which plants were not relevant to increase the fitness of Shub?\n Please select ALL that you think were not relevant."
-		];
+		// var item2 = [
+		// 	"2. What do you think: Which plants were not relevant to increase the fitness of Shub?\n Please select ALL that you think were not relevant."
+		// ];
+
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+				{ text: "2. What do you think: Which plants were ", style: textStyle },
+				{ text: "not relevant", style: textStyle1 },
+				{ text: " to increase the fitness of Shub? Please select ALL that you think were not relevant.", style: textStyle },
+			];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.55;
+		sentenceParts.forEach(part => {
+				var text = this.add.text(x, y, part.text, part.style);
+				x += text.width; // Update x position for next text part
+		});
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.55, item2, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.55, item2, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// plant 1
 		this.add.image(window.innerWidth * 0.05, window.innerHeight * 0.675, 'plant1').setScale(0.15);

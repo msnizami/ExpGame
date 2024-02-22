@@ -59,14 +59,29 @@ class QuestionnaireScene4 extends Phaser.Scene {
 		// 		"9. I found inconsistencies in the behavior of the AlienNutriSolver."
 		// 	];
 		// } else {
-		var item9 = [
-			"9. I found inconsistencies in the suggestions on what choice would have led to a better result provided by the “Help” button."
-			//"9. I received the feedback on what choice would have led to a better result in a timely and efficient manner."
-		];
+		// var item9 = [
+		// 	"9. I found inconsistencies in the suggestions on what choice would have led to a better result provided by the “Help” button."
+		// 	//"9. I received the feedback on what choice would have led to a better result in a timely and efficient manner."
+		// ];
+
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+					{ text: "9. I ", style: textStyle },
+					{ text: "found inconsistencies", style: textStyle1 },
+					{ text: " in the suggestions on what choice would have led to a better result provided by the “Help” button.", style: textStyle },
+			];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.25;
+		sentenceParts.forEach(part => {
+				var text = this.add.text(x, y, part.text, part.style);
+				x += text.width; // Update x position for next text part
+		});
+
 		// }
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item9, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item9, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.3, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -239,6 +254,7 @@ class QuestionnaireScene4 extends Phaser.Scene {
 			"10. From the suggestions on what choice would have led to a better result provided by the “Help” button, I “do not understand” how the AlienNutriSolver works."
 			//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
 		];
+
 		// }
 
 		// add item 1

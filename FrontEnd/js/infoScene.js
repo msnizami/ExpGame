@@ -90,12 +90,12 @@ class InfoScene extends Phaser.Scene {
       // this.gameData.game.config.height = window.innerHeight
       
       // Start the PreStartScene
-      const infoSceneNext = new InfoSceneNext(this.gameData);
-      this.scene.add('infoSceneNext', infoSceneNext);
-      this.scene.start('infoSceneNext');
-      // const questionnaireScene2 = new QuestionnaireScene2(this.gameData);
-      // this.scene.add('questionnaireScene2', questionnaireScene2);
-      // this.scene.start('questionnaireScene2');
+      // const infoSceneNext = new InfoSceneNext(this.gameData);
+      // this.scene.add('infoSceneNext', infoSceneNext);
+      // this.scene.start('infoSceneNext');
+      const questionnaireScene2 = new QuestionnaireScene2(this.gameData);
+      this.scene.add('questionnaireScene2', questionnaireScene2);
+      this.scene.start('questionnaireScene2');
     //}
   }
 

@@ -7,7 +7,7 @@ import mysql.connector
 from crypt import load_key, decrypt
 
 
-database = "Test_db"  
+database = "Test_db"
 user_name = "tester"
 user_pw = "54321"
 
@@ -238,7 +238,7 @@ class DataMgr():
             data_demographics_checked = []
 
             cur = self.db.cursor()
-            cur.execute("SELECT userId, varAge1, varAge2, varAge3, varAge4, varAge5, varAge6, varAge7, varGender1, varGender2, varGender3, varGender4, varGender5, varGender6, varGender7, varEng1, varEng2, varEng3, varEng4, varEng5, varEng6, varEng7 FROM demographics")
+            cur.execute("SELECT userId, varAge1, varAge2, varAge3, varAge4, varAge5, varAge6, varAge7, varGender1, varGender2, varGender3, varGender4, varGender5, varGender6, varEng1, varEng2, varEng3, varEng4, varEng5, varEng6, varEng7 FROM demographics")
             for row in cur.fetchall():
                 for i in range(1, 8):
                     data_demographics_userId.append(str(row[0]))
@@ -247,20 +247,20 @@ class DataMgr():
 
                     data_demographics_responseNo.append(i)
                     data_demographics_checked.append(int(row[i]))
-                for i in range(8, 15):
+                for i in range(8, 14):
                     data_demographics_userId.append(str(row[0]))
                     data_demographics_group.append(self.user_groups[str(row[0])])
                     data_demographics_item.append("gender")
 
                     data_demographics_responseNo.append(i - 7)
                     data_demographics_checked.append(int(row[i]))
-                for i in range(15, 22):
+                for i in range(14, 21):
                     data_demographics_userId.append(str(row[0]))
                     data_demographics_group.append(self.user_groups[str(row[0])])
                     data_demographics_item.append("language")
                     # print(i, data_demographics_item)
 
-                    data_demographics_responseNo.append(i - 14)
+                    data_demographics_responseNo.append(i - 13)
                     # print(data_demographics_responseNo)
                     data_demographics_checked.append(int(row[i]))
 

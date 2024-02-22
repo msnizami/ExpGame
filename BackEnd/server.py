@@ -19,7 +19,7 @@ from handler.logHelp import LogHelpHandler
 
 
 
-# port = 8080 # for local run
+#port = 8080 # for local run
 port = 8888 # for server run
 
 

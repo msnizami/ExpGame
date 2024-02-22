@@ -187,7 +187,7 @@ class StableScene extends Phaser.Scene {
     if (this.gameData.trialCount == this.gameData.numTrialsPerBlock) {
       let feedText = this.add.text(
         window.innerWidth * 0.025,
-        window.innerHeight * 0.15,
+        window.innerHeight * 0.12,
         "Your selected leaf ranges are:",
         { fontFamily: "monogram", fontSize: "18px", color: "#000000" }
       );
@@ -196,47 +196,47 @@ class StableScene extends Phaser.Scene {
     // display everything:
 
     this.add
-      .image(window.innerWidth * 0.05, window.innerHeight * 0.18, "plant1") //control case, increse it to lower on the screen, old 0.125
+      .image(window.innerWidth * 0.05, window.innerHeight * 0.2, "plant1") //control case, increse it to lower on the screen, old 0.125
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.07,
-      window.innerHeight * 0.18, //control case, increse it to lower on the screen, old 0.125
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar1,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
     this.add
-      .image(window.innerWidth * 0.16, window.innerHeight * 0.18, "plant2")
+      .image(window.innerWidth * 0.16, window.innerHeight * 0.2, "plant2")
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.18,
-      window.innerHeight * 0.18, //control case, increse it to lower on the screen, old 0.125
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar2,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
     this.add
-      .image(window.innerWidth * 0.27, window.innerHeight * 0.18, "plant3")
+      .image(window.innerWidth * 0.27, window.innerHeight * 0.2, "plant3")
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.29,
-      window.innerHeight * 0.18, //control case, increse it to lower on the screen, old 0.125
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar3,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
     this.add
-      .image(window.innerWidth * 0.38, window.innerHeight * 0.18, "plant4")
+      .image(window.innerWidth * 0.38, window.innerHeight * 0.2, "plant4")
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.4,
-      window.innerHeight * 0.18, //control case, increse it to lower on the screen, old 0.125
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar4,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
     this.add
-      .image(window.innerWidth * 0.49, window.innerHeight * 0.18, "plant5")
+      .image(window.innerWidth * 0.49, window.innerHeight * 0.2, "plant5")
       .setScale(0.1);
     this.add.text(
       window.innerWidth * 0.51,
-      window.innerHeight * 0.18, //control case, increse it to lower on the screen, old 0.125
+      window.innerHeight * 0.2, //control case, increse it to lower on the screen, old 0.125
       "x " + this.gameData.clickCountVar5,
       { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
     );
@@ -244,7 +244,7 @@ class StableScene extends Phaser.Scene {
     //"Example diet with no positive outcome.",
     this.add.text(
       window.innerWidth * 0.025,
-      window.innerHeight * 0.10,  //control case, increse it to lower on the screen, old 0.05
+      window.innerHeight * 0.12,  //control case, increse it to lower on the screen, old 0.05
       "Your selected leaf ranges are:",
       { fontFamily: "monogram", fontSize: "18px", color: "#000000" }
     );
@@ -254,71 +254,71 @@ class StableScene extends Phaser.Scene {
 
     // if (this.gameData.trialCount > 1 && !this.gameData.cur_pred) {
     if (1) {
+      // this.add.text(
+      //   window.innerWidth * 0.025,
+      //   window.innerHeight * 0.3,
+      //   "Based on the provided range of leaves, a healthier combination is suggested below:",
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000ff0" }
+      // );
+      // this.add.text(
+      //   window.innerWidth * 0.025,
+      //   window.innerHeight * 0.4,
+      //   "The Shub's fitness level could have been better if you had selected the following:",
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+
       this.add.text(
         window.innerWidth * 0.025,
         window.innerHeight * 0.3,
-        "Based on the provided range of leaves, a healthier combination is suggested below:",
-        { fontFamily: "monogram", fontSize: "20px", color: "#000ff0" }
-      );
-      this.add.text(
-        window.innerWidth * 0.025,
-        window.innerHeight * 0.4,
-        "The Shub's fitness level could have been better if you had selected the following:",
+        "AlienNutriSolver found a solution and you are suggested to fed it to the Shub by clicking on the Feeding time button.",
         { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
       );
 
-      this.add.text(
-        window.innerWidth * 0.025,
-        window.innerHeight * 0.6,
-        "Consider the above suggestion as a diet for the Shub by clicking on the Feeding time button:",
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
-
-      this.add
-        .image(window.innerWidth * 0.05, window.innerHeight * 0.48, "plant1")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.07,
-        window.innerHeight * 0.48,
-        "x " + this.gameData.cf_array?.at(-1)?.at(0),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
-      this.add
-        .image(window.innerWidth * 0.16, window.innerHeight * 0.48, "plant2")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.18,
-        window.innerHeight * 0.48,
-        "x " + this.gameData.cf_array?.at(-1)?.at(1),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
-      this.add
-        .image(window.innerWidth * 0.27, window.innerHeight * 0.48, "plant3")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.29,
-        window.innerHeight * 0.48,
-        "x " + this.gameData.cf_array?.at(-1)?.at(2),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
-      this.add
-        .image(window.innerWidth * 0.38, window.innerHeight * 0.48, "plant4")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.4,
-        window.innerHeight * 0.48,
-        "x " + this.gameData.cf_array?.at(-1)?.at(3),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
-      this.add
-        .image(window.innerWidth * 0.49, window.innerHeight * 0.48, "plant5")
-        .setScale(0.1);
-      this.add.text(
-        window.innerWidth * 0.51,
-        window.innerHeight * 0.48,
-        "x " + this.gameData.cf_array?.at(-1)?.at(4),
-        { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
-      );
+      // this.add
+      //   .image(window.innerWidth * 0.05, window.innerHeight * 0.48, "plant1")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.07,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(0),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+      // this.add
+      //   .image(window.innerWidth * 0.16, window.innerHeight * 0.48, "plant2")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.18,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(1),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+      // this.add
+      //   .image(window.innerWidth * 0.27, window.innerHeight * 0.48, "plant3")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.29,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(2),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+      // this.add
+      //   .image(window.innerWidth * 0.38, window.innerHeight * 0.48, "plant4")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.4,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(3),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
+      // this.add
+      //   .image(window.innerWidth * 0.49, window.innerHeight * 0.48, "plant5")
+      //   .setScale(0.1);
+      // this.add.text(
+      //   window.innerWidth * 0.51,
+      //   window.innerHeight * 0.48,
+      //   "x " + this.gameData.cf_array?.at(-1)?.at(4),
+      //   { fontFamily: "monogram", fontSize: "20px", color: "#000000" }
+      // );
 
       // CONTROL CASE UNTIL HERE
 
@@ -378,74 +378,74 @@ class StableScene extends Phaser.Scene {
       (plantData) => plantData.image
     );
 
-    // start : to call the attention scene
-    if (this.gameData.testno == 2) {
-          // instatiate and add new progress scene with current data
-          var attentionScene = undefined;
-          // add button to submit new input - change scene when pressed!
-          const buttonFeed = this.add
-            .image(0, 0, "buttonFeed")
-            .setScale(0.4)
-            .setInteractive()
-            .on("pointerdown", () => this.logTimeFeed())
-            .on(
-              "pointerdown",
-              () => {
-                //this.gameData.budget = this.currentBudget;
-                attentionScene = new AttentionScene(this.gameData)}
-            )
-            .on("pointerdown", () =>
-              this.scene.remove("attentionScene", attentionScene)
-            )
-            .on("pointerdown", () =>
-              this.scene.add("attentionScene", attentionScene)
-            )
-            .on("pointerdown", () => this.scene.start("attentionScene"))
+    // start : to call the attention scene // in the large-scale, take it out
+    // if (this.gameData.testno == 2) {
+    //       // instatiate and add new progress scene with current data
+    //       var attentionScene = undefined;
+    //       // add button to submit new input - change scene when pressed!
+    //       const buttonFeed = this.add
+    //         .image(0, 0, "buttonFeed")
+    //         .setScale(0.4)
+    //         .setInteractive()
+    //         .on("pointerdown", () => this.logTimeFeed())
+    //         .on(
+    //           "pointerdown",
+    //           () => {
+    //             //this.gameData.budget = this.currentBudget;
+    //             attentionScene = new AttentionScene(this.gameData)}
+    //         )
+    //         .on("pointerdown", () =>
+    //           this.scene.remove("attentionScene", attentionScene)
+    //         )
+    //         .on("pointerdown", () =>
+    //           this.scene.add("attentionScene", attentionScene)
+    //         )
+    //         .on("pointerdown", () => this.scene.start("attentionScene"))
   
-          var textFeed = this.add
-            .text(-70, -15, "Feeding time!", {
-              fontSize: "20px",
-              color: "#ffffff",
-            })
-            .setOrigin(0);
-          var buttonContainer = this.add.container(
-            window.innerWidth * 0.8,
-            window.innerHeight * 0.6,
-            [buttonFeed, textFeed]
-          );
-        }// end : to call the attention scene
-    else{ 
+    //       var textFeed = this.add
+    //         .text(-70, -15, "Feeding time!", {
+    //           fontSize: "20px",
+    //           color: "#ffffff",
+    //         })
+    //         .setOrigin(0);
+    //       var buttonContainer = this.add.container(
+    //         window.innerWidth * 0.8,
+    //         window.innerHeight * 0.6,
+    //         [buttonFeed, textFeed]
+    //       );
+    //     }// end : to call the attention scene
+    // else{ 
         // to remove the attentionscene need to remove if else and do 2 back tabs to the following code.
-        var progressScene = undefined;
-        // add button to submit new input - change scene when pressed!
-        const buttonFeed = this.add
-          .image(0, 0, "buttonFeed")
-          .setScale(0.4)
-          .setInteractive()
-          .on("pointerdown", () => this.logTimeFeed())
-          .on("pointerdown", () => {
-            // this.gameData.budget = this.currentBudget;
+    var progressScene = undefined;
+    // add button to submit new input - change scene when pressed!
+    const buttonFeed = this.add
+      .image(0, 0, "buttonFeed")
+      .setScale(0.4)
+      .setInteractive()
+      .on("pointerdown", () => this.logTimeFeed())
+      .on("pointerdown", () => {
+        // this.gameData.budget = this.currentBudget;
 
-            progressScene = new ProgressScene(this.gameData);
-          })
-          .on("pointerdown", () =>
-            this.scene.remove("progressScene", progressScene)
-          )
-          .on("pointerdown", () => this.scene.add("progressScene", progressScene))
-          .on("pointerdown", () => this.scene.start("progressScene"));
+        progressScene = new ProgressScene(this.gameData);
+      })
+      .on("pointerdown", () =>
+        this.scene.remove("progressScene", progressScene)
+      )
+      .on("pointerdown", () => this.scene.add("progressScene", progressScene))
+      .on("pointerdown", () => this.scene.start("progressScene"));
 
-        var textFeed = this.add
-          .text(-70, -15, "Feeding time!", {
-            fontSize: "20px",
-            color: "#ffffff",
-          })
-          .setOrigin(0);
-        var buttonContainer = this.add.container(
-          window.innerWidth * 0.8,
-          window.innerHeight * 0.6,
-          [buttonFeed, textFeed]
-        );
-      }
+    var textFeed = this.add
+      .text(-70, -15, "Feeding time!", {
+        fontSize: "20px",
+        color: "#ffffff",
+      })
+      .setOrigin(0);
+    var buttonContainer = this.add.container(
+      window.innerWidth * 0.8,
+      window.innerHeight * 0.6,
+      [buttonFeed, textFeed]
+    );
+      // }
     // // updating budget to global
     // const imgindex = +localStorage.getItem('imgindex')
     // this.currentBudget =
