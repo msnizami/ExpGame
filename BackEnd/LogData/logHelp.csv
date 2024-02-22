@@ -1,1 +1,4 @@
-userId,planetNo,help_hits,ShubHealth
+userId,planetNo,help_hits,available_budget,ShubHealth
+09ee0a844a2345f393f2502ef4514d5b,1,4,57,0
+09ee0a844a2345f393f2502ef4514d5b,2,0,11,5
+09ee0a844a2345f393f2502ef4514d5b,3,3,2,10

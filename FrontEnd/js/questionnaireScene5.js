@@ -58,14 +58,27 @@ class QuestionnaireScene5 extends Phaser.Scene {
 		// 		"12. No question..."
 		// 	];
 		// } else {
-		var item12 = [
-			"12. The suggestions on what choice would have led to a better result provided by the “Help” button have sufficient detail."
-			//"9. I received the feedback on what choice would have led to a better result in a timely and efficient manner."
+		// var item12 = [
+		// 	"12. The suggestions on what choice would have led to a better result provided by the “Help” button have sufficient detail."
+		// 	//"9. I received the feedback on what choice would have led to a better result in a timely and efficient manner."
+		// ];
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "12. The suggestions on what choice would have led to a better result provided by the “Help” button have ", style: textStyle },
+			{ text: "sufficient", style: textStyle1 },
+			{ text: " details.", style: textStyle },
 		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.25;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 		// }
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item12, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item12, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.3, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -234,14 +247,27 @@ class QuestionnaireScene5 extends Phaser.Scene {
 		// 		"10. No question..."
 		// 	];
 		// } else {
-		var item13 = [
-			"13. The suggestions on what choice would have led to a better result provided by the “Help” button seem “incomplete”."
-			//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
+		// var item13 = [
+		// 	"13. The suggestions on what choice would have led to a better result provided by the “Help” button seem “incomplete”."
+		// 	//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
+		// ];
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "13. The suggestions on what choice would have led to a better result provided by the “Help” button seem ", style: textStyle },
+			{ text: "incomplete", style: textStyle1 },
+			{ text: ".", style: textStyle },
 		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.425;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 		// }
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item13, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item13, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.475, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -410,14 +436,27 @@ class QuestionnaireScene5 extends Phaser.Scene {
 		// 		"14. no question"
 		// 	];
 		// } else {
-		var item14 = [
-			"14. The suggestions on what choice would have led to a better result provided by the “Help” button tell me how to use the AlienNutriSolver."
-			//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
+		// var item14 = [
+		// 	"14. The suggestions on what choice would have led to a better result provided by the “Help” button tell me how to use the AlienNutriSolver."
+		// 	//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
+		// ];
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "14. The suggestions on what choice would have led to a better result provided by the “Help” button tell me ", style: textStyle },
+			{ text: "how to use", style: textStyle1 },
+			{ text: " the AlienNutriSolver.", style: textStyle },
 		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.6;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 		// }
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.6, item14, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.6, item14, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.65, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -447,7 +486,7 @@ class QuestionnaireScene5 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 2
-		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.475, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.65, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item14Sprite2 = this.add.sprite(window.innerWidth * 0.20, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
 

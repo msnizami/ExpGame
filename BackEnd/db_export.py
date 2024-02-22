@@ -307,6 +307,7 @@ class DataMgr():
             data_planetNo = []
             data_helpCount = []
             data_shubHealth = []
+            data_budget = []
         
             cur = self.db.cursor()
             cur.execute("SELECT userId, data FROM logs_help")
@@ -318,9 +319,10 @@ class DataMgr():
                     # data_group.append(self.user_groups[str(row[0])])
                     data_planetNo.append(int(d["planetNo"]))
                     data_helpCount.append(int(d["helpCount"]))
-                    data_shubHealth.append(int(d["shub_health"])) #"shubNo": data_shubNo     
+                    data_shubHealth.append(int(d["shub_health"]))  #"shubNo": data_shubNo
+                    data_budget.append(int(d["budget"]))     
 
-            df = pd.DataFrame({"userId": data_userId, "planetNo": data_planetNo, "help_hits": data_helpCount, "ShubHealth": data_shubHealth}) #  "group": data_group,
+            df = pd.DataFrame({"userId": data_userId, "planetNo": data_planetNo, "help_hits": data_helpCount, "available_budget":data_budget, "ShubHealth": data_shubHealth}) #  "group": data_group,
             df.to_csv(file_out, index=False)
 
             return True

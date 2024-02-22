@@ -58,14 +58,27 @@ class QuestionnaireScene7 extends Phaser.Scene {
 		// 		"18. no question."
 		// 	];
 		// } else {
-		var item18 = [
-			"18. I “do not feel safe” that when I rely on the suggestions on what choice would have led to a better result provided by the “Help” button, I will get the right answers."
-			//"9. I received the feedback on what choice would have led to a better result in a timely and efficient manner."
+		// var item18 = [
+		// 	"18. I “do not feel safe” that when I rely on the suggestions on what choice would have led to a better result provided by the “Help” button, I will get the right answers."
+		// 	//"9. I received the feedback on what choice would have led to a better result in a timely and efficient manner."
+		// ];
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "18. I ", style: textStyle },
+			{ text: "do not feel safe", style: textStyle1 },
+			{ text: " that when I rely on the suggestions on what choice would have led to a better result provided by the “Help” button, I will get the right answers.", style: textStyle },
 		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.25;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 		// }
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item18, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item18, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.3, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -234,14 +247,27 @@ class QuestionnaireScene7 extends Phaser.Scene {
 		// 		"19. No question..."
 		// 	];
 		// } else {
-		var item19 = [
-			"19. I “am wary” (cautious) of the suggestions on what choice would have led to a better result provided by the “Help” button."
-			//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
+		// var item19 = [
+		// 	"19. I “am wary” (cautious) of the suggestions on what choice would have led to a better result provided by the “Help” button."
+		// 	//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
+		// ];
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "19. I ", style: textStyle },
+			{ text: "am wary (cautious)", style: textStyle1 },
+			{ text: " of the suggestions on what choice would have led to a better result provided by the “Help” button.", style: textStyle },
 		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.425;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 		// }
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item19, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item19, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.475, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -410,14 +436,27 @@ class QuestionnaireScene7 extends Phaser.Scene {
 		// 		"11. no question."
 		// 	];
 		// } else {
-		var item20 = [
-			"20. I like using the suggestions on what choice would have led to a better result provided by the “Help” button for decision making."
-			//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
+		// var item20 = [
+		// 	"20. I like using the suggestions on what choice would have led to a better result provided by the “Help” button for decision making."
+		// 	//"7. I found inconsistencies in the feedback on what choice would have led to a better result."
+		// ];
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "20. I ", style: textStyle },
+			{ text: "like using", style: textStyle1 },
+			{ text: " the suggestions on what choice would have led to a better result provided by the “Help” button for decision making.", style: textStyle },
 		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.6;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 		// }
 
 		// add item 1
-		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.6, item20, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.6, item20, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.65, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -447,7 +486,7 @@ class QuestionnaireScene7 extends Phaser.Scene {
 		}.bind(this));
 
 		// option 2
-		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.475, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
+		this.add.text(window.innerWidth * 0.175, window.innerHeight * 0.65, 'Disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
 		var item20Sprite2 = this.add.sprite(window.innerWidth * 0.20, window.innerHeight * 0.725, 'checkbox', 0).setScale(0.4).setInteractive();
 

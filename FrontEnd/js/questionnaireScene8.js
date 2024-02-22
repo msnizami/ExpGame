@@ -1345,7 +1345,7 @@ class QuestionnaireScene8 extends Phaser.Scene {
 
 	logAnswers() {
 		this.gameData.api.logDemographics(this.itemAgeVar1Checked, this.itemAgeVar2Checked, this.itemAgeVar3Checked, this.itemAgeVar4Checked, this.itemAgeVar5Checked, this.itemAgeVar6Checked, this.itemAgeVar7Checked,
-			this.itemGenderVar1Checked, this.itemGenderVar2Checked, this.itemGenderVar3Checked, this.itemGenderVar4Checked, this.itemGenderVar5Checked, this.itemGenderVar6Checked, //this.itemGenderVar7Checked,
+			this.itemGenderVar1Checked, this.itemGenderVar2Checked, this.itemGenderVar3Checked, this.itemGenderVar4Checked, this.itemGenderVar5Checked, this.itemGenderVar6Checked, //this.itemGenderVar7Checked
 			// this.itemEduVar1Checked, this.itemEduVar2Checked, this.itemEduVar3Checked, this.itemEduVar4Checked, this.itemEduVar5Checked, this.itemEduVar6Checked, this.itemEduVar7Checked,
 			// this.itemBackVar1Checked, this.itemBackVar2Checked, this.itemBackVar3Checked, this.itemBackVar4Checked, this.itemBackVar5Checked, this.itemBackVar6Checked, this.itemBackVar7Checked,
 			// this.itemRegVar1Checked, this.itemRegVar2Checked, this.itemRegVar3Checked, this.itemRegVar4Checked, this.itemRegVar5Checked, this.itemRegVar6Checked, this.itemRegVar7Checked,
@@ -1354,7 +1354,7 @@ class QuestionnaireScene8 extends Phaser.Scene {
 
 	onBtnContinue() {
 		if ([this.itemAgeVar1Checked, this.itemAgeVar2Checked, this.itemAgeVar3Checked, this.itemAgeVar4Checked, this.itemAgeVar5Checked, this.itemAgeVar6Checked, this.itemAgeVar7Checked].every(a => a == false) ||
-		[this.itemGenderVar1Checked, this.itemGenderVar2Checked, this.itemGenderVar3Checked, this.itemGenderVar4Checked, this.itemGenderVar5Checked, this.itemGenderVar6Checked].every(a => a == false)||
+		[this.itemGenderVar1Checked, this.itemGenderVar2Checked, this.itemGenderVar3Checked, this.itemGenderVar4Checked, this.itemGenderVar5Checked, this.itemGenderVar6Checked].every(a => a == false)||   //, this.itemGenderVar7Checked
 		[this.itemEngVar1Checked, this.itemEngVar2Checked, this.itemEngVar3Checked, this.itemEngVar4Checked, this.itemEngVar5Checked, this.itemEngVar6Checked, this.itemEngVar7Checked].every(a => a == false)
 		// [this.itemEduVar1Checked, this.itemEduVar2Checked, this.itemEduVar3Checked, this.itemEduVar4Checked, this.itemEduVar5Checked, this.itemEduVar6Checked, this.itemEduVar7Checked].every(a => a == false)||
 		// [this.itemBackVar1Checked, this.itemBackVar2Checked, this.itemBackVar3Checked, this.itemBackVar4Checked, this.itemBackVar5Checked, this.itemBackVar6Checked, this.itemBackVar7Checked].every(a => a == false)||

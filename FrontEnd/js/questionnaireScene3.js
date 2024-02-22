@@ -1,5 +1,4 @@
 import QuestionnaireScene4 from './questionnaireScene4.js';
-import QuestionnaireScene8 from './questionnaireScene8.js';
 
 class QuestionnaireScene3 extends Phaser.Scene {
 
@@ -55,28 +54,26 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.1, qIntro2, { fontFamily: 'monogram', fontSize: '17px',fontStyle: "bold italic", color: '#000000' });
 
 		// if (this.gameData.api.controlGroup) {
-			// var item6 = [
-			// 	"6. I found inconsistencies in the behavior of the AlienNutriSolver."
-			// ];
-
-			var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
-			var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
-			var sentenceParts = [
-					{ text: "6. I ", style: textStyle },
-					{ text: "found inconsistencies", style: textStyle1 },
-					{ text: " in the behavior of the AlienNutriSolver.", style: textStyle },
-				];
-			var x = window.innerWidth * 0.025;
-			var y = window.innerHeight * 0.25;
-			sentenceParts.forEach(part => {
-					var text = this.add.text(x, y, part.text, part.style);
-					x += text.width; // Update x position for next text part
-			});
-
+		// 	var item6 = [
+		// 		"6. No question...."
+		// 	];
 		// } else {
 		// var item6 = [
-		// 	"6. I found that suggestions on what choice would have led to a better result provided by the “Help” button are useful to  increase the fitness of the Shub."
+		// 	"6. I found that suggestions on what choice would have led to a better result provided by the “Help” button are useful to increase the fitness of the Shub."
 		// ];
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "6. I ", style: textStyle },
+			{ text: "found", style: textStyle1 },
+			{ text: " that suggestions on what choice would have led to a better result provided by the “Help” button are useful to increase the fitness of the Shub.", style: textStyle },
+		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.25;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 		// }
 
 		// add item 1
@@ -246,23 +243,21 @@ class QuestionnaireScene3 extends Phaser.Scene {
 
 		// var item7 = [
 		// 	// no control
-		// 	"7. From interacting with the system, I do not understand how the AlienNutriSolver works."
+		// 	"7. I “did not use” the suggestions on what choice would have led to a better result provided by the “Help” button to increase the fitness of Shub."
 		// ];
-
 		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
-			var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
-			var sentenceParts = [
-					{ text: "7. From interacting with the system, I ", style: textStyle },
-					{ text: "do not understand", style: textStyle1 },
-					{ text: " how the AlienNutriSolver works.", style: textStyle },
-				];
-			var x = window.innerWidth * 0.025;
-			var y = window.innerHeight * 0.425;
-			sentenceParts.forEach(part => {
-					var text = this.add.text(x, y, part.text, part.style);
-					x += text.width; // Update x position for next text part
-			});
-
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "7. I ", style: textStyle },
+			{ text: "did not use", style: textStyle1 },
+			{ text: " the suggestions on what choice would have led to a better result provided by the “Help” button to increase the fitness of Shub.", style: textStyle },
+		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.425;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 		// add item 1
 		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item7, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
@@ -434,25 +429,22 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		// 	];
 		// } else {
 		// var item8 = [
-		// 	"8. I trust the predictions of the AlienNutriSolver."
+		// 	"8. To show you are paying attention to this question, please select “I prefer not to answer”."
 		// ];
-
+		// }
 		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
 		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
 		var sentenceParts = [
-					{ text: "8. I ", style: textStyle },
-					{ text: "trust", style: textStyle1 },
-					{ text: " the predictions of the AlienNutriSolver.", style: textStyle },
-			];
+			{ text: "8. To show you are ", style: textStyle },
+			{ text: "paying attention", style: textStyle1 },
+			{ text: " to this question, please select “I prefer not to answer”.", style: textStyle },
+		];
 		var x = window.innerWidth * 0.025;
 		var y = window.innerHeight * 0.6;
 		sentenceParts.forEach(part => {
-				var text = this.add.text(x, y, part.text, part.style);
-				x += text.width; // Update x position for next text part
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
 		});
-
-		// }
-
 		// add item 1
 		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.6, item8, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
 
@@ -667,15 +659,10 @@ class QuestionnaireScene3 extends Phaser.Scene {
 		else {
 			this.logAnswers();
 
-			// var questionnaireScene4 = new QuestionnaireScene4(this.gameData);
-			// this.scene.remove('questionnaireScene4', questionnaireScene4);
-			// this.scene.add('questionnaireScene4', questionnaireScene4);
-			// this.scene.start('questionnaireScene4');
-
-			var questionnaireScene8 = new QuestionnaireScene8(this.gameData);
-			this.scene.remove('questionnaireScene8', questionnaireScene8);
-			this.scene.add('questionnaireScene8', questionnaireScene8);
-			this.scene.start('questionnaireScene8');
+			var questionnaireScene4 = new QuestionnaireScene4(this.gameData);
+			this.scene.remove('questionnaireScene4', questionnaireScene4);
+			this.scene.add('questionnaireScene4', questionnaireScene4);
+			this.scene.start('questionnaireScene4');
 		}
 	}
 

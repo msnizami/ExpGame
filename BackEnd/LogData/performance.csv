@@ -1,1 +1,6 @@
-userId,group,planetNo,attemptNo,plant1,plant2,plant3,plant4,plant5,CFplant1,CFplant2,CFplant3,CFplant4,CFplant5,oldPred,newPred
+userId,group,planetNo,attemptNo,plant1,plant2,plant3,plant4,plant5,CFplant1,CFplant2,CFplant3,CFplant4,CFplant5,oldPred,newPred,incurredCost,budgetLeft
+09ee0a844a2345f393f2502ef4514d5b,1,1,1,2,1,3,2,2,2,1,3,2,2,0,0,27,63
+09ee0a844a2345f393f2502ef4514d5b,1,1,2,2,3,3,3,2,2,3,3,1,2,0,1,29,61
+09ee0a844a2345f393f2502ef4514d5b,1,2,1,3,3,2,3,3,3,3,2,2,3,0,1,47,14
+09ee0a844a2345f393f2502ef4514d5b,1,3,1,0,1,0,1,0,0,0,0,0,0,0,0,0,14
+09ee0a844a2345f393f2502ef4514d5b,1,3,2,0,3,0,1,0,0,3,0,1,0,0,1,12,78

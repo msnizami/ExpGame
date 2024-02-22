@@ -55,15 +55,15 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
 		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
 		var sentenceParts = [
-				{ text: "1. What do you think: Which plants were ", style: textStyle },
-				{ text: "relevant", style: textStyle1 },
-				{ text: " to increase the fitness of Shub? Please select ALL that you think were relevant.", style: textStyle },
-			];
+			{ text: "1. What do you think: Which plants were ", style: textStyle },
+			{ text: "relevant", style: textStyle1 },
+			{ text: " to increase the fitness of Shub? Please select ALL that you think were relevant.", style: textStyle },
+		];
 		var x = window.innerWidth * 0.025;
 		var y = window.innerHeight * 0.3;
 		sentenceParts.forEach(part => {
-				var text = this.add.text(x, y, part.text, part.style);
-				x += text.width; // Update x position for next text part
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
 		});
 
 		// add item 1
@@ -194,19 +194,18 @@ class QuestionnaireScene1 extends Phaser.Scene {
 		// var item2 = [
 		// 	"2. What do you think: Which plants were not relevant to increase the fitness of Shub?\n Please select ALL that you think were not relevant."
 		// ];
-
 		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
 		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
 		var sentenceParts = [
-				{ text: "2. What do you think: Which plants were ", style: textStyle },
-				{ text: "not relevant", style: textStyle1 },
-				{ text: " to increase the fitness of Shub? Please select ALL that you think were not relevant.", style: textStyle },
-			];
+			{ text: "2. What do you think: Which plants were ", style: textStyle },
+			{ text: "not relevant", style: textStyle1 },
+			{ text: " to increase the fitness of Shub? Please select ALL that you think were not relevant.", style: textStyle },
+		];
 		var x = window.innerWidth * 0.025;
 		var y = window.innerHeight * 0.55;
 		sentenceParts.forEach(part => {
-				var text = this.add.text(x, y, part.text, part.style);
-				x += text.width; // Update x position for next text part
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
 		});
 
 		// add item 1

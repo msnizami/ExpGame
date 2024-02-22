@@ -55,31 +55,30 @@ class QuestionnaireScene2 extends Phaser.Scene {
 
 
 		// if (this.gameData.api.controlGroup) {
-			// var item3 = [
-			// 	"3. I would have liked to have a “Help” button to get suggestions on what choice would have led to a better result."
-			// ];
-			var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
-			var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
-			var sentenceParts = [
-				{ text: "3. I would have ", style: textStyle },
-				{ text: "liked", style: textStyle1 },
-				{ text: " to have a “Help” button to get suggestions on what choice would have led to a better result.", style: textStyle },
-			];
-			var x = window.innerWidth * 0.025;
-			var y = window.innerHeight * 0.25;
-			sentenceParts.forEach(part => {
-				var text = this.add.text(x, y, part.text, part.style);
-				x += text.width; // Update x position for next text part
-			});
+		// 	var item3 = [
+		// 		"3. I would have liked to have a “Help” button to get suggestions on what choice would have led to a better result."
+		// 	];
 		// } else {
 		// var item3 = [
 		// 	"3.  I often used the “Help” button to get suggestions on what choice would have led to a better result."
 		// ];
 		//}
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "3. I ", style: textStyle },
+			{ text: "often used", style: textStyle1 },
+			{ text: " the “Help” button to get suggestions on what choice would have led to a better result.", style: textStyle },
+		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.25;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 
 		// add item 1
-		//this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item3, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });//fontStyle: "bold",
-	
+		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.25, item3, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });//fontStyle: "bold",
 
 		// option 1
 		this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.30, 'Strongly disagree', { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -244,29 +243,27 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// if (this.gameData.api.controlGroup) {
-			// var item4 = [
-			// 	"4. I needed no support to understand which selection choices would have led to a better result."
-			// ];
-
-			var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
-			var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
-			var sentenceParts = [
-				{ text: "4. I ", style: textStyle },
-				{ text: "needed no support", style: textStyle1 },
-				{ text: " to understand which selection choices would have led to a better result.", style: textStyle },
-			];
-			var x = window.innerWidth * 0.025;
-			var y = window.innerHeight * 0.425;
-			sentenceParts.forEach(part => {
-				var text = this.add.text(x, y, part.text, part.style);
-				x += text.width; // Update x position for next text part
-			});
-
+		// 	var item4 = [
+		// 		"4. I needed no support to understand which selection choices would have led to a better result."
+		// 	];
 		// } else {
 		// var item4 = [
 		// 	"4. I “did not understand” the suggestions on what choice would have led to a better result provided by the “Help” button."
 		// ];
 		// }
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "4. I ", style: textStyle },
+			{ text: "did not understand", style: textStyle1 },
+			{ text: " the suggestions on what choice would have led to a better result provided by the “Help” button.", style: textStyle },
+		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.425;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 
 		// add item 1
 		// this.add.text(window.innerWidth * 0.025, window.innerHeight * 0.425, item4, { fontFamily: 'monogram', fontSize: '17px', color: '#000000' });
@@ -435,28 +432,26 @@ class QuestionnaireScene2 extends Phaser.Scene {
 		}.bind(this));
 
 		// if (this.gameData.api.controlGroup) {
-			// var item5 = [
-			// 	"5. To show you are paying attention to this question, please select “I prefer not to answer”."
-			// ];
-
-			var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
-			var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
-			var sentenceParts = [
-				{ text: "5. To show you are ", style: textStyle },
-				{ text: "paying attention", style: textStyle1 },
-				{ text: " to this question, please select “I prefer not to answer”.", style: textStyle },
-			];
-			var x = window.innerWidth * 0.025;
-			var y = window.innerHeight * 0.61;
-			sentenceParts.forEach(part => {
-				var text = this.add.text(x, y, part.text, part.style);
-				x += text.width; // Update x position for next text part
-			});
-
+		// 	var item5 = [
+		// 		"5. No question......"
+		// 	];
 		// } else {
 		// var item5 = [
 		// 		"5. I have learned from the suggestions on what choice would have led to a better result provided by the “Help” button \n how to select a good diet to increase the fitness of the Shub."
 		// ];
+		var textStyle = { fontFamily: 'monogram', fontSize: '17px', color: '#000000' }
+		var textStyle1 = { fontFamily: 'monogram', fontSize: '17px', color: '#000000', fontStyle: 'bold' }
+		var sentenceParts = [
+			{ text: "5. I have ", style: textStyle },
+			{ text: "learned", style: textStyle1 },
+			{ text: " from the suggestions on what choice would have led to a better result provided by the “Help” button how to select a good diet to increase the fitness of the Shub.", style: textStyle },
+		];
+		var x = window.innerWidth * 0.025;
+		var y = window.innerHeight * 0.61;
+		sentenceParts.forEach(part => {
+			var text = this.add.text(x, y, part.text, part.style);
+			x += text.width; // Update x position for next text part
+		});
 		// }
 
 		// add item 1

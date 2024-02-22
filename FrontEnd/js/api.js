@@ -67,7 +67,7 @@ class AlienZooApi {
             "userId": this.userId,
             "questionId": -1,
             "checkboxValues": [itemAgeVar1Checked, itemAgeVar2Checked, itemAgeVar3Checked, itemAgeVar4Checked, itemAgeVar5Checked, itemAgeVar6Checked, itemAgeVar7Checked,
-                itemGenderVar1Checked, itemGenderVar2Checked, itemGenderVar3Checked, itemGenderVar4Checked, itemGenderVar5Checked, itemGenderVar6Checked, 
+                itemGenderVar1Checked, itemGenderVar2Checked, itemGenderVar3Checked, itemGenderVar4Checked, itemGenderVar5Checked, itemGenderVar6Checked, //itemGenderVar7Checked, 
                 itemEngVar1Checked, itemEngVar2Checked, itemEngVar3Checked, itemEngVar4Checked, itemEngVar5Checked, itemEngVar6Checked, itemEngVar7Checked]
         };
 
@@ -171,12 +171,13 @@ class AlienZooApi {
         });
     }
 
-    logHelp(helpCount, blockCount, shub_health) {
+    logHelp(helpCount, blockCount, shub_health, budget) {
         const data = {
             "userId": this.userId,
             "helpCount": helpCount,
             "planetNo": blockCount,
-            "shub_health": shub_health
+            "shub_health": shub_health,
+            "budget": budget
         };
 
         return new Promise(resolve => {

@@ -56,13 +56,18 @@ class LogHelpHandler(BasisRequestHandler):
         if shub_health is None:
             self.send_custom_error(400, "Missing field 'shub_health'")
             raise Exception()
+        # availbale budget
+        budget = self.args["budget"]
+        if budget is None:
+            self.send_custom_error(400, "Missing field 'budget'")
+            raise Exception()
 
-        return user_id, helpCount, shub_health, planetNo
+        return user_id, helpCount, shub_health, planetNo, budget
 
     def post(self):
         # Parse data
         try:
-            user_id, helpCount, shub_health, planetNo = self.__parse_request_body()
+            user_id, helpCount, shub_health, planetNo, budget = self.__parse_request_body()
         except:
             return
 
@@ -70,7 +75,8 @@ class LogHelpHandler(BasisRequestHandler):
         log_data = {
             "helpCount": helpCount,
             "planetNo": planetNo,
-            "shub_health": shub_health
+            "shub_health": shub_health,
+            "budget": budget
         }
 
         if self.datamgr.log_user_help(user_id, json.dumps(log_data)) is False:

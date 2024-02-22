@@ -54,7 +54,7 @@ class InfoScene extends Phaser.Scene {
 			"If you have any questions about the research study, please contact Mr. Muhammad Suffian at m.suffian@campus.uniurb.it.",
 			"",
       "The information that we collect is in agreement with European Union's General Data Protection Regulation (GDPR).",
-			"Ethics approval for this study was granted by University of Urbino with the reference code XXXXX.",
+			"Ethics approval for this study was granted by University of Urbino.",
       "After completion of the study, the research data collected will be made publicly available in an anonymized form through a suitable data archive.",
       "The purpose, type, and scope of potential subsequent use are currently not foreseeable.",
       "The data will only be published in a way that does not allow any conclusions to be drawn at any time about individual or specific persons."
@@ -90,12 +90,12 @@ class InfoScene extends Phaser.Scene {
       // this.gameData.game.config.height = window.innerHeight
       
       // Start the PreStartScene
-      // const infoSceneNext = new InfoSceneNext(this.gameData);
-      // this.scene.add('infoSceneNext', infoSceneNext);
-      // this.scene.start('infoSceneNext');
-      const questionnaireScene2 = new QuestionnaireScene2(this.gameData);
-      this.scene.add('questionnaireScene2', questionnaireScene2);
-      this.scene.start('questionnaireScene2');
+      const infoSceneNext = new InfoSceneNext(this.gameData);
+      this.scene.add('infoSceneNext', infoSceneNext);
+      this.scene.start('infoSceneNext');
+      // const questionnaireScene2 = new QuestionnaireScene2(this.gameData);
+      // this.scene.add('questionnaireScene2', questionnaireScene2);
+      // this.scene.start('questionnaireScene2');
     //}
   }
 
