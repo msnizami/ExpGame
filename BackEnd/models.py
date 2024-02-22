@@ -156,12 +156,11 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
     regressors = load_regressors('modelData/data/regressors_EXP1.joblib')
     features = ['Var1','Var2', 'Var3', 'Var4', 'Var5']
     catf = []
+    desired_outcome = 1
     numf = features
     df2test = pd.read_csv("modelData/data/X_2test.csv")
     #print('test instance:', df2test[testno-1:testno].values) #df2test[testno-1:testno].values
     ### simulation of DiCE and printing its results and later saving in the db for comparison
-    # dice start
-    # print("DiCE CF")
     # std = time()
     source_data_file_path = "modelData/data/AFH_EXP1.csv"  # source data
     df = pd.read_csv(source_data_file_path)
@@ -170,124 +169,43 @@ def compute_counterfactual_of_model(test_instance, testno, uf, bb):
     backend = 'sklearn'
     m = dice_ml.Model(model=bb, backend=backend)
     # initiate DiCE
-    exp_random = dice_ml.Dice(d, m, method="kdtree")
+    exp_random = dice_ml.Dice(d, m, method="random")
     # generate counterfactuals
-    dice_exp_random = exp_random.generate_counterfactuals(df2test[testno-1:testno], total_CFs=1, desired_class="opposite", verbose=False)
-    # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
-    dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
-    # print('dice')
-    # #print(dice_cf.columns)
-    # print(dice_cf.values)
+    try: 
+        uf_ranges = {'Var1': [test_instance['Var1'][0], uf['Var1']], 'Var2':[test_instance['Var2'][0], uf['Var2']], 'Var3':[test_instance['Var3'][0], uf['Var3']], 'Var4':[test_instance['Var4'][0], uf['Var4']], 'Var5':[test_instance['Var5'][0], uf['Var5']]}
+        print("uf:",uf_ranges)
+        dice_exp_random = exp_random.generate_counterfactuals(df2test[testno-1:testno], total_CFs=5, desired_class="opposite", permitted_range=uf_ranges, verbose=False)
+        # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
+        dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
+        del dice_cf['class']
+    except Exception as ex:
+        print(ex)
+        dice_exp_random = exp_random.generate_counterfactuals(df2test[testno-1:testno], total_CFs=1, desired_class="opposite", verbose=False)
+        # dice_exp_random.visualize_as_dataframe(show_only_changes=False)
+        dice_cf = dice_exp_random.cf_examples_list[0].final_cfs_df
+        del dice_cf['class']
     
-    ### AR
-    # source_data_file_path = "modelData/data/AFH_EXP1.csv"  # source data
-    # df = pd.read_csv(source_data_file_path)
-    # df = df.round().astype(int)
-    # X = df.drop('class', axis=1)
-    # y = df['class']
-    # A = rs.ActionSet(X)
-    # from IPython.core.display import display, HTML
-    # A.set_alignment(bb)
-    # ar_cfs = pd.DataFrame()
-    # fs = rs.Flipset(df2test[testno-1:testno].values, action_set = A, clf = bb)
-    # fs.populate(enumeration_type='distinct_subsets', total_items = 1) #'mutually_exclusive'
-    # f_list = ['Var1', 'Var2', 'Var3', 'Var4', 'Var5'] #['Income', 'Family', 'CCAvg', 'Education', 'Mortgage', 'Securities Account', 'CD Account', 'Online', 'CreditCard']
-    # #features that need to be changed and could flip the outcome bt fs
-    # feat2change = fs.df['features']
-    # values_2change = fs.df['x_new']
-    # changed_instance = df2test[testno-1:testno].copy()
+    x = np.array([0, 0, 0, 0, 0], dtype=int).reshape(1, -1)
+    x = pd.DataFrame(x, columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
 
-    # for f, i in enumerate(feat2change):
-    #     changed_instance[i] = values_2change[f]
-    # ar_cfs = pd.concat([ar_cfs, changed_instance], ignore_index = True, axis = 0)
-    # print("AR cfs")
-    # print(ar_cfs)
-
-    ### UFCE
-    # uf = {'Var1':3,'Var2':1, 'Var3':4, 'Var4':0, 'Var5':4}
-
-    # set a specific small step size
-    step = {'Var1':1,'Var2':1, 'Var3':1, 'Var4':1, 'Var5':1}
-
-    # changing only features which are in uf
-    f2change = [] #features # all features
-    for f in df2test[testno-1:testno].columns: # also here df2test[testno-1:testno].columns
-            if df2test[testno-1:testno][f].values != uf[f]:
-                f2change.append(f)
-    # print(f2change)
-    outcome_label = 'class'
-    desired_outcome = 1
-    nbr_features = 5
-    protectf = []
-
-    source_data_file_path = "modelData/data/AFH_EXP1.csv"  # source data
-    df = pd.read_csv(source_data_file_path)
-    df = df.round().astype(int)
-    X = df.drop('class', axis=1)
-    y = df['class']
-    # desired space
-    data_lab1 = pd.DataFrame()
-    data_lab1 = df[df["class"] == 1]
-    data_lab0 = df[df["class"] == 0]
-    data_lab1 = data_lab1.drop(['class'], axis=1)
-    catf = []
-    numf = X.columns
-    # return features, catf, numf, uf, step, f2change, outcome_label, desired_outcome, nbr_features, protectf, data_lab0, data_lab1
-
-    # Take top mutual information sharing pairs of features
-    # MI_FP = ufc.get_top_MI_features(df)
-
-    #load the saved dcitionary of MI_pairs
-    with open('modelData/feature_pairs.json', 'r') as file:
-        MI_FP = json.load(file)
-    # print('top mi features', MI_FP[:5])
-    k = 1
-    protected_features = []
-    data_lab1 = data_lab1.sample(frac=1)
-    nn, idx = ufc.NNkdtree(data_lab1[:10000], df2test[testno-1:testno], 300) #df2test[testno-1:testno] #increase radius size as per the dataset
-    if nn.empty != True:
-        interval = ufc.make_intervals(nn, uf, f2change, test_instance) #df2test[testno-1:testno] # also use cfs instead of nn #TODO it could be skipped by taking directly user upper and lower values
-        # print('one interval here', interval)
-        cc = ufc.Single_F(test_instance, catf, f2change, interval, bb, desired_outcome, step, regressors) #df2test[testno-1:testno]
-        intervals = ufc.make_uf_nn_interval(nn, uf, MI_FP[:5], test_instance) #df2test[testno-1:testno]
-        # print('two intervals here', intervals)
-        cc2, _ = ufc.Double_F(df, test_instance, protected_features, f2change, MI_FP[:5], catf, numf, intervals, features, bb, desired_outcome, regressors) #df2test[testno-1:testno]
-        # cc3, _ = ufc.Triple_F(df, test_instance, protected_features, f2change, MI_FP[:5], catf, numf, intervals, features, bb, desired_outcome, regressors) #df2test[testno-1:testno]
-    else:
-        raise ValueError('no neighbourhood found in the given range.')
-    # print(len(cc), len(cc2))
-    # print('cc', cc)
-    # print('cc2', cc2)
-
-    final_df = pd.DataFrame()
-    if cc.empty != True:
-        final_df = pd.concat([final_df, cc], ignore_index=True, axis=0, sort=False)
-    if cc2.empty != True:
-        final_df = pd.concat([final_df, cc2], ignore_index=True, axis=0, sort=False)
-    # if cc3.empty != True:
-    #     final_df = pd.concat([final_df, cc3], ignore_index=True, axis=0, sort=False)
-    # nearest cf
-    # x = np.array([0, 0, 0, 0, 0], dtype=int).reshape(1, -1)
-    # x = pd.DataFrame(x, columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
-    if final_df.empty != True:
-        distances = np.linalg.norm(final_df.values - df2test[testno-1:testno].values, axis=1)
+    if dice_cf.empty != True:
+        distances = np.linalg.norm(dice_cf.values - df2test[testno-1:testno].values, axis=1)
         nearest_row_index = np.argmin(distances)
-        nearest_cf = final_df.iloc[[nearest_row_index]]
+        nearest_cf = dice_cf.iloc[[nearest_row_index]]
         # print('final_df', nearest_cf)
     else:
         nearest_cf = pd.DataFrame([uf])
         if bb.predict(nearest_cf.values) == desired_outcome:
             # print('nearest_cf', nearest_cf)
-            return nearest_cf, dice_cf
+            return nearest_cf, x
         else:
-            x = np.array([0, 0, 0, 0, 0], dtype=int).reshape(1, -1)
-            nearest_cf = pd.DataFrame(x, columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
-            return nearest_cf, dice_cf
+            # x = np.array([0, 0, 0, 0, 0], dtype=int).reshape(1, -1)
+            # nearest_cf = pd.DataFrame(x, columns=['Var1', 'Var2', 'Var3', 'Var4', 'Var5'])
+            return x, x
     # f_cf = nearest_cf.applymap(lambda x: int(x) if isinstance(x, (float, int)) else x)
     # print('ufce')
-    #print(nearest_cf.columns)
-    print(nearest_cf.values)
-    return nearest_cf, dice_cf
+    # print("uf:", uf)
+    return nearest_cf, x
 
 def compute_counterfactual_of_DiCE(dataset, test_instance, bb):
     #TODO: To load the dataset inside the body of function, and removing the dataset parameter from parameters. 
