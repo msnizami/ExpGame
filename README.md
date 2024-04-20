@@ -1,9 +1,12 @@
-# README
+#### This Project was Developed as part of the Doctoral Dissertation in the University of Urbino, Italy.
 
-This repository provides code scripts for the Alien Fitness Hub framework as used in the study:
-["XYZ to be published"]
+# ExpGame (Explanation Game)
 
-Detailed motivation and rationale are explained in the paper. In short, we provide this framework as a utility to run user studies to perform human level evaluations of counterfactual explanations (CFEs) for machine learning (ML).
+This repository provides source code for the Alien Nutri-Solver Framework (A web-based game framework) utilised to conduct the user studies as follows:
+- [CL-XAI](https://github.com/msnizami/Cognitive-Learning-with-XAI)
+- [HCEvaluatons4UFCE](https://github.com/msnizami/HCEvaluations4UFCE)
+
+Detailed motivation and rationale are explained in the corresponding papers. In short, we provide this framework as a utility to run user studies to perform human level evaluations of counterfactual explanations for machine learning models.
 
 ## Rough overview of implementation logic
 
